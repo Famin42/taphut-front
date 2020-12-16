@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../../services/auth.service';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {AmplifyService} from '../../services/amplify.service';
+import {ISignUpResult} from 'amazon-cognito-identity-js';
+import {EMAIL_VALIDATORS, PASSWORD_VALIDATORS} from '../../utils/form-validators';
 
 @Component({
   selector: 'app-signup',
@@ -9,37 +11,29 @@ import {Router} from '@angular/router';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-  registrationForm = new FormGroup({
-    email: new FormControl('', [
-      Validators.required,
-      Validators.email
-    ]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(1),
-      Validators.maxLength(20),
-      Validators.pattern('[\\w\\[\\]`!@#$%\\^&*()={}:;<>+\'-]*')
-    ]),
+  signupForm = new FormGroup({
+    email: new FormControl('', EMAIL_VALIDATORS),
+    password: new FormControl('', PASSWORD_VALIDATORS),
   });
 
   get email(): AbstractControl | null {
-    return this.registrationForm.get('email');
+    return this.signupForm.get('email');
   }
 
   get password(): AbstractControl | null {
-    return this.registrationForm.get('password');
+    return this.signupForm.get('password');
   }
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AmplifyService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  register(): void {
-    this.registrationForm.markAllAsTouched();
+  submit(): void {
+    this.signupForm.markAllAsTouched();
 
-    if (this.registrationForm.valid) {
-      this.authService.signUp(this.email?.value, this.password?.value).subscribe(
+    if (this.signupForm.valid && this.email && this.password) {
+      this.authService.signUp(this.email.value, this.password.value).subscribe(
         value => {
           this.handleRegistration(value);
         },
@@ -48,11 +42,11 @@ export class SignupComponent implements OnInit {
         }
       );
     } else {
-      console.warn('From is invalid: ' + this.registrationForm);
+      console.warn('From is invalid: ' + this.signupForm);
     }
   }
 
-  private handleRegistration(value: boolean): void {
+  private handleRegistration(value: ISignUpResult): void {
     console.log('register value: ' + value);
   }
 

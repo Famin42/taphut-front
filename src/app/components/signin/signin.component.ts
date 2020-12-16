@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../../services/auth.service';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {AmplifyService} from '../../services/amplify.service';
+import {CognitoUser} from 'amazon-cognito-identity-js';
+import {EMAIL_VALIDATORS, PASSWORD_VALIDATORS} from '../../utils/form-validators';
 
 @Component({
   selector: 'app-signin',
@@ -9,37 +11,29 @@ import {Router} from '@angular/router';
   styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit {
-  loginForm = new FormGroup({
-    email: new FormControl('', [
-      Validators.required,
-      Validators.email
-    ]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(1),
-      Validators.maxLength(20),
-      Validators.pattern('[\\w\\[\\]`!@#$%\\^&*()={}:;<>+\'-]*')
-    ]),
+  signinForm = new FormGroup({
+    email: new FormControl('', EMAIL_VALIDATORS),
+    password: new FormControl('', PASSWORD_VALIDATORS),
   });
 
   get email(): AbstractControl | null {
-    return this.loginForm.get('email');
+    return this.signinForm.get('email');
   }
 
   get password(): AbstractControl | null {
-    return this.loginForm.get('password');
+    return this.signinForm.get('password');
   }
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AmplifyService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  register(): void {
-    this.loginForm.markAllAsTouched();
+  submit(): void {
+    this.signinForm.markAllAsTouched();
 
-    if (this.loginForm.valid) {
-      this.authService.signIn(this.email?.value, this.password?.value).subscribe(
+    if (this.signinForm.valid && this.email && this.password) {
+      this.authService.signIn(this.email.value, this.password.value).subscribe(
         value => {
           this.handleLogin(value);
         },
@@ -48,11 +42,11 @@ export class SigninComponent implements OnInit {
         }
       );
     } else {
-      console.warn('From is invalid: ' + this.loginForm);
+      console.warn('From is invalid: ' + this.signinForm);
     }
   }
 
-  private handleLogin(value: boolean): void {
+  private handleLogin(value: CognitoUser): void {
     console.log('login value: ' + value);
   }
 

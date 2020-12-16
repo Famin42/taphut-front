@@ -1,10 +1,9 @@
 <mat-toolbar>
-  <span>Login</span>
+  <span>Forgot password</span>
 </mat-toolbar>
 <mat-card class="my-card">
   <mat-card-content>
-
-    <form [formGroup]="signinForm" class="my-form">
+    <form [formGroup]="confirmSignupForm" class="my-form">
       <mat-form-field class="full-width">
         <mat-label>Email</mat-label>
         <input  matInput  placeholder="Email" name="email" formControlName="email">
@@ -16,16 +15,16 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field class="full-width">
-        <mat-label>Password</mat-label>
-        <input  matInput  placeholder="Password"  name="password" formControlName="password">
-        <mat-error *ngIf="password?.errors?.required">
-          Password is <strong>required</strong>
+        <mat-label>Code</mat-label>
+        <input  matInput  placeholder="Code" name="code" formControlName="code">
+        <mat-error *ngIf="code?.errors?.required">
+          Code is <strong>required</strong>
         </mat-error>
       </mat-form-field>
     </form>
 
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button (click)="submit()" color="primary">LOGIN</button>
+    <button mat-raised-button (click)="submit()" color="primary">CONFIRM</button>
   </mat-card-actions>
 </mat-card>
