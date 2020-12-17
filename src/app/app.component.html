@@ -1,15 +1,13 @@
-<div>
- <a [routerLink]="['/', 'auth', 'signin']">auth/signin</a>
- <br>
- <a [routerLink]="['/', 'auth', 'signup']">auth/signup</a>
- <br>
- <a [routerLink]="['/', 'auth', 'signup', 'confirm']">auth/signup/confirm</a>
- <br>
- <a [routerLink]="['/', 'auth', 'password', 'forger']">auth/password/forger</a>
- <br>
- <a [routerLink]="['/', 'auth', 'password', 'forger', 'confirm']">auth/password/forger/confirm</a>
- <br>
- <a [routerLink]="['/', 'auth', 'password', 'change']">auth/password/change</a>
-</div>
+ <mat-toolbar color="primary" class="example-toolbar">
+  <h1 class="header-title big">Taphut</h1>
+  <span class="flex-1"></span>
+
+  <a mat-button [routerLink]="['/', 'auth', 'signin']">signin</a>
+  <a mat-button [routerLink]="['/', 'auth', 'signup']">signup</a>
+  <a mat-button [routerLink]="['/', 'auth', 'signup', 'confirm']">signup confirm</a>
+  <a mat-button [routerLink]="['/', 'auth', 'password', 'forger']">forget password</a>
+  <a mat-button [routerLink]="['/', 'auth', 'password', 'forger', 'confirm']">forger password confirm</a>
+  <a mat-button [routerLink]="['/', 'auth', 'password', 'change']">password change</a>
+</mat-toolbar>
 
 <router-outlet></router-outlet>
