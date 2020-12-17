@@ -14,6 +14,7 @@ import {MatButtonModule} from '@angular/material/button';
 
 import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
 
+import { ShellComponent } from './components/shell/shell.component'
 import { SignupComponent } from './components/signup/signup.component';
 import { SigninComponent } from './components/signin/signin.component';
 import { ConfirmSignupComponent } from './components/confirm-signup/confirm-signup.component';
@@ -23,6 +24,12 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+;
+import { AuthenticationGuard } from './guards/authentication.guard';
+
+const GUARDS = [
+  AuthenticationGuard
+];
 
 const MATERIAL_MODULES = [
   MatToolbarModule,
@@ -41,7 +48,8 @@ const MATERIAL_MODULES = [
     ConfirmSignupComponent,
     ForgotPasswordComponent,
     ForgotPasswordSubmitComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ShellComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +62,9 @@ const MATERIAL_MODULES = [
     MatButtonModule,
     AmplifyUIAngularModule
   ],
-  providers: [],
+  providers: [
+    ...GUARDS
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

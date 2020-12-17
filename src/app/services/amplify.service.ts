@@ -9,6 +9,12 @@ import {ICredentials} from 'aws-amplify/lib/Common/types/types';
   providedIn: 'root'
 })
 export class AmplifyService {
+
+  get isAuthenticated(): Promise<boolean> {
+    return Auth.currentAuthenticatedUser().then(() => { return true; })
+    .catch(() => { return false; });
+  }
+
   constructor() {
   }
 
