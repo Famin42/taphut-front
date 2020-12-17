@@ -11,6 +11,7 @@ import {PASSWORD_VALIDATORS} from '../../utils/form-validators';
   styleUrls: ['./change-password.component.scss']
 })
 export class ChangePasswordComponent implements OnInit {
+  isInvalidCredits = false;
   forgotPasswordForm = new FormGroup({
     oldPassword: new FormControl('', PASSWORD_VALIDATORS),
     newPassword: new FormControl('', PASSWORD_VALIDATORS),
@@ -58,5 +59,9 @@ export class ChangePasswordComponent implements OnInit {
 
   private handleRequestError(error: any): void {
     console.log('request error: ' + error);
+    this.isInvalidCredits = true;
+    this.forgotPasswordForm.markAsUntouched();
+    this.newPassword?.setValue('');
+    this.oldPassword?.setValue('');
   }
 }

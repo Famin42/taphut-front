@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AmplifyService} from '../../services/amplify.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {EMAIL_VALIDATORS, PASSWORD_VALIDATORS} from '../../utils/form-validators';
+import {ROUTES} from '../../utils/routes';
 
 @Component({
   selector: 'app-forgot-password-submit',
@@ -10,6 +11,8 @@ import {EMAIL_VALIDATORS, PASSWORD_VALIDATORS} from '../../utils/form-validators
   styleUrls: ['./forgot-password-submit.component.scss']
 })
 export class ForgotPasswordSubmitComponent implements OnInit {
+  isInvalidCredits = false;
+
   forgotPasswordSubmitForm = new FormGroup({
     email: new FormControl('', EMAIL_VALIDATORS),
     code: new FormControl('', [Validators.required]),
@@ -28,9 +31,13 @@ export class ForgotPasswordSubmitComponent implements OnInit {
     return this.forgotPasswordSubmitForm.get('password');
   }
 
-  constructor(private authService: AmplifyService, private router: Router) { }
+  constructor(private authService: AmplifyService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.email?.setValue(params.email || '');
+      this.code?.setValue(params.code || '');
+    });
   }
 
   submit(): void {
@@ -51,10 +58,15 @@ export class ForgotPasswordSubmitComponent implements OnInit {
   }
 
   private handleRequest(value: any): void {
+    this.router.navigate([ROUTES.signin], {queryParams: {email: this.email?.value}});
     console.log('request value: ' + value);
   }
 
   private handleRequestError(error: any): void {
     console.log('request error: ' + error);
+    this.isInvalidCredits = true;
+    this.forgotPasswordSubmitForm.markAsUntouched();
+    this.code?.setValue('');
+    this.password?.setValue('');
   }
 }

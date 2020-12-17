@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {EMAIL_VALIDATORS, PASSWORD_VALIDATORS} from '../../utils/form-validators';
 import {AmplifyService} from '../../services/amplify.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ROUTES} from '../../utils/routes';
 
 @Component({
   selector: 'app-confirm-signup',
@@ -10,6 +11,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./confirm-signup.component.scss']
 })
 export class ConfirmSignupComponent implements OnInit {
+  isInvalidCredits = false;
+
   confirmSignupForm = new FormGroup({
     email: new FormControl('', EMAIL_VALIDATORS),
     code: new FormControl('', [Validators.required])
@@ -23,9 +26,13 @@ export class ConfirmSignupComponent implements OnInit {
     return this.confirmSignupForm.get('code');
   }
 
-  constructor(private authService: AmplifyService, private router: Router) { }
+  constructor(private authService: AmplifyService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.email?.setValue(params.email || '');
+      this.code?.setValue(params.code || '');
+    });
   }
 
   submit(): void {
@@ -47,9 +54,13 @@ export class ConfirmSignupComponent implements OnInit {
 
   private handleRequest(value: any): void {
     console.log('request value: ' + value);
+    this.router.navigate([ROUTES.signin], {queryParams: {email: this.email?.value}});
   }
 
   private handleRequestError(error: any): void {
     console.log('request error: ' + error);
+    this.isInvalidCredits = true;
+    this.confirmSignupForm.markAsUntouched();
+    this.code?.setValue('');
   }
 }

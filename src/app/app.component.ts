@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 
 import { AmplifyService } from './services/amplify.service';
+import {Router} from '@angular/router';
+import {ROUTES} from './utils/routes';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +11,15 @@ import { AmplifyService } from './services/amplify.service';
 })
 export class AppComponent {
 
-  public constructor(public amplify: AmplifyService) {}
+  public constructor(public amplify: AmplifyService, private router: Router) {}
 
   title = 'taphut';
 
   public logout(): void {
-    this.amplify.logout().subscribe()
+    this.amplify.logout().subscribe(
+      res => {
+        this.router.navigate([ROUTES.signin]);
+      }
+    );
   }
 }

@@ -11,14 +11,6 @@ import {ForgotPasswordSubmitComponent} from './components/forgot-password-submit
 import {ChangePasswordComponent} from './components/change-password/change-password.component';
 import { ShellComponent } from './components/shell/shell.component';
 
-export const ROUTES = {
-  signin: 'auth/signin',
-  signup: 'auth/signup',
-  signupConfirm: 'auth/signup/confirm',
-  passwordForger: 'auth/password/forger',
-  passwordForgerConfirm: 'auth/password/forger/confirm',
-  passwordChange: 'auth/password/change',
-}; 
 
 const routes: Routes = [
   {

@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {AmplifyService} from '../../services/amplify.service';
 import {ISignUpResult} from 'amazon-cognito-identity-js';
 import {EMAIL_VALIDATORS, PASSWORD_VALIDATORS} from '../../utils/form-validators';
+import {ROUTES} from '../../utils/routes';
 
 @Component({
   selector: 'app-signup',
@@ -47,6 +48,7 @@ export class SignupComponent implements OnInit {
   }
 
   private handleRegistration(value: ISignUpResult): void {
+    this.router.navigate([ROUTES.signupConfirm], {queryParams: {email: this.email?.value}});
     console.log('register value: ' + value);
   }
 
