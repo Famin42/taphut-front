@@ -4,16 +4,13 @@ import {MatIconModule} from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import { NgModule } from '@angular/core';
-
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
-
 import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
-
 import { ShellComponent } from './components/shell/shell.component'
 import { SignupComponent } from './components/signup/signup.component';
 import { SigninComponent } from './components/signin/signin.component';
@@ -21,12 +18,14 @@ import { ConfirmSignupComponent } from './components/confirm-signup/confirm-sign
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ForgotPasswordSubmitComponent } from './components/forgot-password-submit/forgot-password-submit.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-;
 import { AuthenticationGuard } from './guards/authentication.guard';
 import { TelegramComponent } from './components/telegram/telegram.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 const GUARDS = [
   AuthenticationGuard
@@ -62,7 +61,11 @@ const MATERIAL_MODULES = [
     ReactiveFormsModule,
     ...MATERIAL_MODULES,
     MatButtonModule,
-    AmplifyUIAngularModule
+    AmplifyUIAngularModule,
+    MatGridListModule,
+    FlexLayoutModule,
+    MatPaginatorModule,
+    InfiniteScrollModule,
   ],
   providers: [
     ...GUARDS

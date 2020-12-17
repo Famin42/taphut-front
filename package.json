@@ -17,6 +17,7 @@
     "@angular/common": "~11.0.1",
     "@angular/compiler": "~11.0.1",
     "@angular/core": "~11.0.1",
+    "@angular/flex-layout": "^11.0.0-beta.33",
     "@angular/forms": "~11.0.1",
     "@angular/material": "^11.0.3",
     "@angular/platform-browser": "~11.0.1",
@@ -26,6 +27,7 @@
     "@types/graphql": "^14.5.0",
     "aws-amplify": "^3.3.12",
     "aws-amplify-angular": "^5.0.41",
+    "ngx-infinite-scroll": "^10.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
