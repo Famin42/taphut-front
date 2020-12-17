@@ -27,6 +27,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
+import { GraphQLModule } from './graphql.module';
+
 const GUARDS = [
   AuthenticationGuard
 ];
@@ -59,6 +61,7 @@ const MATERIAL_MODULES = [
     AppRoutingModule,
     BrowserModule,
     ReactiveFormsModule,
+    GraphQLModule,
     ...MATERIAL_MODULES,
     MatButtonModule,
     AmplifyUIAngularModule,
