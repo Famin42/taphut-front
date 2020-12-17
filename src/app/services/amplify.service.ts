@@ -1,21 +1,32 @@
 import {Injectable} from '@angular/core';
 import {Auth} from 'aws-amplify';
-import {from, Observable, of, scheduled} from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import {fromPromise} from 'rxjs/internal-compatibility';
-import {ISignUpResult, ICognitoUserData, CognitoUser} from 'amazon-cognito-identity-js';
+import {ISignUpResult, CognitoUser} from 'amazon-cognito-identity-js';
 import {ICredentials} from 'aws-amplify/lib/Common/types/types';
+import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AmplifyService {
 
+  public isAuthenticatedSubj: ReplaySubject<boolean>;
+
   get isAuthenticated(): Promise<boolean> {
-    return Auth.currentAuthenticatedUser().then(() => { return true; })
-    .catch(() => { return false; });
+    return Auth.currentAuthenticatedUser().then(() => { 
+      this.isAuthenticatedSubj.next(true);
+      return true;
+    })
+    .catch(() => {
+      this.isAuthenticatedSubj.next(false);
+      return false;
+     });
   }
 
-  constructor() {
+  constructor(private router: Router) {
+    this.isAuthenticatedSubj = new ReplaySubject<boolean>(1)
   }
 
   signIn(email: string, password: string): Observable<CognitoUser> {
@@ -63,5 +74,13 @@ export class AmplifyService {
 
   currentUserCredentials(): Observable<ICredentials> {
     return fromPromise(Auth.currentUserCredentials());
+  }
+
+  logout(): Observable<ICredentials> {
+    return fromPromise(Auth.signOut()).pipe(
+      tap(() => localStorage.clear()),
+      tap(() => this.isAuthenticatedSubj.next(false)),
+      tap(() => this.router.navigate(['/']))
+    );
   }
 }

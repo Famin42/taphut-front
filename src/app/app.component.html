@@ -2,12 +2,13 @@
   <h1 class="header-title big">Taphut</h1>
   <span class="flex-1"></span>
 
-  <a mat-button [routerLink]="['/', 'auth', 'signin']">signin</a>
-  <a mat-button [routerLink]="['/', 'auth', 'signup']">signup</a>
-  <a mat-button [routerLink]="['/', 'auth', 'signup', 'confirm']">signup confirm</a>
-  <a mat-button [routerLink]="['/', 'auth', 'password', 'forger']">forget password</a>
-  <a mat-button [routerLink]="['/', 'auth', 'password', 'forger', 'confirm']">forger password confirm</a>
-  <a mat-button [routerLink]="['/', 'auth', 'password', 'change']">password change</a>
+  <button *ngIf="amplify.isAuthenticatedSubj | async" mat-button (click)="logout()">logout</button>
+  <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'signin']">signin</a>
+  <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'signup']">signup</a>
+  <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'signup', 'confirm']">signup confirm</a>
+  <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'password', 'forger']">forget password</a>
+  <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'password', 'forger', 'confirm']">forger password confirm</a>
+  <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'password', 'change']">password change</a>
 </mat-toolbar>
 
 <router-outlet></router-outlet>
