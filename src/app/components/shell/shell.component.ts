@@ -25,6 +25,8 @@ export class ShellComponent implements OnInit {
   }
 
   downloadData(): void {
+    if(!this.token && this.productList.length) { return; }
+
     this.productService.getProductPage(this.limit, this.token).subscribe(
       res => {
         this.productList = [...this.productList, ...res.data];

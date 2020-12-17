@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import { ApolloQueryResult } from '@apollo/client';
 import { Apollo, gql } from 'apollo-angular';
 import {Observable, of} from 'rxjs';
+import { map } from 'rxjs/operators';
 import {IPagination, IProduct} from '../utils/models';
 
 @Injectable({
@@ -13,23 +14,26 @@ export class ProductService {
 
   // TODO add
   getProductPage(limit: number, token?: string): Observable<IPagination<IProduct[]>> {
-    const product = {
-      id: '0',
-      title: 'Some product title',
-      description: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.\n' +
-        '      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally\n' +
-        '      bred for hunting.',
-      price: '20 By',
-      location: 'Misk',
-      sourceLink: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
-      imageLink: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
-    };
+    return this.query(limit, token)
+    .pipe(
+      map(({data}: ApolloQueryResult<IOnlinerPaginationRes>) => ({
+        token: data.nextToken,
+        limit: data.scannedCount,
+        data: data.items.map((item: OnlinerApartmentRow) => this.convertToProduct(item))
+      }))
+    )
+  }
 
-    return of({
-      token: 'page',
-      limit: 10,
-      data: [product, product, product, product, product, product, product, product, product, product],
-    });
+  convertToProduct(item: OnlinerApartmentRow): IProduct {
+    return {
+      id: item.id.toString(),
+      title: item.apartment.rent_type.split('_').concat(' ').toString(),
+      description: item.apartment.location.address,
+      price: item.apartment.price.converted['USD'].amount,
+      location: item.apartment.location.address,
+      sourceLink: item.apartment.url,
+      imageLink: item.apartment.photo
+    };
   }
 
   query(limit: number = 10, token?: string): Observable<ApolloQueryResult<IOnlinerPaginationRes>> {
@@ -45,7 +49,7 @@ export class ProductService {
     return this.apollo.query({
       query: gql`
         query onlinerApartments($limit: Int!, $token: String){
-          query onlinerApartments(limit: $limit, token: $token) {
+          onlinerApartments(limit: $limit, token: $token) {
             items {
                 id
                 status
@@ -65,8 +69,6 @@ export class ProductService {
                   location {
                     address
                     user_address
-                    latitude
-                    longitude
                   }
                   photo
                   created_at
@@ -95,7 +97,7 @@ export class ProductService {
     return this.apollo.query({
       query: gql`
         query onlinerApartments {
-          query onlinerApartments {
+          onlinerApartments {
             items {
                 id
                 status
@@ -115,8 +117,6 @@ export class ProductService {
                   location {
                     address
                     user_address
-                    latitude
-                    longitude
                   }
                   photo
                   created_at
@@ -186,6 +186,4 @@ export type OnlinerRentType = '1_rooms' | '2_rooms' | '3_rooms' | '4_rooms' | '5
 export interface IOnlinerApartmentLocation {
   address: string;
   user_address: string;
-  latitude: number;
-  longitude: number;
 }

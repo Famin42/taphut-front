@@ -9,7 +9,7 @@ export interface IProduct {
 }
 
 export interface IPagination<T> {
-  token: string;
+  token?: string;
   limit: number;
   data: T;
 }
