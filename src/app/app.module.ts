@@ -26,6 +26,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 ;
 import { AuthenticationGuard } from './guards/authentication.guard';
+import { TelegramComponent } from './components/telegram/telegram.component';
 
 const GUARDS = [
   AuthenticationGuard
@@ -49,7 +50,8 @@ const MATERIAL_MODULES = [
     ForgotPasswordComponent,
     ForgotPasswordSubmitComponent,
     ChangePasswordComponent,
-    ShellComponent
+    ShellComponent,
+    TelegramComponent
   ],
   imports: [
     BrowserModule,
