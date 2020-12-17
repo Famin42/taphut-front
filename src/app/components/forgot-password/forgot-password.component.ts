@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {AmplifyService} from '../../services/amplify.service';
 import {ISignUpResult, ICognitoUserData, CognitoUser} from 'amazon-cognito-identity-js';
