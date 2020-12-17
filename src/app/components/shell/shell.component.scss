@@ -11,4 +11,15 @@
   color: black;
 }
 
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.content {
+  margin: 15px;
+  min-width: 300px;
+}
+
 
