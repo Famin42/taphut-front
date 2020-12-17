@@ -1,22 +1,26 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import {ReactiveFormsModule} from '@angular/forms';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SignupComponent } from './components/signup/signup.component';
-import { SigninComponent } from './components/signin/signin.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
-import {ReactiveFormsModule} from '@angular/forms';
+
+import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
+
+import { SignupComponent } from './components/signup/signup.component';
+import { SigninComponent } from './components/signin/signin.component';
 import { ConfirmSignupComponent } from './components/confirm-signup/confirm-signup.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ForgotPasswordSubmitComponent } from './components/forgot-password-submit/forgot-password-submit.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 
 const MATERIAL_MODULES = [
   BrowserAnimationsModule,
@@ -42,7 +46,8 @@ const MATERIAL_MODULES = [
     AppRoutingModule,
     ...MATERIAL_MODULES,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AmplifyUIAngularModule
   ],
   providers: [],
   bootstrap: [AppComponent]

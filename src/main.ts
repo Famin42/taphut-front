@@ -1,9 +1,11 @@
-import { enableProdMode } from '@angular/core';
-import Amplify, { Auth } from 'aws-amplify';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { enableProdMode } from '@angular/core';
+import Amplify from 'aws-amplify';
 
-import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
+import { AppModule } from './app/app.module';
+
+Amplify.configure(environment.AmplifyConfig);
 
 if (environment.production) {
   enableProdMode();
@@ -12,13 +14,6 @@ if (environment.production) {
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
 
-// TODO fix
-// import Amplify, { Auth } from 'aws-amplify';
-export const AmplifyConfig = {
-  region: 'us-east-1',
-  userPoolId: 'us-east-1_3vdRDt5ey',
-  userPoolWebClientId: '70t0a4br5emlp1ouin8652docs',
-};
 //
 // If you uncomment this it will fail:
 // Amplify.configure(AmplifyConfig);
