@@ -1,4 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -23,7 +24,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 const MATERIAL_MODULES = [
-  BrowserAnimationsModule,
   MatToolbarModule,
   MatCardModule,
   MatInputModule,
@@ -43,10 +43,13 @@ const MATERIAL_MODULES = [
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
     AppRoutingModule,
+    BrowserModule,
+    ReactiveFormsModule,
     ...MATERIAL_MODULES,
     MatButtonModule,
-    ReactiveFormsModule,
     AmplifyUIAngularModule
   ],
   providers: [],

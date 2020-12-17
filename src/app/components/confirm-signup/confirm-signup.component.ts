@@ -12,8 +12,7 @@ import {Router} from '@angular/router';
 export class ConfirmSignupComponent implements OnInit {
   confirmSignupForm = new FormGroup({
     email: new FormControl('', EMAIL_VALIDATORS),
-    code: new FormControl('', [Validators.required]),
-    password: new FormControl('', PASSWORD_VALIDATORS),
+    code: new FormControl('', [Validators.required])
   });
 
   get email(): AbstractControl | null {

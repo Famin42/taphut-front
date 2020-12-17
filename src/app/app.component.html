@@ -1,10 +1,15 @@
-<!--<div>-->
-<!--  <a [routerLink]="['auth/signin']">auth/signin</a>-->
-<!--  <a [routerLink]="['auth/signup']">auth/signup</a>-->
-<!--  <a [routerLink]="['auth/signup/confirm']">auth/signup/confirm</a>-->
-<!--  <a [routerLink]="['auth/password/forger']">auth/password/forger</a>-->
-<!--  <a [routerLink]="['auth/password/forger/confirm']">auth/password/forger/confirm</a>-->
-<!--  <a [routerLink]="['auth/password/change']">auth/password/change</a>-->
-<!--</div>-->
+<div>
+ <a [routerLink]="['/', 'auth', 'signin']">auth/signin</a>
+ <br>
+ <a [routerLink]="['/', 'auth', 'signup']">auth/signup</a>
+ <br>
+ <a [routerLink]="['/', 'auth', 'signup', 'confirm']">auth/signup/confirm</a>
+ <br>
+ <a [routerLink]="['/', 'auth', 'password', 'forger']">auth/password/forger</a>
+ <br>
+ <a [routerLink]="['/', 'auth', 'password', 'forger', 'confirm']">auth/password/forger/confirm</a>
+ <br>
+ <a [routerLink]="['/', 'auth', 'password', 'change']">auth/password/change</a>
+</div>
 
 <router-outlet></router-outlet>

@@ -16,22 +16,22 @@ const routes: Routes = [
     component: SignupComponent,
     path: 'auth/signup',
   },
-  // {
-  //   component: ConfirmSignupComponent,
-  //   path: 'auth/signup/confirm',
-  // },
-  // {
-  //   component: ForgotPasswordComponent,
-  //   path: 'auth/password/forger',
-  // },
-  // {
-  //   component: ForgotPasswordSubmitComponent,
-  //   path: 'auth/password/forger/confirm',
-  // },
-  // {
-  //   component: ChangePasswordComponent,
-  //   path: 'auth/password/change',
-  // },
+  {
+    component: ConfirmSignupComponent,
+    path: 'auth/signup/confirm',
+  },
+  {
+    component: ForgotPasswordComponent,
+    path: 'auth/password/forger',
+  },
+  {
+    component: ForgotPasswordSubmitComponent,
+    path: 'auth/password/forger/confirm',
+  },
+  {
+    component: ChangePasswordComponent,
+    path: 'auth/password/change',
+  },
 ];
 
 @NgModule({

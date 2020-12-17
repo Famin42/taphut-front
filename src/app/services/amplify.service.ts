@@ -9,60 +9,53 @@ import {ICredentials} from 'aws-amplify/lib/Common/types/types';
   providedIn: 'root'
 })
 export class AmplifyService {
-// TODO uncomment when fixed
   constructor() {
   }
 
   signIn(email: string, password: string): Observable<CognitoUser> {
-    return of();
-    // return fromPromise(
-    //   Auth.signIn({
-    //     username: email.toLocaleLowerCase(),
-    //     password,
-    //   }));
+    return fromPromise(
+      Auth.signIn({
+        username: email.toLocaleLowerCase(),
+        password,
+      }));
   }
 
   signOut(): Observable<any> {
-    return of();
-    // return fromPromise(Auth.signOut());
+    return fromPromise(Auth.signOut());
   }
 
   signUp(email: string, password: string): Observable<ISignUpResult> {
-    return of();
-    // return fromPromise(
-    //   Auth.signUp({
-    //     username: email.toLocaleLowerCase(),
-    //     password
-    //   }));
+    return fromPromise(
+      Auth.signUp({
+        username: email.toLocaleLowerCase(),
+        password,
+        attributes: {
+          email: email.toLocaleLowerCase(),
+        }
+      }));
   }
 
   confirmSignUp(email: string, code: string): Observable<any> {
-    return of();
-    // return fromPromise(Auth.confirmSignUp(email.toLocaleLowerCase(), code));
+    return fromPromise(Auth.confirmSignUp(email.toLocaleLowerCase(), code));
   }
 
   changePassword(user: CognitoUser, oldPassword: string, newPassword: string): Observable<'SUCCESS'> {
-    return of();
-    // return fromPromise(Auth.changePassword(user, oldPassword, newPassword));
+    return fromPromise(Auth.changePassword(user, oldPassword, newPassword));
   }
 
   forgotPassword(email: string): Observable<any> {
-    return of();
-    // return fromPromise(Auth.forgotPassword(email.toLocaleLowerCase()));
+    return fromPromise(Auth.forgotPassword(email.toLocaleLowerCase()));
   }
 
   forgotPasswordSubmit(email: string, code: string, password: string): Observable<any> {
-    return of();
-    // return fromPromise(Auth.forgotPasswordSubmit(email.toLocaleLowerCase(), code, password));
+    return fromPromise(Auth.forgotPasswordSubmit(email.toLocaleLowerCase(), code, password));
   }
 
   currentAuthenticatedUser(): Observable<CognitoUser> {
-    return of();
-    // return fromPromise(Auth.currentAuthenticatedUser());
+    return fromPromise(Auth.currentAuthenticatedUser());
   }
 
   currentUserCredentials(): Observable<ICredentials> {
-    return of();
-    // return fromPromise(Auth.currentUserCredentials());
+    return fromPromise(Auth.currentUserCredentials());
   }
 }
