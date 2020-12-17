@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProductService} from '../../services/product.service';
 import {IPagination, IProduct} from '../../utils/models';
 import {PageEvent} from '@angular/material/paginator';
@@ -9,26 +9,26 @@ import {PageEvent} from '@angular/material/paginator';
   styleUrls: ['./shell.component.scss']
 })
 export class ShellComponent implements OnInit {
-  productsPage!: IPagination<IProduct[]>;
-  limit = 10;
+  productList: IProduct[] = [];
+  token?: string;
+  limit = 9;
 
-  constructor(private productService: ProductService) { }
-
-  // MatPaginator Output
-  // pageEvent: PageEvent;
-
-  ngOnInit(): void {
-    this.productService.getProductPage(this.limit).subscribe(
-      res => {
-        this.productsPage = res;
-      }
-    );
+  constructor(private productService: ProductService) {
   }
 
-  onScroll() {
-    this.productService.getProductPage(this.limit).subscribe(
+  ngOnInit(): void {
+    this.downloadData();
+  }
+
+  onScroll(): void {
+    this.downloadData();
+  }
+
+  downloadData(): void {
+    this.productService.getProductPage(this.limit, this.token).subscribe(
       res => {
-        this.productsPage = res;
+        this.productList = [...this.productList, ...res.data];
+        this.token = res.token;
       }
     );
   }
