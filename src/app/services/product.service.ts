@@ -144,7 +144,7 @@ export type IOnlinerPaginationRes = {
   items: OnlinerApartmentRow[];
 }
 
-export type OnlinerApartmentRow {
+export type OnlinerApartmentRow = {
   id: number;
   status: ApartmentStatus;
   apartment: OnlinerApartment;
@@ -155,7 +155,7 @@ export type OnlinerApartmentRow {
 
 export type ApartmentStatus = 'NEW' | 'IN_FLIGHT' | 'ERROR' | 'OLD';
 
-export type OnlinerApartment {
+export type OnlinerApartment = {
   id: number;
   price: {
     amount: string;
