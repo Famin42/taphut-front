@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import { ApolloQueryResult } from '@apollo/client';
 import { Apollo, gql } from 'apollo-angular';
 import {Observable, of} from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import {IPagination, IProduct} from '../utils/models';
 
 @Injectable({
@@ -16,10 +16,14 @@ export class ProductService {
   getProductPage(limit: number, token?: string): Observable<IPagination<IProduct[]>> {
     return this.query(limit, token)
     .pipe(
-      map(({data}: ApolloQueryResult<IOnlinerPaginationRes>) => ({
-        token: data.nextToken,
-        limit: data.scannedCount,
-        data: data.items.map((item: OnlinerApartmentRow) => this.convertToProduct(item))
+      map((data: any)  => {
+        console.log(data.data.onlinerApartments);
+        return data.data.onlinerApartments;
+      }),
+      map(({nextToken, scannedCount, items}: ResData) => ({
+        token: nextToken,
+        limit: scannedCount,
+        data: items.map((item: OnlinerApartmentRow) => this.convertToProduct(item))
       }))
     )
   }
@@ -29,7 +33,7 @@ export class ProductService {
       id: item.id.toString(),
       title: item.apartment.rent_type.split('_').concat(' ').toString(),
       description: item.apartment.location.address,
-      price: item.apartment.price.converted['USD'].amount,
+      price: item.apartment.price.amount,
       location: item.apartment.location.address,
       sourceLink: item.apartment.url,
       imageLink: item.apartment.photo
@@ -139,10 +143,14 @@ export class ProductService {
 }
 
 export type IOnlinerPaginationRes = {
+  onlinerApartments: ResData;
+}
+
+export type ResData = {
   nextToken: string | undefined; // if undefined, then it is the last page
   scannedCount: number;         // same as limit, but in the answer
   items: OnlinerApartmentRow[];
-}
+};
 
 export type OnlinerApartmentRow = {
   id: number;
@@ -151,7 +159,7 @@ export type OnlinerApartmentRow = {
   createdAt: string;
   updatedAt?: string;
   expirationTime: number;
-}
+};
 
 export type ApartmentStatus = 'NEW' | 'IN_FLIGHT' | 'ERROR' | 'OLD';
 
@@ -177,7 +185,7 @@ export type OnlinerApartment = {
   last_time_up: string;
   up_available_in: number;
   url: string;
-}
+};
 
 export type OnlinerCurrences = 'USD' | 'BYN';
 
@@ -186,4 +194,4 @@ export type OnlinerRentType = '1_rooms' | '2_rooms' | '3_rooms' | '4_rooms' | '5
 export interface IOnlinerApartmentLocation {
   address: string;
   user_address: string;
-}
+};
