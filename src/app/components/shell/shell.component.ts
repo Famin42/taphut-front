@@ -11,7 +11,7 @@ import {PageEvent} from '@angular/material/paginator';
 export class ShellComponent implements OnInit {
   productList: IProduct[] = [];
   token?: string;
-  limit = 9;
+  limit = 10;
 
   constructor(private productService: ProductService) {
   }

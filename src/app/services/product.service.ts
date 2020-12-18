@@ -52,8 +52,8 @@ export class ProductService {
   private queryWithParams(limit: number = 10, token: string): Observable<ApolloQueryResult<IOnlinerPaginationRes>> {
     return this.apollo.query({
       query: gql`
-        query onlinerApartments($limit: Int!, $token: String){
-          onlinerApartments(limit: $limit, token: $token) {
+        query($limit: Int!, $token: String){
+          onlinerApartments(limit: $limit, nextToken: $token) {
             items {
                 id
                 status
