@@ -86,7 +86,6 @@ export class ProductService {
             }
             nextToken
             scannedCount
-            startedAt
           }
         }
       `,
@@ -134,7 +133,6 @@ export class ProductService {
             }
             nextToken
             scannedCount
-            startedAt
           }
         }
       `
