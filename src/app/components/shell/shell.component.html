@@ -1,29 +1,25 @@
 <app-telegram></app-telegram>
 <div></div>
-<!--<mat-grid-list cols="2" rowHeight="2:1">-->
+
 <div infiniteScroll
   [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="50"
   (scrolled)="onScroll()"
      class="container"
 >
-  <div *ngFor="let product of productList" class="content">
-<!--    <mat-grid-tile class="grid-tile">-->
-      <mat-card class="example-card">
-        <mat-card-header>
-          <!--        <div mat-card-avatar class="example-header-image"></div>-->
-          <mat-card-title><a class="source-link" [href]="product.sourceLink">{{product.title}}</a></mat-card-title>
-          <mat-card-subtitle>{{product.price + ' - ' + product.location}}</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image [src]="product.imageLink" alt="Photo of a Shiba Inu">
-        <mat-card-content>
-          <p>
-            {{product.description}}
-          </p>
-        </mat-card-content>
-      </mat-card>
-<!--    </mat-grid-tile>-->
-  </div>
+  
+  <mat-card *ngFor="let product of productList" class="example-card">
+    <mat-card-header>
+      <mat-card-title><a class="source-link" [href]="product.sourceLink">{{product.title}}</a></mat-card-title>
+      <mat-card-subtitle>{{product.price + ' - ' + product.location}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="product.imageLink" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <p>
+        {{product.description}}
+      </p>
+    </mat-card-content>
+  </mat-card>
 </div>
-<!--</mat-grid-list>-->
+
 
