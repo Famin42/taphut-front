@@ -7,8 +7,8 @@
    <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'signin']">signin</a>
    <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'signup']">signup</a>
 <!--   <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'signup', 'confirm']">signup confirm</a>-->
-<!--   <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'password', 'forger']">forget password</a>-->
-<!--   <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'password', 'forger', 'confirm']">forger password confirm</a>-->
+<!--   <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'password', 'forget']">forget password</a>-->
+<!--   <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'password', 'forget', 'confirm']">forget password confirm</a>-->
 </mat-toolbar>
 
 <router-outlet></router-outlet>
