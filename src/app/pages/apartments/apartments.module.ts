@@ -5,8 +5,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SharedlModule } from 'src/app/modules';
 import { ApartmentsRoutingModule } from './apartments-routing.module';
 
-import { ShellComponent } from 'src/app/components/shell/shell.component';
-import { TelegramComponent } from 'src/app/components/telegram/telegram.component';
+import { ShellComponent } from './shell/shell.component';
+import { TelegramComponent } from './telegram/telegram.component';
 
 
 @NgModule({

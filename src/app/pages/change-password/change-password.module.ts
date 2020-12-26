@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedlModule } from 'src/app/modules';
 import { ChangePasswordRoutingModule } from './change-password-routing.module';
 
-import { ChangePasswordComponent } from 'src/app/components/change-password/change-password.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 @NgModule({

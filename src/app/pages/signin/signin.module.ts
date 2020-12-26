@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedlModule } from 'src/app/modules';
 import { SigninRoutingModule } from './signin-routing.module';
 
-import { SigninComponent } from '../../components/signin/signin.component';
+import { SigninComponent } from './signin/signin.component';
 
 @NgModule({
   declarations: [

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AmplifyService} from '../../services/amplify.service';
-import {CognitoUser} from 'amazon-cognito-identity-js';
-import {EMAIL_VALIDATORS, PASSWORD_VALIDATORS} from '../../utils/form-validators';
-import {ROUTES} from '../../utils/routes';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AmplifyService } from '../../../services/amplify.service';
+import { CognitoUser } from 'amazon-cognito-identity-js';
+import { EMAIL_VALIDATORS, PASSWORD_VALIDATORS } from '../../../utils/form-validators';
+import { ROUTES } from '../../../utils/routes';
 
 
 @Component({
