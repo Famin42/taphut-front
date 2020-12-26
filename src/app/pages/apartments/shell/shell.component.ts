@@ -1,7 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {ProductService} from '../../services/product.service';
-import {IPagination, IProduct} from '../../utils/models';
-import {PageEvent} from '@angular/material/paginator';
+import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../../../services/product.service';
+import { IProduct } from '../../../utils/models';
 
 @Component({
   selector: 'app-shell',
