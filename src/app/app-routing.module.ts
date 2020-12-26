@@ -3,44 +3,29 @@ import { NgModule } from '@angular/core';
 
 import { AuthenticationGuard } from './guards/authentication.guard';
 
-import {SigninComponent} from './components/signin/signin.component';
-import {SignupComponent} from './components/signup/signup.component';
-import {ConfirmSignupComponent} from './components/confirm-signup/confirm-signup.component';
-import {ForgotPasswordComponent} from './components/forgot-password/forgot-password.component';
-import {ForgotPasswordSubmitComponent} from './components/forgot-password-submit/forgot-password-submit.component';
-import {ChangePasswordComponent} from './components/change-password/change-password.component';
-import { ShellComponent } from './components/shell/shell.component';
-
 
 const routes: Routes = [
   {
     canActivate: [AuthenticationGuard],
-    component: ShellComponent,
     path: '',
+    loadChildren: () => import('./pages/apartments/apartments.module').then(m => m.ApartmentsModule)
   },
   {
-    component: SigninComponent,
-    path: 'auth/signin',
-  },
-  {
-    component: SignupComponent,
-    path: 'auth/signup',
-  },
-  {
-    component: ConfirmSignupComponent,
-    path: 'auth/signup/confirm',
-  },
-  {
-    component: ForgotPasswordComponent,
-    path: 'auth/password/forger',
-  },
-  {
-    component: ForgotPasswordSubmitComponent,
-    path: 'auth/password/forger/confirm',
-  },
-  {
-    component: ChangePasswordComponent,
+    canActivate: [AuthenticationGuard],
     path: 'auth/password/change',
+    loadChildren: () => import('./pages/change-password/change-password.module').then(m => m.ChangePasswordModule)
+  },
+  {
+    path: 'auth/signin',
+    loadChildren: () => import('./pages/signin/signin.module').then(m => m.SigninModule)
+  },
+  {
+    path: 'auth/signup',
+    loadChildren: () => import('./pages/signup/signup.module').then(m => m.SignupModule)
+  },
+  {
+    path: 'auth/password/forget',
+    loadChildren: () => import('./pages/forget-password/forget-password.module').then(m => m.ForgetPasswordModule)
   },
   {
     path: "**",
