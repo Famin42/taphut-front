@@ -20,7 +20,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "typeRoots": [
+      "src/types/*"
+    ],
+    "types": [
+      "jasmine",
+      "node"
+    ],
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,
