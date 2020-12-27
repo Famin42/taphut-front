@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AmplifyService } from '../../../services/amplify.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EMAIL_VALIDATORS, PASSWORD_VALIDATORS } from '../../../utils/form-validators';
-import { ROUTES } from '../../../utils/routes';
+
+import { ROUTES } from 'src/app/utils/routes';
+import { AmplifyService } from 'src/app/common/services/amplify.service';
+import { EMAIL_VALIDATORS, PASSWORD_VALIDATORS } from 'src/app/utils/form-validators';
 
 @Component({
   selector: 'app-forgot-password-submit',

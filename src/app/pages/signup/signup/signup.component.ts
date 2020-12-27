@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AmplifyService } from '../../../services/amplify.service';
+import { Component, OnInit } from '@angular/core';
 import { ISignUpResult } from 'amazon-cognito-identity-js';
-import { EMAIL_VALIDATORS, PASSWORD_VALIDATORS } from '../../../utils/form-validators';
-import { ROUTES} from '../../../utils/routes';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+
+import { ROUTES} from 'src/app/utils/routes';
+import { AmplifyService } from 'src/app/common/services/amplify.service';
+import { EMAIL_VALIDATORS, PASSWORD_VALIDATORS } from 'src/app/utils/form-validators';
 
 @Component({
   selector: 'app-signup',

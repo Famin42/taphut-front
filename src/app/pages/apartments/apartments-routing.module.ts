@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ShellComponent } from './shell/shell.component';
+import { ApartmentsComponent } from './apartments/apartments.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ShellComponent
+    component: ApartmentsComponent
   }
 ];
 

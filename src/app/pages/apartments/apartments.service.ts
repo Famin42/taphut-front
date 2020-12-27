@@ -3,16 +3,12 @@ import { ApolloQueryResult } from '@apollo/client';
 import { Apollo, gql } from 'apollo-angular';
 import {Observable, of} from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import {IPagination, IProduct} from '../utils/models';
+import {IPagination, IProduct} from '../../utils/models';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ProductService {
-  constructor(private apollo: Apollo) {
-  }
+@Injectable()
+export class ApartmentsService {
+  constructor(private apollo: Apollo) {}
 
-  // TODO add
   getProductPage(limit: number, token?: string): Observable<IPagination<IProduct[]>> {
     return this.query(limit, token)
     .pipe(

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
-import { AmplifyService } from '../../../services/amplify.service';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
-import { PASSWORD_VALIDATORS } from '../../../utils/form-validators';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+
+import { AmplifyService } from 'src/app/common/services/amplify.service';
+import { PASSWORD_VALIDATORS } from 'src/app/utils/form-validators';
 
 @Component({
   selector: 'app-change-password',

@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../../services/product.service';
+import { ApartmentsService } from '../apartments.service';
 import { IProduct } from '../../../utils/models';
 
 @Component({
-  selector: 'app-shell',
-  templateUrl: './shell.component.html',
-  styleUrls: ['./shell.component.scss']
+  selector: 'app-apartments',
+  templateUrl: './apartments.component.html',
+  styleUrls: ['./apartments.component.scss']
 })
-export class ShellComponent implements OnInit {
+export class ApartmentsComponent implements OnInit {
   productList: IProduct[] = [];
   token?: string;
   limit = 10;
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ApartmentsService) {
   }
 
   ngOnInit(): void {

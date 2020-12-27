@@ -2,17 +2,22 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
-import { SharedlModule } from 'src/app/modules';
+import { SharedlModule } from 'src/app/common/modules';
 import { ApartmentsRoutingModule } from './apartments-routing.module';
 
-import { ShellComponent } from './shell/shell.component';
+import { ApartmentsService } from './apartments.service';
+
+import { ApartmentsComponent } from './apartments/apartments.component';
 import { TelegramComponent } from './telegram/telegram.component';
 
 
 @NgModule({
   declarations: [
-    ShellComponent,
+    ApartmentsComponent,
     TelegramComponent
+  ],
+  providers: [
+    ApartmentsService
   ],
   imports: [
     CommonModule,

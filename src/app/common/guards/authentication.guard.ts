@@ -2,7 +2,7 @@ import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterSt
 import { Injectable } from '@angular/core';
 
 import { AmplifyService } from '../services/amplify.service';
-import {ROUTES} from '../utils/routes';
+import {ROUTES} from '../../utils/routes';
 
 @Injectable()
 export class AuthenticationGuard implements CanActivate, CanActivateChild {
