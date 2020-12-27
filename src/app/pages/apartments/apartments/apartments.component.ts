@@ -1,18 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { ApartmentsService } from '../apartments.service';
-import { IProduct } from '../../../utils/models';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+
+import { LoadApartments } from '../store/actions';
+import { apartmentsReducer } from '../store/reducers';
+import { getApartmentsData } from '../store/selectors/apartments.selectors';
 
 @Component({
   selector: 'app-apartments',
   templateUrl: './apartments.component.html',
-  styleUrls: ['./apartments.component.scss']
+  styleUrls: ['./apartments.component.scss'],
 })
-export class ApartmentsComponent implements OnInit {
-  productList: IProduct[] = [];
+export class ApartmentsComponent implements OnInit, OnDestroy {
+  apartments: IProduct[] = [];
   token?: string;
   limit = 10;
 
-  constructor(private productService: ApartmentsService) {
+  private subscription: Subscription;
+
+  constructor(private store: Store<IAppState>) {
+    this.store.addReducer('apartmentsState', apartmentsReducer);
+    this.subscription = this.store.pipe(select(getApartmentsData)).subscribe((res) => {
+      this.token = res.token;
+      this.apartments = [...this.apartments, ...res.data];
+    });
   }
 
   ngOnInit(): void {
@@ -24,13 +35,15 @@ export class ApartmentsComponent implements OnInit {
   }
 
   downloadData(): void {
-    if(!this.token && this.productList.length) { return; }
+    if (!this.token && this.apartments.length) {
+      return;
+    }
 
-    this.productService.getProductPage(this.limit, this.token).subscribe(
-      res => {
-        this.productList = [...this.productList, ...res.data];
-        this.token = res.token;
-      }
-    );
+    this.store.dispatch(new LoadApartments({ token: this.token, limit: this.limit }));
+  }
+
+  ngOnDestroy(): void {
+    this.store.removeReducer('apartmentsState');
+    this.subscription.unsubscribe();
   }
 }

@@ -4,10 +4,10 @@ interface IApartmentsParams {
 }
 
 type IOnlinerPaginationRes = {
-  onlinerApartments: ResData;
+  onlinerApartments: OnlinerResData;
 };
 
-type ResData = {
+type OnlinerResData = {
   nextToken: string | undefined; // if undefined, then it is the last page
   scannedCount: number; // same as limit, but in the answer
   items: OnlinerApartmentRow[];

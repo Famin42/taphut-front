@@ -9,15 +9,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ConfirmSignupComponent } from './confirm-signup/confirm-signup.component';
 
 @NgModule({
-  declarations: [
-    SignupComponent,
-    ConfirmSignupComponent
-  ],
-  imports: [
-    CommonModule,
-    SignupRoutingModule,
-    SharedlModule,
-    ReactiveFormsModule
-  ]
+  declarations: [SignupComponent, ConfirmSignupComponent],
+  imports: [CommonModule, SignupRoutingModule, SharedlModule, ReactiveFormsModule],
 })
-export class SignupModule { }
+export class SignupModule {}

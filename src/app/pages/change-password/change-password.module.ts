@@ -7,16 +7,8 @@ import { ChangePasswordRoutingModule } from './change-password-routing.module';
 
 import { ChangePasswordComponent } from './change-password/change-password.component';
 
-
 @NgModule({
-  declarations: [
-    ChangePasswordComponent
-  ],
-  imports: [
-    CommonModule,
-    ChangePasswordRoutingModule,
-    SharedlModule,
-    ReactiveFormsModule
-  ]
+  declarations: [ChangePasswordComponent],
+  imports: [CommonModule, ChangePasswordRoutingModule, SharedlModule, ReactiveFormsModule],
 })
-export class ChangePasswordModule { }
+export class ChangePasswordModule {}

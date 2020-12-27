@@ -1,32 +1,32 @@
-import {Injectable} from '@angular/core';
-import {Auth} from 'aws-amplify';
-import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
-import {fromPromise} from 'rxjs/internal-compatibility';
-import {ISignUpResult, CognitoUser} from 'amazon-cognito-identity-js';
-import {ICredentials} from 'aws-amplify/lib/Common/types/types';
+import { Injectable } from '@angular/core';
+import { Auth } from 'aws-amplify';
+import { Observable, ReplaySubject } from 'rxjs';
+import { fromPromise } from 'rxjs/internal-compatibility';
+import { ISignUpResult, CognitoUser } from 'amazon-cognito-identity-js';
+import { ICredentials } from 'aws-amplify/lib/Common/types/types';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AmplifyService {
-
-  public isAuthenticatedSubj: ReplaySubject<boolean>;
+  isAuthenticatedSubj: ReplaySubject<boolean>;
 
   get isAuthenticated(): Promise<boolean> {
-    return Auth.currentAuthenticatedUser().then(() => { 
-      this.isAuthenticatedSubj.next(true);
-      return true;
-    })
-    .catch(() => {
-      this.isAuthenticatedSubj.next(false);
-      return false;
-     });
+    return Auth.currentAuthenticatedUser()
+      .then(() => {
+        this.isAuthenticatedSubj.next(true);
+        return true;
+      })
+      .catch(() => {
+        this.isAuthenticatedSubj.next(false);
+        return false;
+      });
   }
 
   constructor(private router: Router) {
-    this.isAuthenticatedSubj = new ReplaySubject<boolean>(1)
+    this.isAuthenticatedSubj = new ReplaySubject<boolean>(1);
   }
 
   signIn(email: string, password: string): Observable<CognitoUser> {
@@ -34,7 +34,8 @@ export class AmplifyService {
       Auth.signIn({
         username: email.toLocaleLowerCase(),
         password,
-      }));
+      })
+    );
   }
 
   signOut(): Observable<any> {
@@ -48,15 +49,20 @@ export class AmplifyService {
         password,
         attributes: {
           email: email.toLocaleLowerCase(),
-        }
-      }));
+        },
+      })
+    );
   }
 
   confirmSignUp(email: string, code: string): Observable<any> {
     return fromPromise(Auth.confirmSignUp(email.toLocaleLowerCase(), code));
   }
 
-  changePassword(user: CognitoUser, oldPassword: string, newPassword: string): Observable<'SUCCESS'> {
+  changePassword(
+    user: CognitoUser,
+    oldPassword: string,
+    newPassword: string
+  ): Observable<'SUCCESS'> {
     return fromPromise(Auth.changePassword(user, oldPassword, newPassword));
   }
 

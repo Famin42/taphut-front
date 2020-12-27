@@ -7,16 +7,16 @@ import { ForgotPasswordSubmitComponent } from './forgot-password-submit/forgot-p
 const routes: Routes = [
   {
     path: '',
-    component: ForgotPasswordComponent
+    component: ForgotPasswordComponent,
   },
   {
     path: 'confirm',
-    component: ForgotPasswordSubmitComponent
-  }
+    component: ForgotPasswordSubmitComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ForgetPasswordRoutingModule { }
+export class ForgetPasswordRoutingModule {}

@@ -6,12 +6,12 @@ import { ApartmentsComponent } from './apartments/apartments.component';
 const routes: Routes = [
   {
     path: '',
-    component: ApartmentsComponent
-  }
+    component: ApartmentsComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ApartmentsRoutingModule { }
+export class ApartmentsRoutingModule {}

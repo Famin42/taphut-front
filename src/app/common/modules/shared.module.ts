@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 
-import {MatIconModule} from '@angular/material/icon';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatCardModule} from '@angular/material/card';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatSelectModule} from '@angular/material/select';
-import {MatButtonModule} from '@angular/material/button';
-
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 const MATERIAL_MODULES = [
   MatToolbarModule,
@@ -16,15 +15,11 @@ const MATERIAL_MODULES = [
   MatFormFieldModule,
   MatSelectModule,
   MatIconModule,
-  MatButtonModule
+  MatButtonModule,
 ];
 
 @NgModule({
-  imports: [
-    ...MATERIAL_MODULES
-  ],
-  exports: [
-    ...MATERIAL_MODULES
-  ]
+  imports: [...MATERIAL_MODULES],
+  exports: [...MATERIAL_MODULES],
 })
-export class SharedlModule { }
+export class SharedlModule {}

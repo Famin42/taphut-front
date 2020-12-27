@@ -1,33 +1,49 @@
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  CanActivateChild,
+  Router,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router';
 import { Injectable } from '@angular/core';
 
 import { AmplifyService } from '../services/amplify.service';
-import {ROUTES} from '../../utils/routes';
+import { ROUTES } from '../../utils/routes';
 
 @Injectable()
 export class AuthenticationGuard implements CanActivate, CanActivateChild {
+  constructor(private router: Router, private amplify: AmplifyService) {}
 
-    constructor(private router: Router, private amplify: AmplifyService) { }
+  async canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Promise<true | UrlTree> {
+    return await this.checkAuth(route, state);
+  }
 
-    async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<true | UrlTree> {
-        return await this.checkAuth(route, state);
+  async canActivateChild(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Promise<true | UrlTree> {
+    return await this.checkAuth(route, state);
+  }
+
+  private async checkAuth(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    { queryParams }: ActivatedRouteSnapshot,
+    { url }: RouterStateSnapshot
+  ): Promise<true | UrlTree> {
+    if (await this.amplify.isAuthenticated) {
+      return true;
     }
 
-    async canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<true | UrlTree> {
-        return await this.checkAuth(route, state);
+    if (url.split('?').length) {
+      url = url.split('?')[0];
     }
 
-    private async checkAuth({ queryParams }: ActivatedRouteSnapshot, {url}: RouterStateSnapshot): Promise<true | UrlTree>{
-        if (await this.amplify.isAuthenticated) {
-            return true;
-        }
+    const redirectTo = ROUTES.signin.split('/');
 
-        if (url.split('?').length) {
-            url = url.split('?')[0];
-        }
-
-        const redirectTo = ROUTES.signin.split('/');
-
-        return this.router.createUrlTree(['/', ...redirectTo]);
-    }
+    return this.router.createUrlTree(['/', ...redirectTo]);
+  }
 }

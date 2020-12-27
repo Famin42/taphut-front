@@ -6,12 +6,12 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 const routes: Routes = [
   {
     path: '',
-    component: ChangePasswordComponent
-  }
+    component: ChangePasswordComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ChangePasswordRoutingModule { }
+export class ChangePasswordRoutingModule {}

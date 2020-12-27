@@ -7,11 +7,10 @@ import { ROUTES } from 'src/app/utils/routes';
 import { AmplifyService } from 'src/app/common/services/amplify.service';
 import { EMAIL_VALIDATORS, PASSWORD_VALIDATORS } from 'src/app/utils/form-validators';
 
-
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.scss']
+  styleUrls: ['./signin.component.scss'],
 })
 export class SigninComponent implements OnInit {
   isInvalidCredits = false;
@@ -33,10 +32,14 @@ export class SigninComponent implements OnInit {
     return this.signinForm.get('password');
   }
 
-  constructor(private authService: AmplifyService, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private authService: AmplifyService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       this.email?.setValue(params.email || '');
     });
   }
@@ -46,10 +49,10 @@ export class SigninComponent implements OnInit {
 
     if (this.signinForm.valid && this.email && this.password) {
       this.authService.signIn(this.email.value, this.password.value).subscribe(
-        value => {
+        (value) => {
           this.handleLogin(value);
         },
-        error => {
+        (error) => {
           this.handleRequestError(error);
         }
       );

@@ -31,6 +31,7 @@
     "@angular/router": "~11.0.1",
     "@apollo/client": "^3.3.6",
     "@aws-amplify/ui-angular": "^0.4.15",
+    "@ngrx/effects": "^10.1.2",
     "@ngrx/store": "^10.1.2",
     "@ngrx/store-devtools": "^10.1.2",
     "@types/graphql": "^14.5.0",

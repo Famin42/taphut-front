@@ -9,7 +9,7 @@ import { ROUTES } from 'src/app/utils/routes';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.scss']
+  styleUrls: ['./forgot-password.component.scss'],
 })
 export class ForgotPasswordComponent implements OnInit {
   isInvalidCredits = false;
@@ -22,10 +22,14 @@ export class ForgotPasswordComponent implements OnInit {
     return this.forgotPasswordForm.get('email');
   }
 
-  constructor(private authService: AmplifyService, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private authService: AmplifyService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       this.email?.setValue(params.email || '');
     });
   }
@@ -35,10 +39,10 @@ export class ForgotPasswordComponent implements OnInit {
 
     if (this.forgotPasswordForm.valid && this.email) {
       this.authService.forgotPassword(this.email.value).subscribe(
-        value => {
+        (value) => {
           this.handleRequest(value);
         },
-        error => {
+        (error) => {
           this.handleRequestError(error);
         }
       );
@@ -48,7 +52,9 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   private handleRequest(value: any): void {
-    this.router.navigate([ROUTES.passwordForgerConfirm], {queryParams: {email: this.email?.value}});
+    this.router.navigate([ROUTES.passwordForgerConfirm], {
+      queryParams: { email: this.email?.value },
+    });
     console.log('request value: ' + value);
   }
 
