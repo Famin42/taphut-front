@@ -1,6 +1,6 @@
 interface IApartmentsState {
   loading: boolean;
-  data: OnlinerResData | undefined;
+  data: OnlinerResData;
   error: unknown;
 }
 

@@ -22,7 +22,7 @@ export class ApartmentsComponent implements OnInit, OnDestroy {
     this.store.addReducer('apartmentsState', apartmentsReducer);
     this.subscription = this.store.pipe(select(getApartmentsData)).subscribe((res) => {
       this.token = res.token;
-      this.apartments = [...this.apartments, ...res.data];
+      this.apartments = res.data;
     });
   }
 
