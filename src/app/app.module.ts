@@ -26,7 +26,6 @@ const GUARDS = [AuthenticationGuard];
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    BrowserModule,
     GraphQLModule,
     SharedlModule,
     StoreModule.forRoot({}),

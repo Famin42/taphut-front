@@ -13,7 +13,7 @@ describe('Apartments Selectors', () => {
   };
 
   it('should return apartments data from AppState', () => {
-    expect(_.isEqual(getApartmentsData(appState), appState.apartmentsState.data)).toBeTruthy();
+    expect(_.isEqual(getApartmentsData(appState), { token: undefined, data: [] })).toBeTruthy();
   });
 
   it('should return apartments loading from AppState', () => {

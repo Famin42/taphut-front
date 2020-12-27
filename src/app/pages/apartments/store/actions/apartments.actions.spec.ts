@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 
 import * as ApartmentsActions from './apartments.actions';
-import { MOCK_ONLINER_PAGINATION_RES } from 'src/app/common/mocks';
+import { MOCK_ONLINER_APARTMENTS } from 'src/app/common/mocks';
 
 const LIMIT = 10;
 
@@ -23,7 +23,7 @@ describe('Apartments Actions', () => {
     expect(action.payload).toEqual(expectedPayload);
   });
   it('should create a LoadApartmentsSuccess action', () => {
-    const expectedPayload: IOnlinerPaginationRes = _.cloneDeep(MOCK_ONLINER_PAGINATION_RES);
+    const expectedPayload: OnlinerResData = _.cloneDeep(MOCK_ONLINER_APARTMENTS);
     const action: ApartmentsActions.LoadApartmentsSuccess = new ApartmentsActions.LoadApartmentsSuccess(
       expectedPayload
     );

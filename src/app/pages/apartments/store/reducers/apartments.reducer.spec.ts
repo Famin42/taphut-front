@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { MOCK_ONLINER_PAGINATION_RES } from 'src/app/common/mocks';
+import { MOCK_ONLINER_APARTMENTS } from 'src/app/common/mocks';
 
 import * as apartments from '../actions/apartments.actions';
 import { apartmentsInitialState, apartmentsReducer } from './apartments.reducer';
@@ -28,11 +28,11 @@ describe('Apartments Reducer', () => {
   });
 
   it('should execute GET_APARTMENTS_SUCCESS case', () => {
-    const payload: IOnlinerPaginationRes = MOCK_ONLINER_PAGINATION_RES;
+    const payload: OnlinerResData = MOCK_ONLINER_APARTMENTS;
     const expectedState: IApartmentsState = {
       ..._.cloneDeep(apartmentsInitialState),
       loading: false,
-      data: MOCK_ONLINER_PAGINATION_RES.onlinerApartments,
+      data: MOCK_ONLINER_APARTMENTS,
     };
     const action: apartments.LoadApartmentsSuccess = new apartments.LoadApartmentsSuccess(payload);
 

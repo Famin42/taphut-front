@@ -1,4 +1,3 @@
-import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
@@ -26,7 +25,7 @@ export class ChangePasswordComponent {
     return this.forgotPasswordForm.get('newPassword');
   }
 
-  constructor(private authService: AmplifyService, private router: Router) {}
+  constructor(private authService: AmplifyService) {}
 
   submit(): void {
     this.forgotPasswordForm.markAllAsTouched();

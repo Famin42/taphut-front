@@ -1,5 +1,13 @@
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { of } from 'rxjs';
+
+import { AmplifyService } from 'src/app/common/services/amplify.service';
+
+import { SharedlModule } from 'src/app/common/modules';
 import { ForgotPasswordSubmitComponent } from './forgot-password-submit.component';
 
 describe('ForgotPasswordSubmitComponent', () => {
@@ -9,6 +17,16 @@ describe('ForgotPasswordSubmitComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ForgotPasswordSubmitComponent],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            queryParams: of({}),
+          },
+        },
+        { provide: AmplifyService, useValue: {} },
+      ],
+      imports: [RouterTestingModule, SharedlModule, BrowserAnimationsModule],
     }).compileComponents();
   });
 
