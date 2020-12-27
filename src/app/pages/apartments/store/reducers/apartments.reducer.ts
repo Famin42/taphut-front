@@ -2,7 +2,11 @@ import { ApartmentsAction, ApartmentsTypes } from '../actions';
 
 export const apartmentsInitialState: IApartmentsState = {
   loading: false,
-  data: undefined,
+  data: {
+    nextToken: undefined,
+    scannedCount: 0,
+    items: [],
+  },
   error: undefined,
 };
 
@@ -10,6 +14,8 @@ export function apartmentsReducer(
   state: IApartmentsState = apartmentsInitialState,
   action: ApartmentsAction
 ): IApartmentsState {
+  const items: OnlinerApartmentRow[] = state.data.items;
+
   switch (action.type) {
     case ApartmentsTypes.GET_APARTMENTS:
       return {
@@ -26,7 +32,11 @@ export function apartmentsReducer(
       return {
         ...state,
         loading: false,
-        data: action.payload,
+        data: {
+          nextToken: action.payload.nextToken,
+          items: [...items, ...action.payload.items],
+          scannedCount: state.data.scannedCount + action.payload.scannedCount,
+        },
       };
 
     default:
