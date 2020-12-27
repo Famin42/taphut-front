@@ -1,5 +1,4 @@
-import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
@@ -9,9 +8,9 @@ import { PASSWORD_VALIDATORS } from 'src/app/utils/form-validators';
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.scss']
+  styleUrls: ['./change-password.component.scss'],
 })
-export class ChangePasswordComponent implements OnInit {
+export class ChangePasswordComponent {
   isInvalidCredits = false;
   forgotPasswordForm = new FormGroup({
     oldPassword: new FormControl('', PASSWORD_VALIDATORS),
@@ -26,10 +25,7 @@ export class ChangePasswordComponent implements OnInit {
     return this.forgotPasswordForm.get('newPassword');
   }
 
-  constructor(private authService: AmplifyService, private router: Router) { }
-
-  ngOnInit(): void {
-  }
+  constructor(private authService: AmplifyService) {}
 
   submit(): void {
     this.forgotPasswordForm.markAllAsTouched();
@@ -38,17 +34,17 @@ export class ChangePasswordComponent implements OnInit {
       const oldPassword = this.oldPassword.value;
       const newPassword = this.newPassword.value;
 
-      this.authService.currentAuthenticatedUser()
-        .pipe(
-          switchMap(user => this.authService.changePassword(user, oldPassword, newPassword))
-        )
+      this.authService
+        .currentAuthenticatedUser()
+        .pipe(switchMap((user) => this.authService.changePassword(user, oldPassword, newPassword)))
         .subscribe(
-          value => {
+          (value) => {
             this.handleRequest(value);
           },
-          error => {
+          (error) => {
             this.handleRequestError(error);
-          });
+          }
+        );
     } else {
       console.warn('From is invalid: ' + this.forgotPasswordForm);
     }

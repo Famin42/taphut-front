@@ -9,14 +9,14 @@ import { AmplifyService } from 'src/app/common/services/amplify.service';
 @Component({
   selector: 'app-confirm-signup',
   templateUrl: './confirm-signup.component.html',
-  styleUrls: ['./confirm-signup.component.scss']
+  styleUrls: ['./confirm-signup.component.scss'],
 })
 export class ConfirmSignupComponent implements OnInit {
   isInvalidCredits = false;
 
   confirmSignupForm = new FormGroup({
     email: new FormControl('', EMAIL_VALIDATORS),
-    code: new FormControl('', [Validators.required])
+    code: new FormControl('', [Validators.required]),
   });
 
   get email(): AbstractControl | null {
@@ -27,10 +27,14 @@ export class ConfirmSignupComponent implements OnInit {
     return this.confirmSignupForm.get('code');
   }
 
-  constructor(private authService: AmplifyService, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private authService: AmplifyService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       this.email?.setValue(params.email || '');
       this.code?.setValue(params.code || '');
     });
@@ -41,10 +45,10 @@ export class ConfirmSignupComponent implements OnInit {
 
     if (this.confirmSignupForm.valid && this.email && this.code) {
       this.authService.confirmSignUp(this.email.value, this.code.value).subscribe(
-        value => {
+        (value) => {
           this.handleRequest(value);
         },
-        error => {
+        (error) => {
           this.handleRequestError(error);
         }
       );
@@ -55,7 +59,7 @@ export class ConfirmSignupComponent implements OnInit {
 
   private handleRequest(value: any): void {
     console.log('request value: ' + value);
-    this.router.navigate([ROUTES.signin], {queryParams: {email: this.email?.value}});
+    this.router.navigate([ROUTES.signin], { queryParams: { email: this.email?.value } });
   }
 
   private handleRequestError(error: any): void {

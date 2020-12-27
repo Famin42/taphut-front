@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
@@ -11,38 +12,36 @@ import { setContext } from '@apollo/client/link/context';
 
 const { uri, token, header } = environment.GraphQL.Public;
 
-export function createApollo(httpLink: HttpLink) {
+export function createApollo(httpLink: HttpLink): unknown {
   const basic = setContext((operation, context) => ({
     headers: {
-      Accept: 'charset=utf-8'
-    }
+      Accept: 'charset=utf-8',
+    },
   }));
 
-  const auth = setContext((operation, context) => {
-      return {
-        headers: {
-          [header]: token
-        }
-      };
-  });
+  const auth = setContext((operation, context) => ({
+    headers: {
+      [header]: token,
+    },
+  }));
 
   const link = ApolloLink.from([basic, auth, httpLink.create({ uri })]);
   const cache = new InMemoryCache();
 
   return {
     link,
-    cache
-  }
+    cache,
+  };
 }
 
 @NgModule({
-  exports: [
-    HttpClientModule,
+  exports: [HttpClientModule],
+  providers: [
+    {
+      provide: APOLLO_OPTIONS,
+      useFactory: createApollo,
+      deps: [HttpLink],
+    },
   ],
-  providers: [{
-    provide: APOLLO_OPTIONS,
-    useFactory: createApollo,
-    deps: [HttpLink]
-  }]
 })
 export class GraphQLModule {}

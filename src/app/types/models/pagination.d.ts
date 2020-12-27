@@ -1,4 +1,4 @@
-export interface IProduct {
+interface IProduct {
   id: string;
   title: string;
   description: string;
@@ -8,7 +8,7 @@ export interface IProduct {
   imageLink: string;
 }
 
-export interface IPagination<T> {
+interface IPagination<T> {
   token?: string;
   limit: number;
   data: T;

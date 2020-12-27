@@ -1,25 +1,25 @@
 <app-telegram></app-telegram>
 <div></div>
 
-<div infiniteScroll
+<div
+  infiniteScroll
   [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="50"
   (scrolled)="onScroll()"
-     class="container"
+  class="container"
 >
-  
-  <mat-card *ngFor="let product of productList" class="example-card">
+  <mat-card *ngFor="let product of apartments" class="example-card">
     <mat-card-header>
-      <mat-card-title><a class="source-link" [href]="product.sourceLink">{{product.title}}</a></mat-card-title>
-      <mat-card-subtitle>{{product.price + ' - ' + product.location}}</mat-card-subtitle>
+      <mat-card-title
+        ><a class="source-link" [href]="product.sourceLink">{{ product.title }}</a></mat-card-title
+      >
+      <mat-card-subtitle>{{ product.price + ' - ' + product.location }}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image [src]="product.imageLink" alt="Photo of a Shiba Inu">
+    <img mat-card-image [src]="product.imageLink" alt="Photo of a Shiba Inu" />
     <mat-card-content>
       <p>
-        {{product.description}}
+        {{ product.description }}
       </p>
     </mat-card-content>
   </mat-card>
 </div>
-
-

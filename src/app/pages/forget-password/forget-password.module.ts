@@ -9,15 +9,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ForgotPasswordSubmitComponent } from './forgot-password-submit/forgot-password-submit.component';
 
 @NgModule({
-  declarations: [
-    ForgotPasswordComponent,
-    ForgotPasswordSubmitComponent
-  ],
-  imports: [
-    CommonModule,
-    ForgetPasswordRoutingModule,
-    SharedlModule,
-    ReactiveFormsModule
-  ]
+  declarations: [ForgotPasswordComponent, ForgotPasswordSubmitComponent],
+  imports: [CommonModule, ForgetPasswordRoutingModule, SharedlModule, ReactiveFormsModule],
 })
-export class ForgetPasswordModule { }
+export class ForgetPasswordModule {}

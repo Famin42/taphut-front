@@ -7,16 +7,16 @@ import { SignupComponent } from './signup/signup.component';
 const routes: Routes = [
   {
     path: '',
-    component: SignupComponent
+    component: SignupComponent,
   },
   {
     path: 'confirm',
     component: ConfirmSignupComponent,
-  }
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class SignupRoutingModule { }
+export class SignupRoutingModule {}

@@ -2,7 +2,7 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
+export const environment: IEnv = {
   production: false,
   AmplifyConfig: {
     region: 'us-east-1',
@@ -14,9 +14,9 @@ export const environment = {
     Public: {
       token: 'da2-ifkbkodsnrbhllvol5aksnd34i',
       header: 'x-api-key',
-      uri: 'https://gnbbtz4fsnbvzen5fmu3azqw24.appsync-api.us-east-1.amazonaws.com/graphql'
-    }
-  }
+      uri: 'https://gnbbtz4fsnbvzen5fmu3azqw24.appsync-api.us-east-1.amazonaws.com/graphql',
+    },
+  },
 };
 
 /*
