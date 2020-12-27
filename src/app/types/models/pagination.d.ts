@@ -6,6 +6,7 @@ interface IProduct {
   location: string;
   sourceLink: string;
   imageLink: string;
+  currency: string;
 }
 
 interface IPagination<T> {

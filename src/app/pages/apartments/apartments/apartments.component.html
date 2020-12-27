@@ -13,7 +13,10 @@
       <mat-card-title
         ><a class="source-link" [href]="product.sourceLink">{{ product.title }}</a></mat-card-title
       >
-      <mat-card-subtitle>{{ product.price + ' - ' + product.location }}</mat-card-subtitle>
+      <mat-card-subtitle
+        >{{ product.price | currency: product.currency }} -
+        {{ product.location }}</mat-card-subtitle
+      >
     </mat-card-header>
     <img mat-card-image [src]="product.imageLink" alt="Photo of a Shiba Inu" />
     <mat-card-content>

@@ -32,6 +32,7 @@ function convertToProduct(item: OnlinerApartmentRow): IProduct {
     title: item.apartment.rent_type.split('_').concat(' ').toString(),
     description: item.apartment.location.address,
     price: item.apartment.price.amount,
+    currency: item.apartment.price.currency,
     location: item.apartment.location.address,
     sourceLink: item.apartment.url,
     imageLink: item.apartment.photo,

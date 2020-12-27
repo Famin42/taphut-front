@@ -1,21 +1,27 @@
+@import '~@angular/material/theming';
+
 .container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 
-    .example-card {
-      width: 25vw;
-      min-width: 350px;
-      height: 25vw;
-      min-height: 350px;
-      margin: 20px;
-    
-      .source-link {
-        color: black;
-      }
+  .example-card {
+    width: 25vw;
+    min-width: 350px;
+    height: 25vw;
+    min-height: 350px;
+    margin: 20px;
+
+    &:hover {
+      cursor: pointer;
+      @include mat-elevation(10);
+    }
+
+    .source-link {
+      color: black;
+    }
   }
 }
-
 
 .mat-card-image {
   object-fit: cover;
