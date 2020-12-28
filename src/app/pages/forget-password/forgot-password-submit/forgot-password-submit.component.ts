@@ -60,7 +60,8 @@ export class ForgotPasswordSubmitComponent implements OnInit {
           }
         );
     } else {
-      console.warn('From is invalid: ' + this.forgotPasswordSubmitForm);
+      console.warn('From is invalid:');
+      console.warn(this.forgotPasswordSubmitForm);
     }
   }
 
