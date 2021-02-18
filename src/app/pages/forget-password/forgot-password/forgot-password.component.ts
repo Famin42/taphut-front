@@ -47,7 +47,7 @@ export class ForgotPasswordComponent implements OnInit {
         }
       );
     } else {
-      console.warn('From is invalid: ' + this.forgotPasswordForm);
+      console.warn('From is invalid: ', this.forgotPasswordForm);
     }
   }
 
@@ -55,13 +55,13 @@ export class ForgotPasswordComponent implements OnInit {
     this.router.navigate([ROUTES.passwordForgerConfirm], {
       queryParams: { email: this.email?.value },
     });
-    console.log('request value: ' + value);
+    console.log('request value: ', value);
   }
 
   private handleRequestError(error: any): void {
     this.isInvalidCredits = true;
     this.forgotPasswordForm.markAsUntouched();
     this.email?.setValue('');
-    console.log('request error: ' + error);
+    console.log('request error: ', error);
   }
 }

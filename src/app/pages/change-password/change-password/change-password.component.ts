@@ -46,16 +46,16 @@ export class ChangePasswordComponent {
           }
         );
     } else {
-      console.warn('From is invalid: ' + this.forgotPasswordForm);
+      console.warn('From is invalid: ', this.forgotPasswordForm);
     }
   }
 
   private handleRequest(value: any): void {
-    console.log('request value: ' + value);
+    console.log('request value: ', value);
   }
 
   private handleRequestError(error: any): void {
-    console.log('request error: ' + error);
+    console.log('request error: ', error);
     this.isInvalidCredits = true;
     this.forgotPasswordForm.markAsUntouched();
     this.newPassword?.setValue('');

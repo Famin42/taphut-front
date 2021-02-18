@@ -57,17 +57,17 @@ export class SigninComponent implements OnInit {
         }
       );
     } else {
-      console.warn('From is invalid: ' + this.signinForm);
+      console.warn('From is invalid: ', this.signinForm);
     }
   }
 
   private handleLogin(value: CognitoUser): void {
-    console.log('login value: ' + value);
+    console.log('login value: ', value);
     this.router.navigate(['']);
   }
 
   private handleRequestError(error: any): void {
-    console.log('login error: ' + error);
+    console.log('login error: ', error);
     this.isInvalidCredits = true;
     this.signinForm.markAsUntouched();
     this.password?.setValue('');

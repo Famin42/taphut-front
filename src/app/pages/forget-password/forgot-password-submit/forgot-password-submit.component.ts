@@ -60,18 +60,17 @@ export class ForgotPasswordSubmitComponent implements OnInit {
           }
         );
     } else {
-      console.warn('From is invalid:');
-      console.warn(this.forgotPasswordSubmitForm);
+      console.warn('From is invalid:', this.forgotPasswordSubmitForm);
     }
   }
 
   private handleRequest(value: any): void {
     this.router.navigate([ROUTES.signin], { queryParams: { email: this.email?.value } });
-    console.log('request value: ' + value);
+    console.log('request value: ', value);
   }
 
   private handleRequestError(error: any): void {
-    console.log('request error: ' + error);
+    console.log('request error: ', error);
     this.isInvalidCredits = true;
     this.forgotPasswordSubmitForm.markAsUntouched();
     this.code?.setValue('');

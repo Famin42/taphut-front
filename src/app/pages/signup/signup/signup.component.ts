@@ -41,16 +41,16 @@ export class SignupComponent {
         }
       );
     } else {
-      console.warn('From is invalid: ' + this.signupForm);
+      console.warn('From is invalid: ', this.signupForm);
     }
   }
 
   private handleRegistration(value: ISignUpResult): void {
     this.router.navigate([ROUTES.signupConfirm], { queryParams: { email: this.email?.value } });
-    console.log('register value: ' + value);
+    console.log('register value: ', value);
   }
 
   private handleRequestError(error: any): void {
-    console.log('register error: ' + error);
+    console.log('register error: ', error);
   }
 }

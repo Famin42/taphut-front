@@ -53,17 +53,17 @@ export class ConfirmSignupComponent implements OnInit {
         }
       );
     } else {
-      console.warn('From is invalid: ' + this.confirmSignupForm);
+      console.warn('From is invalid: ', this.confirmSignupForm);
     }
   }
 
   private handleRequest(value: any): void {
-    console.log('request value: ' + value);
+    console.log('request value: ', value);
     this.router.navigate([ROUTES.signin], { queryParams: { email: this.email?.value } });
   }
 
   private handleRequestError(error: any): void {
-    console.log('request error: ' + error);
+    console.log('request error: ', error);
     this.isInvalidCredits = true;
     this.confirmSignupForm.markAsUntouched();
     this.code?.setValue('');
