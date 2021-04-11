@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, ElementRef, ViewChild, NgZone } from '@angular/core';
-import { AmplifyService } from 'src/app/core/services/amplify.service';
+
 import { environment } from 'src/environments/environment';
+import { AmplifyService } from 'src/app/core';
 
 @Component({
   selector: 'app-telegram',

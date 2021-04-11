@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AmplifyService } from './core/services';
+import { AmplifyService } from './core/';
 import { ROUTES } from './utils/routes';
 
 @Component({

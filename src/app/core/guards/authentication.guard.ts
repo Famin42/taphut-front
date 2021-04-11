@@ -8,7 +8,7 @@ import {
 } from '@angular/router';
 import { Injectable } from '@angular/core';
 
-import { AmplifyService } from 'src/app/core/services';
+import { AmplifyService } from 'src/app/core';
 import { ROUTES } from '../../utils/routes';
 
 @Injectable()

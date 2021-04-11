@@ -10,9 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { SharedlModule } from './common/modules';
-import { GraphQLModule } from './core/modules';
-
-import { AuthenticationGuard } from './core/guards';
+import { AuthenticationGuard, clearState, GraphQLModule } from './core';
 
 import { AppComponent } from './app.component';
 
@@ -29,7 +27,7 @@ const GUARDS = [AuthenticationGuard];
     AppRoutingModule,
     GraphQLModule,
     SharedlModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(rootReducers, { metaReducers: [clearState] }),
     EffectsModule.forRoot(),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],

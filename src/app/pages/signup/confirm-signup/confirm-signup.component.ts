@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { ROUTES } from 'src/app/utils/routes';
 import { EMAIL_VALIDATORS } from 'src/app/utils/form-validators';
-import { AmplifyService } from 'src/app/core/services/amplify.service';
+import { AmplifyService } from 'src/app/core';
+import { ROUTES } from 'src/app/utils/routes';
 
 @Component({
   selector: 'app-confirm-signup',

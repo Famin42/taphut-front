@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { ISignUpResult } from 'amazon-cognito-identity-js';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
-import { ROUTES } from 'src/app/utils/routes';
-import { AmplifyService } from 'src/app/core/services/amplify.service';
 import { EMAIL_VALIDATORS, PASSWORD_VALIDATORS } from 'src/app/utils/form-validators';
+import { ROUTES } from 'src/app/utils/routes';
+import { AmplifyService } from 'src/app/core';
 
 @Component({
   selector: 'app-signup',

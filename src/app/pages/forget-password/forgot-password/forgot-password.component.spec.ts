@@ -5,9 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of } from 'rxjs';
 
-import { SharedlModule } from 'src/app/common/modules';
 import { ForgotPasswordComponent } from './forgot-password.component';
-import { AmplifyService } from 'src/app/core/services/amplify.service';
+import { SharedlModule } from 'src/app/common/modules';
+import { AmplifyService } from 'src/app/core';
 
 describe('ForgotPasswordComponent', () => {
   let component: ForgotPasswordComponent;

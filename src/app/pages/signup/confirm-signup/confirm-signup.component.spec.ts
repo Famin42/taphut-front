@@ -6,10 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of } from 'rxjs';
 
-import { AmplifyService } from 'src/app/core/services/amplify.service';
-
-import { SharedlModule } from 'src/app/common/modules';
 import { ConfirmSignupComponent } from './confirm-signup.component';
+import { SharedlModule } from 'src/app/common/modules';
+import { AmplifyService } from 'src/app/core';
 
 describe('ConfirmSignupComponent', () => {
   let component: ConfirmSignupComponent;
