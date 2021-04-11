@@ -1,14 +1,27 @@
- <mat-toolbar color="primary" class="example-toolbar">
+<mat-toolbar color="primary" class="example-toolbar">
   <h1 class="header-title big">Taphut</h1>
   <span class="flex-1"></span>
 
   <button *ngIf="amplify.isAuthenticatedSubj | async" mat-button (click)="logout()">logout</button>
-   <a *ngIf="amplify.isAuthenticatedSubj | async" mat-button [routerLink]="['/', 'auth', 'password', 'change']">password change</a>
-   <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'signin']">signin</a>
-   <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'signup']">signup</a>
-<!--   <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'signup', 'confirm']">signup confirm</a>-->
-<!--   <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'password', 'forget']">forget password</a>-->
-<!--   <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'password', 'forget', 'confirm']">forget password confirm</a>-->
+  <a *ngIf="amplify.isAuthenticatedSubj | async" mat-button [routerLink]="['/']">main</a>
+  <a *ngIf="amplify.isAuthenticatedSubj | async" mat-button [routerLink]="['/', 'settings']"
+    >settings</a
+  >
+  <a
+    *ngIf="!(amplify.isAuthenticatedSubj | async)"
+    mat-button
+    [routerLink]="['/', 'auth', 'signin']"
+    >signin</a
+  >
+  <a
+    *ngIf="!(amplify.isAuthenticatedSubj | async)"
+    mat-button
+    [routerLink]="['/', 'auth', 'signup']"
+    >signup</a
+  >
+  <!--   <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'signup', 'confirm']">signup confirm</a>-->
+  <!--   <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'password', 'forget']">forget password</a>-->
+  <!--   <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'password', 'forget', 'confirm']">forget password confirm</a>-->
 </mat-toolbar>
 
 <router-outlet></router-outlet>

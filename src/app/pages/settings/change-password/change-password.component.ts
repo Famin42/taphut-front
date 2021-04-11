@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
@@ -9,6 +9,7 @@ import { PASSWORD_VALIDATORS } from 'src/app/utils/form-validators';
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ChangePasswordComponent {
   isInvalidCredits = false;

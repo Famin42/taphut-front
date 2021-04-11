@@ -12,9 +12,8 @@ const routes: Routes = [
   },
   {
     canActivate: [AuthenticationGuard],
-    path: 'auth/password/change',
-    loadChildren: () =>
-      import('./pages/change-password/change-password.module').then((m) => m.ChangePasswordModule),
+    path: 'settings',
+    loadChildren: () => import('./pages/settings/settings.module').then((m) => m.SettingsModule),
   },
   {
     path: 'auth/signin',
