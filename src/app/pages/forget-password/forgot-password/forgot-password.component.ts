@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
-import { AmplifyService } from 'src/app/common/services/amplify.service';
+import { AmplifyService } from 'src/app/core/services/amplify.service';
 import { EMAIL_VALIDATORS } from 'src/app/utils/form-validators';
 import { ROUTES } from 'src/app/utils/routes';
 

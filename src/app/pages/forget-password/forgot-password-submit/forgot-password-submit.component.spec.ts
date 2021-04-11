@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { of } from 'rxjs';
 
-import { AmplifyService } from 'src/app/common/services/amplify.service';
+import { AmplifyService } from 'src/app/core/services/amplify.service';
 
 import { SharedlModule } from 'src/app/common/modules';
 import { ForgotPasswordSubmitComponent } from './forgot-password-submit.component';

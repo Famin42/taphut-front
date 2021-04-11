@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 
 import { SharedlModule } from 'src/app/common/modules';
 import { ForgotPasswordComponent } from './forgot-password.component';
-import { AmplifyService } from 'src/app/common/services/amplify.service';
+import { AmplifyService } from 'src/app/core/services/amplify.service';
 
 describe('ForgotPasswordComponent', () => {
   let component: ForgotPasswordComponent;
