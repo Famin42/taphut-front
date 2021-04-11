@@ -9,9 +9,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
-import { GraphQLModule, SharedlModule } from './common/modules';
+import { SharedlModule } from './common/modules';
+import { GraphQLModule } from './core/modules';
 
-import { AuthenticationGuard } from './common/guards/authentication.guard';
+import { AuthenticationGuard } from './core/guards';
 
 import { AppComponent } from './app.component';
 
