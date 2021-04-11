@@ -29,6 +29,15 @@ export class AmplifyService {
     this.isAuthenticatedSubj = new ReplaySubject<boolean>(1);
   }
 
+  async updateUser(
+    attrs: Record<string, string | number | boolean | null | undefined>
+  ): Promise<void> {
+    console.log('updateUser');
+    console.log(attrs);
+    const user = await Auth.currentAuthenticatedUser();
+    await Auth.updateUserAttributes(user, attrs);
+  }
+
   signIn(email: string, password: string): Observable<CognitoUser> {
     return fromPromise(
       Auth.signIn({
@@ -36,10 +45,6 @@ export class AmplifyService {
         password,
       })
     );
-  }
-
-  signOut(): Observable<any> {
-    return fromPromise(Auth.signOut());
   }
 
   signUp(email: string, password: string): Observable<ISignUpResult> {
