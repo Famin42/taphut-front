@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, ElementRef, ViewChild, NgZone } from '@angular/core';
+import { AmplifyService } from 'src/app/common/services/amplify.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -12,16 +13,17 @@ export class TelegramComponent implements AfterViewInit {
   @ViewChild('script', { static: true })
   script!: ElementRef;
 
-  constructor(private ngZone: NgZone) {
-    (window as any)['loginViaTelegram'] = (loginData: unknown) => this.loginViaTelegram(loginData);
+  constructor(private ngZone: NgZone, private amplifyService: AmplifyService) {
+    (window as any)['loginViaTelegram'] = (loginData: ITelegramCallbackResutl) =>
+      this.loginViaTelegram(loginData);
   }
 
   public ngAfterViewInit(): void {
     this.convertToScript();
   }
 
-  private loginViaTelegram(loginData: unknown) {
-    console.log(loginData);
+  private loginViaTelegram({ id }: ITelegramCallbackResutl) {
+    this.amplifyService.updateUser({ 'custom:chatId': id.toString() }).then();
     // If the login should trigger view changes, run it within the NgZone.
     // this.ngZone.run(() => console.log(loginRequest));
   }
