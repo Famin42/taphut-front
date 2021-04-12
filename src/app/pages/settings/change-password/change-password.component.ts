@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
 
 import { AmplifyService } from 'src/app/core/services/amplify.service';
+import { SnackbarService } from 'src/app/core/services/snackbar.service';
 import { PASSWORD_VALIDATORS } from 'src/app/utils/form-validators';
 
 @Component({
@@ -26,7 +27,7 @@ export class ChangePasswordComponent {
     return this.forgotPasswordForm.get('newPassword');
   }
 
-  constructor(private authService: AmplifyService) {}
+  constructor(private authService: AmplifyService, private snackBService: SnackbarService) {}
 
   submit(): void {
     this.forgotPasswordForm.markAllAsTouched();
@@ -53,10 +54,12 @@ export class ChangePasswordComponent {
 
   private handleRequest(value: any): void {
     console.log('request value: ', value);
+    this.snackBService.openSnackBar('Password changed successfully', '🎉');
   }
 
   private handleRequestError(error: any): void {
     console.log('request error: ', error);
+    this.snackBService.openSnackBar(error.message, 'error');
     this.isInvalidCredits = true;
     this.forgotPasswordForm.markAsUntouched();
     this.newPassword?.setValue('');

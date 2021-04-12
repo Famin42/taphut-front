@@ -9,11 +9,10 @@ import { ApartmentsRoutingModule } from './apartments-routing.module';
 import { ApartmentsService } from './apartments.service';
 
 import { ApartmentsComponent } from './apartments/apartments.component';
-import { TelegramComponent } from './telegram/telegram.component';
 import { ApartmentsEffect } from './store/effects/apartments.effects';
 
 @NgModule({
-  declarations: [ApartmentsComponent, TelegramComponent],
+  declarations: [ApartmentsComponent],
   providers: [ApartmentsService],
   imports: [
     CommonModule,

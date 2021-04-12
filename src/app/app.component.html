@@ -2,11 +2,12 @@
   <h1 class="header-title big">Taphut</h1>
   <span class="flex-1"></span>
 
-  <button *ngIf="amplify.isAuthenticatedSubj | async" mat-button (click)="logout()">logout</button>
   <a *ngIf="amplify.isAuthenticatedSubj | async" mat-button [routerLink]="['/']">main</a>
   <a *ngIf="amplify.isAuthenticatedSubj | async" mat-button [routerLink]="['/', 'settings']"
     >settings</a
   >
+  <button *ngIf="amplify.isAuthenticatedSubj | async" mat-button (click)="logout()">logout</button>
+
   <a
     *ngIf="!(amplify.isAuthenticatedSubj | async)"
     mat-button
