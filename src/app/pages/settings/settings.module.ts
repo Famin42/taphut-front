@@ -7,9 +7,15 @@ import { SharedlModule } from 'src/app/common/modules/shared.module';
 import { SettingsRoutingModule } from './settings-routing.module';
 import { TelegramComponent } from './telegram/telegram.component';
 import { SettingsComponent } from './settings.component';
+import { TelegramDialogComponent } from './telegram-dialog/telegram-dialog.component';
 
 @NgModule({
-  declarations: [SettingsComponent, ChangePasswordComponent, TelegramComponent],
+  declarations: [
+    SettingsComponent,
+    ChangePasswordComponent,
+    TelegramComponent,
+    TelegramDialogComponent,
+  ],
   imports: [CommonModule, SettingsRoutingModule, SharedlModule, ReactiveFormsModule],
 })
 export class SettingsModule {}

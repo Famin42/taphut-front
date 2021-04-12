@@ -1,44 +1,34 @@
-import { Component, AfterViewInit, ElementRef, ViewChild, NgZone } from '@angular/core';
 import { AmplifyService } from 'src/app/core/services/amplify.service';
+import { CognitoUser } from 'amazon-cognito-identity-js';
+import { MatDialog } from '@angular/material/dialog';
+import { Component } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
-import { environment } from 'src/environments/environment';
+import { CHAT_ID_KEY, TelegramDialogComponent } from '../telegram-dialog/telegram-dialog.component';
 
 @Component({
   selector: 'app-telegram',
-  template: ` <div #script style.display="none">
-    <ng-content></ng-content>
-  </div>`,
+  templateUrl: './telegram.component.html',
   styleUrls: ['./telegram.component.scss'],
 })
-export class TelegramComponent implements AfterViewInit {
-  @ViewChild('script', { static: true })
-  script!: ElementRef;
+export class TelegramComponent {
+  user: Observable<undefined | string>;
 
-  constructor(private ngZone: NgZone, private amplifyService: AmplifyService) {
-    (window as any)['loginViaTelegram'] = (loginData: ITelegramCallbackResutl) =>
-      this.loginViaTelegram(loginData);
+  constructor(private amplifyService: AmplifyService, private dialog: MatDialog) {
+    this.user = this.amplifyService.currentUserSubj.pipe(
+      map((user: CognitoUser | undefined) =>
+        user ? (user as any).attributes[CHAT_ID_KEY] : undefined
+      )
+    );
+  }
+  connect(): void {
+    this.dialog.open(TelegramDialogComponent, {
+      minHeight: 185,
+    });
   }
 
-  public ngAfterViewInit(): void {
-    this.convertToScript();
-  }
-
-  private loginViaTelegram({ id }: ITelegramCallbackResutl) {
-    // TODO: instead of amplify services user Auth Acrtion
-    this.amplifyService.updateUserAttributes({ 'custom:chatId': id.toString() }).subscribe();
-    // If the login should trigger view changes, run it within the NgZone.
-    // this.ngZone.run(() => console.log(loginRequest));
-  }
-
-  private convertToScript() {
-    const element = this.script.nativeElement;
-    const script = document.createElement('script');
-    script.src = 'https://telegram.org/js/telegram-widget.js?5';
-    script.setAttribute('data-telegram-login', environment.telegramBotName);
-    script.setAttribute('data-size', 'large');
-    // Callback function in global scope
-    script.setAttribute('data-onauth', 'loginViaTelegram(user)');
-    script.setAttribute('data-request-access', 'write');
-    element.parentElement.replaceChild(script, element);
+  disconnect(): void {
+    this.amplifyService.updateUserAttributes({ [CHAT_ID_KEY]: '' }).subscribe();
   }
 }

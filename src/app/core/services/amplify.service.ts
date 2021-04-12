@@ -1,27 +1,26 @@
-import { Injectable } from '@angular/core';
-import { Auth } from 'aws-amplify';
-import { Observable, ReplaySubject } from 'rxjs';
-import { fromPromise } from 'rxjs/internal-compatibility';
 import { ISignUpResult, CognitoUser } from 'amazon-cognito-identity-js';
-import { ICredentials } from 'aws-amplify/lib/Common/types/types';
+import { from, Observable, of, ReplaySubject } from 'rxjs';
+import { catchError, first, switchMap, tap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { switchMap, tap } from 'rxjs/operators';
+import { Auth } from 'aws-amplify';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AmplifyService {
-  // TODO: update checking is auer auth method
+  currentUserSubj: ReplaySubject<CognitoUser | undefined>;
   isAuthenticatedSubj: ReplaySubject<boolean>;
 
-  // TODO: update checking is auer auth method
   get isAuthenticated(): Promise<boolean> {
     return Auth.currentAuthenticatedUser()
       .then(() => {
         this.isAuthenticatedSubj.next(true);
+        this.updateUserState().pipe(first()).subscribe();
         return true;
       })
       .catch(() => {
+        this.updateUserState().pipe(first()).subscribe();
         this.isAuthenticatedSubj.next(false);
         return false;
       });
@@ -29,32 +28,39 @@ export class AmplifyService {
 
   constructor(private router: Router) {
     this.isAuthenticatedSubj = new ReplaySubject<boolean>(1);
+    this.currentUserSubj = new ReplaySubject<CognitoUser | undefined>(1);
+    this.updateUserState();
   }
 
   updateUserAttributes(
     attrs: Record<string, string | number | boolean | null | undefined>
-  ): Observable<any> {
+  ): Observable<CognitoUser | undefined> {
     console.log('updateUser');
     console.log(attrs);
-    return fromPromise(Auth.currentAuthenticatedUser()).pipe(
-      tap((user: CognitoUser) => console.log(`Auth.currentAuthenticatedUser(): ${user}`)),
-      switchMap((user: any) => fromPromise(Auth.updateUserAttributes(user, attrs))),
-      tap((data: any) => console.log(`Auth.updateUserAttributes: ${data}`))
+    return from(Auth.currentAuthenticatedUser()).pipe(
+      tap((user: any) => console.log(user)),
+      switchMap((user: any) => from(Auth.updateUserAttributes(user, attrs))),
+      switchMap(() => this.updateUserState())
     );
   }
 
   signIn({ email, password }: { email: string; password: string }): Observable<CognitoUser> {
-    return fromPromise(
+    return from(
       Auth.signIn({
         username: email.toLocaleLowerCase(),
         password,
       })
-    ).pipe(tap((data: any) => console.log(`Amplify.signIn: ${data}`)));
+    ).pipe(
+      switchMap(() => this.updateUserState()),
+      tap((data: any) => {
+        console.log(`Amplify.signIn:`);
+        console.log(data);
+      })
+    );
   }
 
-  // TODO: add to effects
   signUp(email: string, password: string): Observable<ISignUpResult> {
-    return fromPromise(
+    return from(
       Auth.signUp({
         username: email.toLocaleLowerCase(),
         password,
@@ -65,47 +71,47 @@ export class AmplifyService {
     );
   }
 
-  // TODO: add to effects
   confirmSignUp(email: string, code: string): Observable<any> {
-    return fromPromise(Auth.confirmSignUp(email.toLocaleLowerCase(), code));
+    return from(Auth.confirmSignUp(email.toLocaleLowerCase(), code));
   }
 
-  // TODO: add to effects
   changePassword(
     user: CognitoUser,
     oldPassword: string,
     newPassword: string
   ): Observable<'SUCCESS'> {
-    return fromPromise(Auth.changePassword(user, oldPassword, newPassword)).pipe(
-      tap((data: any) => console.log(`Amplify.changePassword: ${data}`))
+    return from(Auth.changePassword(user, oldPassword, newPassword)).pipe(
+      switchMap(() => this.updateUserState()),
+      tap((data: any) => {
+        console.log(`Amplify.changePassword:`);
+        console.log(data);
+      })
     );
   }
 
-  // TODO: add to effects
   forgotPassword(email: string): Observable<any> {
-    return fromPromise(Auth.forgotPassword(email.toLocaleLowerCase()));
+    return from(Auth.forgotPassword(email.toLocaleLowerCase()));
   }
 
-  // TODO: add to effects
   forgotPasswordSubmit(email: string, code: string, password: string): Observable<any> {
-    return fromPromise(Auth.forgotPasswordSubmit(email.toLocaleLowerCase(), code, password));
+    return from(Auth.forgotPasswordSubmit(email.toLocaleLowerCase(), code, password));
   }
 
-  // TODO: add to state
-  currentAuthenticatedUser(): Observable<CognitoUser> {
-    return fromPromise(Auth.currentAuthenticatedUser());
-  }
-
-  // TODO: add to state
-  currentUserCredentials(): Observable<ICredentials> {
-    return fromPromise(Auth.currentUserCredentials());
-  }
-
-  logout(): Observable<ICredentials> {
-    return fromPromise(Auth.signOut()).pipe(
+  logout(): Observable<CognitoUser | undefined> {
+    return from(Auth.signOut()).pipe(
       tap(() => localStorage.clear()),
       tap(() => this.isAuthenticatedSubj.next(false)),
-      tap(() => this.router.navigate(['/']))
+      tap(() => this.router.navigate(['/'])),
+      switchMap(() => this.updateUserState())
+    );
+  }
+
+  private updateUserState(): Observable<CognitoUser | undefined> {
+    return from(Auth.currentAuthenticatedUser()).pipe(
+      catchError(() => of(undefined)),
+      tap(() => console.log('updateUserState')),
+      tap((user: CognitoUser | undefined) => console.log(user)),
+      tap((user: CognitoUser | undefined) => this.currentUserSubj.next(user))
     );
   }
 }

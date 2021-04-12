@@ -1,2 +1,17 @@
-<app-change-password></app-change-password> <app-telegram></app-telegram>
-<app-telegram></app-telegram>
+<div class="settings-container">
+  <mat-toolbar>
+    <span>Settings</span>
+  </mat-toolbar>
+
+  <mat-card>
+    <app-change-password></app-change-password>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Telegram integration</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <app-telegram></app-telegram>
+    </mat-card-content>
+  </mat-card>
+</div>

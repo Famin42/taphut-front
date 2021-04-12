@@ -1,3 +1,4 @@
+import { CognitoUser } from 'amazon-cognito-identity-js';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
@@ -36,9 +37,12 @@ export class ChangePasswordComponent {
       const oldPassword = this.oldPassword.value;
       const newPassword = this.newPassword.value;
 
-      this.authService
-        .currentAuthenticatedUser()
-        .pipe(switchMap((user) => this.authService.changePassword(user, oldPassword, newPassword)))
+      this.authService.currentUserSubj
+        .pipe(
+          switchMap((user) =>
+            this.authService.changePassword(user as CognitoUser, oldPassword, newPassword)
+          )
+        )
         .subscribe(
           (value) => {
             this.handleRequest(value);
