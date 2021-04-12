@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
-import { AmplifyService } from 'src/app/core';
+import { AmplifyService } from 'src/app/core/services/amplify.service';
 import { EMAIL_VALIDATORS } from 'src/app/utils/form-validators';
 import { ROUTES } from 'src/app/utils/routes';
+import { SnackbarService } from 'src/app/core/services/snackbar.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -25,7 +26,8 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(
     private authService: AmplifyService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -39,10 +41,10 @@ export class ForgotPasswordComponent implements OnInit {
 
     if (this.forgotPasswordForm.valid && this.email) {
       this.authService.forgotPassword(this.email.value).subscribe(
-        (value) => {
+        (value: any) => {
           this.handleRequest(value);
         },
-        (error) => {
+        (error: any) => {
           this.handleRequestError(error);
         }
       );
@@ -52,6 +54,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   private handleRequest(value: any): void {
+    this.snackBService.openSnackBar('Email was sent', '');
     this.router.navigate([ROUTES.passwordForgerConfirm], {
       queryParams: { email: this.email?.value },
     });
@@ -59,6 +62,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   private handleRequestError(error: any): void {
+    console.log('request error: ', error);
     this.isInvalidCredits = true;
     this.forgotPasswordForm.markAsUntouched();
     this.email?.setValue('');

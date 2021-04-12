@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { EffectsModule } from '@ngrx/effects';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
-import { SharedlModule } from 'src/app/common/modules';
+import { SharedlModule } from 'src/app/common/modules/shared.module';
 import { ApartmentsRoutingModule } from './apartments-routing.module';
 
 import { ApartmentsService } from './apartments.service';

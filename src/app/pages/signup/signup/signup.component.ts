@@ -4,8 +4,9 @@ import { ISignUpResult } from 'amazon-cognito-identity-js';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 import { EMAIL_VALIDATORS, PASSWORD_VALIDATORS } from 'src/app/utils/form-validators';
+import { AmplifyService } from 'src/app/core/services/amplify.service';
 import { ROUTES } from 'src/app/utils/routes';
-import { AmplifyService } from 'src/app/core';
+import { SnackbarService } from 'src/app/core/services/snackbar.service';
 
 @Component({
   selector: 'app-signup',
@@ -26,17 +27,21 @@ export class SignupComponent {
     return this.signupForm.get('password');
   }
 
-  constructor(private authService: AmplifyService, private router: Router) {}
+  constructor(
+    private authService: AmplifyService,
+    private router: Router,
+    private snackBService: SnackbarService
+  ) {}
 
   submit(): void {
     this.signupForm.markAllAsTouched();
 
     if (this.signupForm.valid && this.email && this.password) {
       this.authService.signUp(this.email.value, this.password.value).subscribe(
-        (value) => {
+        (value: any) => {
           this.handleRegistration(value);
         },
-        (error) => {
+        (error: any) => {
           this.handleRequestError(error);
         }
       );
@@ -52,5 +57,6 @@ export class SignupComponent {
 
   private handleRequestError(error: any): void {
     console.log('register error: ', error);
+    this.snackBService.openSnackBar(error.message, 'error');
   }
 }

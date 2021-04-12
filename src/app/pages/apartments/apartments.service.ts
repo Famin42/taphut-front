@@ -11,7 +11,6 @@ export class ApartmentsService {
   getProductPage({ limit, token }: IApartmentsParams): Observable<OnlinerResData> {
     return this.query(limit, token).pipe(
       map((data: any) => {
-        console.log(data.data.onlinerApartments);
         return data.data.onlinerApartments;
       })
     );

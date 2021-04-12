@@ -3,8 +3,9 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { EMAIL_VALIDATORS, PASSWORD_VALIDATORS } from 'src/app/utils/form-validators';
+import { AmplifyService } from 'src/app/core/services/amplify.service';
 import { ROUTES } from 'src/app/utils/routes';
-import { AmplifyService } from 'src/app/core';
+import { SnackbarService } from 'src/app/core/services/snackbar.service';
 
 @Component({
   selector: 'app-forgot-password-submit',
@@ -35,7 +36,8 @@ export class ForgotPasswordSubmitComponent implements OnInit {
   constructor(
     private authService: AmplifyService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -52,10 +54,10 @@ export class ForgotPasswordSubmitComponent implements OnInit {
       this.authService
         .forgotPasswordSubmit(this.email.value, this.code.value, this.password.value)
         .subscribe(
-          (value) => {
+          (value: any) => {
             this.handleRequest(value);
           },
-          (error) => {
+          (error: any) => {
             this.handleRequestError(error);
           }
         );
@@ -65,12 +67,14 @@ export class ForgotPasswordSubmitComponent implements OnInit {
   }
 
   private handleRequest(value: any): void {
+    this.snackBService.openSnackBar('Password is changed successful', '');
     this.router.navigate([ROUTES.signin], { queryParams: { email: this.email?.value } });
     console.log('request value: ', value);
   }
 
   private handleRequestError(error: any): void {
     console.log('request error: ', error);
+    this.snackBService.openSnackBar(error.message, 'error');
     this.isInvalidCredits = true;
     this.forgotPasswordSubmitForm.markAsUntouched();
     this.code?.setValue('');

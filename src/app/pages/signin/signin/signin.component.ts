@@ -4,8 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 import { EMAIL_VALIDATORS, PASSWORD_VALIDATORS } from 'src/app/utils/form-validators';
+import { AmplifyService } from 'src/app/core/services/amplify.service';
 import { ROUTES } from 'src/app/utils/routes';
-import { AmplifyService } from 'src/app/core';
+import { SnackbarService } from 'src/app/core/services/snackbar.service';
 
 @Component({
   selector: 'app-signin',
@@ -35,7 +36,8 @@ export class SigninComponent implements OnInit {
   constructor(
     private authService: AmplifyService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -48,7 +50,7 @@ export class SigninComponent implements OnInit {
     this.signinForm.markAllAsTouched();
 
     if (this.signinForm.valid && this.email && this.password) {
-      this.authService.signIn(this.email.value, this.password.value).subscribe(
+      this.authService.signIn({ email: this.email.value, password: this.password.value }).subscribe(
         (value) => {
           this.handleLogin(value);
         },
@@ -68,6 +70,7 @@ export class SigninComponent implements OnInit {
 
   private handleRequestError(error: any): void {
     console.log('login error: ', error);
+    this.snackBService.openSnackBar(error.message, 'error');
     this.isInvalidCredits = true;
     this.signinForm.markAsUntouched();
     this.password?.setValue('');

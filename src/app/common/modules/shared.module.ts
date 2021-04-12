@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const MATERIAL_MODULES = [
   MatToolbarModule,
@@ -16,6 +17,7 @@ const MATERIAL_MODULES = [
   MatSelectModule,
   MatIconModule,
   MatButtonModule,
+  MatSnackBarModule,
 ];
 
 @NgModule({

@@ -2,8 +2,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
 
+import { AmplifyService } from 'src/app/core/services/amplify.service';
 import { PASSWORD_VALIDATORS } from 'src/app/utils/form-validators';
-import { AmplifyService } from 'src/app/core';
 
 @Component({
   selector: 'app-change-password',

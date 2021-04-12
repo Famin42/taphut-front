@@ -8,7 +8,7 @@ import {
 } from '@angular/router';
 import { Injectable } from '@angular/core';
 
-import { AmplifyService } from 'src/app/core';
+import { AmplifyService } from 'src/app/core/services/amplify.service';
 import { ROUTES } from '../../utils/routes';
 
 @Injectable()
@@ -29,6 +29,7 @@ export class AuthenticationGuard implements CanActivate, CanActivateChild {
     return await this.checkAuth(route, state);
   }
 
+  // TODO: update check auth
   private async checkAuth(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     { queryParams }: ActivatedRouteSnapshot,

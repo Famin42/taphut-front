@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { AmplifyService } from 'src/app/core/services/amplify.service';
 import { EMAIL_VALIDATORS } from 'src/app/utils/form-validators';
-import { AmplifyService } from 'src/app/core';
 import { ROUTES } from 'src/app/utils/routes';
+import { SnackbarService } from 'src/app/core/services/snackbar.service';
 
 @Component({
   selector: 'app-confirm-signup',
@@ -30,7 +31,8 @@ export class ConfirmSignupComponent implements OnInit {
   constructor(
     private authService: AmplifyService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -59,11 +61,13 @@ export class ConfirmSignupComponent implements OnInit {
 
   private handleRequest(value: any): void {
     console.log('request value: ', value);
+    this.snackBService.openSnackBar('Sign up success', '🎉');
     this.router.navigate([ROUTES.signin], { queryParams: { email: this.email?.value } });
   }
 
   private handleRequestError(error: any): void {
     console.log('request error: ', error);
+    this.snackBService.openSnackBar(error.message, 'error');
     this.isInvalidCredits = true;
     this.confirmSignupForm.markAsUntouched();
     this.code?.setValue('');

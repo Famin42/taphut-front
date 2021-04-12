@@ -1,3 +1,5 @@
+// TODO: update routes
+
 export const ROUTES = {
   settings: 'settings',
   signin: 'auth/signin',

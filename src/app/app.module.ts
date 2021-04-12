@@ -9,12 +9,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
-import { SharedlModule } from './common/modules';
-import { AuthenticationGuard, clearState, GraphQLModule } from './core';
+import { SharedlModule } from './common/modules/shared.module';
 
 import { AppComponent } from './app.component';
 
+import { AuthenticationGuard } from './core/guards/authentication.guard';
+import { GraphQLModule } from './core/modules/graphql.module';
 import { environment } from 'src/environments/environment';
+import { clearState } from './core/store/clear-state';
 
 const GUARDS = [AuthenticationGuard];
 
@@ -27,7 +29,7 @@ const GUARDS = [AuthenticationGuard];
     AppRoutingModule,
     GraphQLModule,
     SharedlModule,
-    StoreModule.forRoot(rootReducers, { metaReducers: [clearState] }),
+    StoreModule.forRoot({}, { metaReducers: [clearState] }),
     EffectsModule.forRoot(),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],

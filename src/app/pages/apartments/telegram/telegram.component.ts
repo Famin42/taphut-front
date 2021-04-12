@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, ElementRef, ViewChild, NgZone } from '@angular/core';
+import { AmplifyService } from 'src/app/core/services/amplify.service';
 
 import { environment } from 'src/environments/environment';
-import { AmplifyService } from 'src/app/core';
 
 @Component({
   selector: 'app-telegram',
@@ -24,7 +24,8 @@ export class TelegramComponent implements AfterViewInit {
   }
 
   private loginViaTelegram({ id }: ITelegramCallbackResutl) {
-    this.amplifyService.updateUser({ 'custom:chatId': id.toString() }).then();
+    // TODO: instead of amplify services user Auth Acrtion
+    this.amplifyService.updateUserAttributes({ 'custom:chatId': id.toString() }).subscribe();
     // If the login should trigger view changes, run it within the NgZone.
     // this.ngZone.run(() => console.log(loginRequest));
   }
