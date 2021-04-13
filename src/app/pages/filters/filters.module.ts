@@ -1,4 +1,5 @@
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
@@ -8,6 +9,6 @@ import { FiltersComponent } from './filters/filters.component';
 
 @NgModule({
   declarations: [FiltersComponent],
-  imports: [CommonModule, FiltersRoutingModule, SharedlModule, MatTableModule],
+  imports: [CommonModule, FiltersRoutingModule, SharedlModule, MatTableModule, MatSortModule],
 })
 export class FiltersModule {}
