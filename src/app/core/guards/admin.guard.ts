@@ -50,7 +50,7 @@ export class AdminGuard implements CanActivate, CanActivateChild {
       url = url.split('?')[0];
     }
 
-    const redirectTo = ROUTES.signin.split('/');
+    const redirectTo = ROUTES.main.split('/');
 
     return this.router.createUrlTree(['/', ...redirectTo]);
   }

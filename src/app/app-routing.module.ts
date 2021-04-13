@@ -2,6 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { AuthenticationGuard } from './core/guards/authentication.guard';
+import { ChatIdGuard } from './core/guards/chat-id.guard';
 import { AdminGuard } from './core/guards/admin.guard';
 import { ROUTES } from './utils/routes';
 
@@ -16,6 +17,11 @@ const routes: Routes = [
     canActivate: [AuthenticationGuard],
     path: ROUTES.settings,
     loadChildren: () => import('./pages/settings/settings.module').then((m) => m.SettingsModule),
+  },
+  {
+    canActivate: [AuthenticationGuard, ChatIdGuard],
+    path: ROUTES.filters,
+    loadChildren: () => import('./pages/filters/filters.module').then((m) => m.FiltersModule),
   },
   {
     canActivate: [AuthenticationGuard, AdminGuard],

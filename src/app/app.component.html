@@ -4,6 +4,7 @@
 
   <a *ngIf="isAuthenticated | async" mat-button [routerLink]="['/']">main</a>
   <a *ngIf="isAdmin | async" mat-button [routerLink]="['/', 'admin']">admin</a>
+  <a *ngIf="isChatId | async" mat-button [routerLink]="['/', 'filters']">filters</a>
   <a *ngIf="isAuthenticated | async" mat-button [routerLink]="['/', 'settings']">settings</a>
   <button *ngIf="isAuthenticated | async" mat-button (click)="logout()">logout</button>
 
