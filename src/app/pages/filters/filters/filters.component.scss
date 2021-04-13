@@ -1,1 +1,42 @@
+@import 'color-palette';
 @import 'layout';
+
+$max-action-cell-width: 64px;
+$min-action-cell-width: 40px;
+$min-cell-width: 80px;
+
+$min-row-height: 64px;
+
+.table-container {
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+
+    .mat-row {
+      max-height: $min-row-height;
+      height: $min-row-height;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $light-grey;
+      }
+    }
+
+    .mat-column-filterName,
+    .mat-column-city,
+    .mat-column-currency,
+    .mat-column-minPrice,
+    .mat-column-maxPrice,
+    .mat-column-roomsNumber {
+      min-width: $min-cell-width;
+    }
+
+    .mat-column-edit,
+    .mat-column-delete {
+      max-width: $max-action-cell-width;
+      min-width: $min-action-cell-width;
+      width: $max-action-cell-width;
+    }
+  }
+}
