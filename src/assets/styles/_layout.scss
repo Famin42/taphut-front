@@ -1,0 +1,14 @@
+$space: 20px;
+
+.view-container {
+  box-sizing: border-box;
+
+  > * {
+    margin: 0 $space;
+    max-width: calc(100% - #{$space * 2});
+    margin-bottom: $space;
+  }
+  > *:last-child {
+    margin-bottom: 0;
+  }
+}
