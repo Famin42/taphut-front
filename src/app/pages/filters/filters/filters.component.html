@@ -1,0 +1,7 @@
+<div class="view-container">
+  <mat-toolbar>
+    <span>Filters panel</span>
+  </mat-toolbar>
+  <mat-card *ngIf="filters.length" class="font-30"> There are no filters.</mat-card>
+  <mat-card *ngIf="filters.length"> There are {{ filters.length }} filters.</mat-card>
+</div>

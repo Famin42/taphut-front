@@ -1,0 +1,55 @@
+@import 'global-variables';
+
+h1,
+h2,
+h3,
+h4,
+a,
+p,
+span,
+div,
+input,
+textarea,
+button {
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+@for $index from 10 through 40 {
+  .font-#{$index} {
+    font-size: #{$index}px;
+  }
+}
+
+$font-weights: 100, 200, 300, 400, 500, 600, 700, 800, 900;
+
+@each $weight in $font-weights {
+  .w-#{$weight} {
+    font-weight: $weight;
+  }
+}
+
+// @media screen and #{$max-height} {
+//   .font-34 {
+//     font-size: 28px;
+//   }
+
+//   .font-20 {
+//     font-size: 20px;
+//   }
+
+//   .font-18 {
+//     font-size: 15px;
+//   }
+
+//   .font-16 {
+//     font-size: 14px;
+//   }
+
+//   .font-15 {
+//     font-size: 14px;
+//   }
+
+//   .font-13 {
+//     font-size: 13px;
+//   }
+// }

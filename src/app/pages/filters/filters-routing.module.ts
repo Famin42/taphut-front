@@ -1,7 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-import { FiltersComponent } from './filters.component';
+import { FiltersComponent } from './filters/filters.component';
 
 const routes: Routes = [
   {
