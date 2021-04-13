@@ -2,6 +2,7 @@
 
 export const ROUTES = {
   settings: 'settings',
+  admin: 'admin',
   signin: 'auth/signin',
   signup: 'auth/signup',
   signupConfirm: 'auth/signup/confirm',

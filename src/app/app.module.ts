@@ -13,12 +13,9 @@ import { SharedlModule } from './common/modules/shared.module';
 
 import { AppComponent } from './app.component';
 
-import { AuthenticationGuard } from './core/guards/authentication.guard';
 import { GraphQLModule } from './core/modules/graphql.module';
 import { environment } from 'src/environments/environment';
 import { clearState } from './core/store/clear-state';
-
-const GUARDS = [AuthenticationGuard];
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,7 +30,6 @@ const GUARDS = [AuthenticationGuard];
     EffectsModule.forRoot(),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
-  providers: [...GUARDS],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

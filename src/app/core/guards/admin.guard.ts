@@ -1,3 +1,5 @@
+import { CognitoUser } from 'amazon-cognito-identity-js';
+import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -6,15 +8,15 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Injectable } from '@angular/core';
 
 import { AmplifyService } from 'src/app/core/services/amplify.service';
 import { ROUTES } from '../../utils/routes';
+import { ROLES } from 'src/app/utils/roles';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthenticationGuard implements CanActivate, CanActivateChild {
+export class AdminGuard implements CanActivate, CanActivateChild {
   constructor(private router: Router, private amplify: AmplifyService) {}
 
   async canActivate(
@@ -37,7 +39,10 @@ export class AuthenticationGuard implements CanActivate, CanActivateChild {
     { queryParams }: ActivatedRouteSnapshot,
     { url }: RouterStateSnapshot
   ): Promise<true | UrlTree> {
-    if (await this.amplify.isAuthenticated) {
+    const user: CognitoUser | undefined = await this.amplify.isAuthenticated;
+    const groups: string[] =
+      (user as any)?.signInUserSession?.accessToken?.payload['cognito:groups'] || [];
+    if (groups.includes(ROLES.admin)) {
       return true;
     }
 

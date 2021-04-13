@@ -12,17 +12,17 @@ export class AmplifyService {
   currentUserSubj: ReplaySubject<CognitoUser | undefined>;
   isAuthenticatedSubj: ReplaySubject<boolean>;
 
-  get isAuthenticated(): Promise<boolean> {
+  get isAuthenticated(): Promise<CognitoUser | undefined> {
     return Auth.currentAuthenticatedUser()
-      .then(() => {
+      .then((user: CognitoUser | undefined) => {
         this.isAuthenticatedSubj.next(true);
         this.updateUserState().pipe(first()).subscribe();
-        return true;
+        return user;
       })
       .catch(() => {
         this.updateUserState().pipe(first()).subscribe();
         this.isAuthenticatedSubj.next(false);
-        return false;
+        return undefined;
       });
   }
 

@@ -2,6 +2,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { AuthenticationGuard } from './core/guards/authentication.guard';
+import { AdminGuard } from './core/guards/admin.guard';
+import { ROUTES } from './utils/routes';
 
 const routes: Routes = [
   {
@@ -12,19 +14,24 @@ const routes: Routes = [
   },
   {
     canActivate: [AuthenticationGuard],
-    path: 'settings',
+    path: ROUTES.settings,
     loadChildren: () => import('./pages/settings/settings.module').then((m) => m.SettingsModule),
   },
   {
-    path: 'auth/signin',
+    canActivate: [AuthenticationGuard, AdminGuard],
+    path: ROUTES.admin,
+    loadChildren: () => import('./pages/admin/admin.module').then((m) => m.AdminModule),
+  },
+  {
+    path: ROUTES.signin,
     loadChildren: () => import('./pages/signin/signin.module').then((m) => m.SigninModule),
   },
   {
-    path: 'auth/signup',
+    path: ROUTES.signup,
     loadChildren: () => import('./pages/signup/signup.module').then((m) => m.SignupModule),
   },
   {
-    path: 'auth/password/forget',
+    path: ROUTES.passwordForger,
     loadChildren: () =>
       import('./pages/forget-password/forget-password.module').then((m) => m.ForgetPasswordModule),
   },

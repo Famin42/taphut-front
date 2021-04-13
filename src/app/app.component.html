@@ -2,27 +2,16 @@
   <h1 class="header-title big">Taphut</h1>
   <span class="flex-1"></span>
 
-  <a *ngIf="amplify.isAuthenticatedSubj | async" mat-button [routerLink]="['/']">main</a>
-  <a *ngIf="amplify.isAuthenticatedSubj | async" mat-button [routerLink]="['/', 'settings']"
-    >settings</a
-  >
-  <button *ngIf="amplify.isAuthenticatedSubj | async" mat-button (click)="logout()">logout</button>
+  <a *ngIf="isAuthenticated | async" mat-button [routerLink]="['/']">main</a>
+  <a *ngIf="isAdmin | async" mat-button [routerLink]="['/', 'admin']">admin</a>
+  <a *ngIf="isAuthenticated | async" mat-button [routerLink]="['/', 'settings']">settings</a>
+  <button *ngIf="isAuthenticated | async" mat-button (click)="logout()">logout</button>
 
-  <a
-    *ngIf="!(amplify.isAuthenticatedSubj | async)"
-    mat-button
-    [routerLink]="['/', 'auth', 'signin']"
-    >signin</a
-  >
-  <a
-    *ngIf="!(amplify.isAuthenticatedSubj | async)"
-    mat-button
-    [routerLink]="['/', 'auth', 'signup']"
-    >signup</a
-  >
-  <!--   <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'signup', 'confirm']">signup confirm</a>-->
-  <!--   <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'password', 'forget']">forget password</a>-->
-  <!--   <a *ngIf="!(amplify.isAuthenticatedSubj | async)" mat-button [routerLink]="['/', 'auth', 'password', 'forget', 'confirm']">forget password confirm</a>-->
+  <a *ngIf="!(isAuthenticated | async)" mat-button [routerLink]="['/', 'auth', 'signin']">signin</a>
+  <a *ngIf="!(isAuthenticated | async)" mat-button [routerLink]="['/', 'auth', 'signup']">signup</a>
+  <!--   <a *ngIf="!(isAuthenticated | async)" mat-button [routerLink]="['/', 'auth', 'signup', 'confirm']">signup confirm</a>-->
+  <!--   <a *ngIf="!(isAuthenticated | async)" mat-button [routerLink]="['/', 'auth', 'password', 'forget']">forget password</a>-->
+  <!--   <a *ngIf="!(isAuthenticated | async)" mat-button [routerLink]="['/', 'auth', 'password', 'forget', 'confirm']">forget password confirm</a>-->
 </mat-toolbar>
 
 <router-outlet></router-outlet>
