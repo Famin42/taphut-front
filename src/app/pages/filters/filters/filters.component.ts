@@ -1,6 +1,12 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
+
+import {
+  ConfirmationDialogComponent,
+  ConfirmDialogModel,
+} from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
 
 const COLUMNS: string[] = [
   'filterName',
@@ -60,7 +66,7 @@ export class FiltersComponent implements AfterViewInit {
   @ViewChild(MatSort, { static: false })
   sort!: MatSort;
 
-  constructor() {
+  constructor(private dialog: MatDialog) {
     this.displayedColumns = COLUMNS;
     this.dataSource = new MatTableDataSource<IFIlter>(mockData);
     this.filters = mockData;
@@ -76,9 +82,20 @@ export class FiltersComponent implements AfterViewInit {
   }
 
   deleteFilter(name: string): void {
-    this.dataSource.data = this.dataSource.data.filter(
-      ({ filterName }: IFIlter) => filterName !== name
-    );
+    const message = `Are you sure you want to delete "${name}" filter?`;
+    const dialogData = new ConfirmDialogModel('Confirm Action', message, 'warn');
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: dialogData,
+    });
+
+    dialogRef.afterClosed().subscribe((dialogResult: boolean) => {
+      if (dialogResult) {
+        this.dataSource.data = this.dataSource.data.filter(
+          ({ filterName }: IFIlter) => filterName !== name
+        );
+      }
+    });
   }
 
   addFilter(): void {
