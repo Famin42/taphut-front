@@ -74,4 +74,22 @@ export class FiltersComponent implements AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  deleteFilter(name: string): void {
+    this.dataSource.data = this.dataSource.data.filter(
+      ({ filterName }: IFIlter) => filterName !== name
+    );
+  }
+
+  addFilter(): void {
+    const data = [
+      ...this.dataSource.data,
+      {
+        ...mockData[this.dataSource.data.length % mockData.length],
+        filterName: `Filter ${this.dataSource.data.length}`,
+      },
+    ];
+    this.dataSource = new MatTableDataSource<IFIlter>(data);
+    this.dataSource.sort = this.sort;
+  }
 }
