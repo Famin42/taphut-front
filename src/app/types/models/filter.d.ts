@@ -8,3 +8,8 @@ interface IFIlter {
   maxPrice?: number;
   roomsNumber?: number;
 }
+
+declare const enum FilterPageMode {
+  EDIT = 'edit',
+  CREATE = 'create',
+}
