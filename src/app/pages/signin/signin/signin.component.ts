@@ -5,7 +5,7 @@ import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 import { EMAIL_VALIDATORS, PASSWORD_VALIDATORS } from 'src/app/utils/form-validators';
 import { AmplifyService } from 'src/app/core/services/amplify.service';
-import { ROUTES } from 'src/app/utils/routes';
+import { APP_ROUTES } from 'src/app/utils/routes';
 import { SnackbarService } from 'src/app/core/services/snackbar.service';
 
 @Component({
@@ -21,8 +21,8 @@ export class SigninComponent implements OnInit {
     password: new FormControl('', PASSWORD_VALIDATORS),
   });
 
-  get routes(): typeof ROUTES {
-    return ROUTES;
+  get routes(): typeof APP_ROUTES {
+    return APP_ROUTES;
   }
 
   get email(): AbstractControl | null {

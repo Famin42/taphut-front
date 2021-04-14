@@ -12,7 +12,7 @@ import {
 
 import { CHAT_ID_KEY } from 'src/app/pages/settings/telegram-dialog/telegram-dialog.component';
 import { AmplifyService } from 'src/app/core/services/amplify.service';
-import { ROUTES } from '../../utils/routes';
+import { APP_ROUTES } from '../../utils/routes';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -44,7 +44,7 @@ export class ChatIdGuard implements CanActivate, CanActivateChild {
     return this.amplify.currentUserSubj.pipe(
       map((user: CognitoUser | undefined) => {
         const chatId = user ? (user as any).attributes[CHAT_ID_KEY] : undefined;
-        const redirectToMain = ROUTES.main.split('/');
+        const redirectToMain = APP_ROUTES.main.split('/');
         return chatId ? true : this.router.createUrlTree(['/', ...redirectToMain]);
       })
     );

@@ -1,8 +1,11 @@
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Data } from '@angular/router';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+
+import { SnackbarService } from 'src/app/core/services/snackbar.service';
+import { APP_ROUTES } from 'src/app/utils/routes';
 
 @Component({
   selector: 'app-filter',
@@ -20,8 +23,8 @@ export class FilterComponent {
    * roomsNumber: rooms as number | undefined,
    */
   filterForm = new FormGroup({
-    filterName: new FormControl(''),
-    currency: new FormControl(''),
+    filterName: new FormControl('', [Validators.required]),
+    currency: new FormControl('', [Validators.required]),
     city: new FormControl(''),
     minPrice: new FormControl(''),
     maxPrice: new FormControl(''),
@@ -47,7 +50,11 @@ export class FilterComponent {
     return this.filterForm.get(`roomsNumber`);
   }
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private snackBService: SnackbarService
+  ) {
     this.pageMode = this.route.data.pipe(
       tap((data: Data) => {
         const { filter, mode } = data as { filter: IFilter; mode: FilterPageMode };
@@ -62,6 +69,13 @@ export class FilterComponent {
   }
 
   submit(): void {
-    console.log(`Submit`);
+    console.log(`Submit filter`);
+    if (this.filterForm.valid) {
+      this.snackBService.openSnackBar('success', '🎉');
+      this.router.navigate([APP_ROUTES.filters]);
+    } else {
+      this.snackBService.openSnackBar('Form is invalid', 'Error');
+      this.filterForm.markAllAsTouched();
+    }
   }
 }

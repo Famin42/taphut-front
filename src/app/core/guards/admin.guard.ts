@@ -10,7 +10,7 @@ import {
 } from '@angular/router';
 
 import { AmplifyService } from 'src/app/core/services/amplify.service';
-import { ROUTES } from '../../utils/routes';
+import { APP_ROUTES } from '../../utils/routes';
 import { ROLES } from 'src/app/utils/roles';
 
 @Injectable({
@@ -50,7 +50,7 @@ export class AdminGuard implements CanActivate, CanActivateChild {
       url = url.split('?')[0];
     }
 
-    const redirectTo = ROUTES.main.split('/');
+    const redirectTo = APP_ROUTES.main.split('/');
 
     return this.router.createUrlTree(['/', ...redirectTo]);
   }

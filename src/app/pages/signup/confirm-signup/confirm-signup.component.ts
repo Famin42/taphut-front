@@ -4,7 +4,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 
 import { AmplifyService } from 'src/app/core/services/amplify.service';
 import { EMAIL_VALIDATORS } from 'src/app/utils/form-validators';
-import { ROUTES } from 'src/app/utils/routes';
+import { APP_ROUTES } from 'src/app/utils/routes';
 import { SnackbarService } from 'src/app/core/services/snackbar.service';
 
 @Component({
@@ -62,7 +62,7 @@ export class ConfirmSignupComponent implements OnInit {
   private handleRequest(value: any): void {
     console.log('request value: ', value);
     this.snackBService.openSnackBar('Sign up success', '🎉');
-    this.router.navigate([ROUTES.signin], { queryParams: { email: this.email?.value } });
+    this.router.navigate([APP_ROUTES.signin], { queryParams: { email: this.email?.value } });
   }
 
   private handleRequestError(error: any): void {

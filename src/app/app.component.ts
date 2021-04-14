@@ -6,7 +6,7 @@ import { Observable, of } from 'rxjs';
 
 import { CHAT_ID_KEY } from './pages/settings/telegram-dialog/telegram-dialog.component';
 import { AmplifyService } from './core/services/amplify.service';
-import { ROUTES } from './utils/routes';
+import { APP_ROUTES } from './utils/routes';
 import { ROLES } from './utils/roles';
 
 @Component({
@@ -38,7 +38,7 @@ export class AppComponent {
 
   logout(): void {
     this.amplify.logout().subscribe(() => {
-      this.router.navigate([ROUTES.signin]);
+      this.router.navigate([APP_ROUTES.signin]);
     });
   }
 }

@@ -5,7 +5,7 @@ import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 import { EMAIL_VALIDATORS, PASSWORD_VALIDATORS } from 'src/app/utils/form-validators';
 import { AmplifyService } from 'src/app/core/services/amplify.service';
-import { ROUTES } from 'src/app/utils/routes';
+import { APP_ROUTES } from 'src/app/utils/routes';
 import { SnackbarService } from 'src/app/core/services/snackbar.service';
 
 @Component({
@@ -51,7 +51,7 @@ export class SignupComponent {
   }
 
   private handleRegistration(value: ISignUpResult): void {
-    this.router.navigate([ROUTES.signupConfirm], { queryParams: { email: this.email?.value } });
+    this.router.navigate([APP_ROUTES.signupConfirm], { queryParams: { email: this.email?.value } });
     console.log('register value: ', value);
   }
 

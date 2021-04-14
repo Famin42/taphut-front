@@ -9,7 +9,7 @@ import {
 import { Injectable } from '@angular/core';
 
 import { AmplifyService } from 'src/app/core/services/amplify.service';
-import { ROUTES } from '../../utils/routes';
+import { APP_ROUTES } from '../../utils/routes';
 
 @Injectable({
   providedIn: 'root',
@@ -45,7 +45,7 @@ export class AuthenticationGuard implements CanActivate, CanActivateChild {
       url = url.split('?')[0];
     }
 
-    const redirectTo = ROUTES.signin.split('/');
+    const redirectTo = APP_ROUTES.signin.split('/');
 
     return this.router.createUrlTree(['/', ...redirectTo]);
   }

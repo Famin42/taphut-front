@@ -1,6 +1,6 @@
 // TODO: update routes
 
-export const ROUTES = {
+export const APP_ROUTES = {
   main: '',
   settings: 'settings',
   filters: 'filters',

@@ -4,7 +4,7 @@ import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 import { AmplifyService } from 'src/app/core/services/amplify.service';
 import { EMAIL_VALIDATORS } from 'src/app/utils/form-validators';
-import { ROUTES } from 'src/app/utils/routes';
+import { APP_ROUTES } from 'src/app/utils/routes';
 import { SnackbarService } from 'src/app/core/services/snackbar.service';
 
 @Component({
@@ -55,7 +55,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   private handleRequest(value: any): void {
     this.snackBService.openSnackBar('Email was sent', '');
-    this.router.navigate([ROUTES.passwordForgerConfirm], {
+    this.router.navigate([APP_ROUTES.passwordForgerConfirm], {
       queryParams: { email: this.email?.value },
     });
     console.log('request value: ', value);

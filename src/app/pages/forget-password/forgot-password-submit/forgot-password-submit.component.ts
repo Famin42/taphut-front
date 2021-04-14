@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { EMAIL_VALIDATORS, PASSWORD_VALIDATORS } from 'src/app/utils/form-validators';
 import { AmplifyService } from 'src/app/core/services/amplify.service';
-import { ROUTES } from 'src/app/utils/routes';
+import { APP_ROUTES } from 'src/app/utils/routes';
 import { SnackbarService } from 'src/app/core/services/snackbar.service';
 
 @Component({
@@ -68,7 +68,7 @@ export class ForgotPasswordSubmitComponent implements OnInit {
 
   private handleRequest(value: any): void {
     this.snackBService.openSnackBar('Password is changed successful', '');
-    this.router.navigate([ROUTES.signin], { queryParams: { email: this.email?.value } });
+    this.router.navigate([APP_ROUTES.signin], { queryParams: { email: this.email?.value } });
     console.log('request value: ', value);
   }
 
