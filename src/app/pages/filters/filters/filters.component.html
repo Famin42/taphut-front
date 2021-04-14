@@ -2,7 +2,7 @@
   <mat-toolbar>
     <span>Filters panel</span>
     <span class="flex-1"></span>
-    <button mat-raised-button color="primary" (click)="addFilter()">create</button>
+    <a [routerLink]="['/', 'filters', 'create']" mat-raised-button color="primary">create</a>
   </mat-toolbar>
 
   <div *ngIf="!dataSource.data.length" class="layout vertical center">
@@ -57,9 +57,14 @@
         <ng-container matColumnDef="edit">
           <th mat-header-cell *matHeaderCellDef>Edit</th>
           <td mat-cell *matCellDef="let element">
-            <button mat-mini-fab color="primary" aria-label="icon button with a edit icon">
+            <a
+              [routerLink]="['/', 'filters', 'edit', element.filterName]"
+              mat-mini-fab
+              color="primary"
+              aria-label="icon button with a edit icon"
+            >
               <mat-icon>edit</mat-icon>
-            </button>
+            </a>
           </td>
         </ng-container>
 
