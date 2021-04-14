@@ -26,11 +26,8 @@
           Wrong <strong>credits</strong>
         </mat-error>
       </form>
-    </mat-card-content>
-    <mat-card-actions>
       <button mat-raised-button (click)="submit()" color="primary">LOGIN</button>
-    </mat-card-actions>
-    <!--  <a [routerLink]="[routes.signup]" [queryParams]="{email: email}">registration</a>-->
+    </mat-card-content>
     <a [routerLink]="['/' + routes.passwordForger]" [queryParams]="{ email: email?.value }"
       >forgot password</a
     >
