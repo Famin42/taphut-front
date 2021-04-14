@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { FiltersComponent } from './filters/filters.component';
 import { FilterComponent } from './filter/filter.component';
+import { FilterResolver } from './filter.resolver';
 
 const routes: Routes = [
   {
@@ -18,7 +19,7 @@ const routes: Routes = [
     path: 'edit/:id',
     component: FilterComponent,
     data: { mode: FilterPageMode.EDIT },
-    // resolve: { filter: HousePrivateDetailsResolver },
+    resolve: { filter: FilterResolver },
   },
 ];
 
