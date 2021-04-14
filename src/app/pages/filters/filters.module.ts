@@ -1,3 +1,4 @@
+import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -10,6 +11,8 @@ import { FiltersComponent } from './filters/filters.component';
 import { FilterComponent } from './filter/filter.component';
 import { FilterResolver } from './filter.resolver';
 
+const CUSTOM_MATERIALS_MODULES: any[] = [MatTableModule, MatSortModule, MatSelectModule];
+
 @NgModule({
   declarations: [FiltersComponent, FilterComponent],
   providers: [FilterResolver],
@@ -18,8 +21,7 @@ import { FilterResolver } from './filter.resolver';
     FiltersRoutingModule,
     ReactiveFormsModule,
     SharedlModule,
-    MatTableModule,
-    MatSortModule,
+    ...CUSTOM_MATERIALS_MODULES,
   ],
 })
 export class FiltersModule {}

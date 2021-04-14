@@ -25,7 +25,10 @@
         <!-- Currency field -->
         <mat-form-field class="full-width">
           <mat-label>Currency</mat-label>
-          <input matInput placeholder="Currency" name="currency" formControlName="currency" />
+          <mat-select name="currency" formControlName="currency">
+            <mat-option value="BYN">BYN</mat-option>
+            <mat-option value="USD">USD</mat-option>
+          </mat-select>
           <mat-error *ngIf="currency?.errors?.required">
             Currency is <strong>required</strong>
           </mat-error>
@@ -40,13 +43,25 @@
         <!-- Min Price field -->
         <mat-form-field class="full-width">
           <mat-label>Min Price</mat-label>
-          <input matInput placeholder="Min Price" name="minPrice" formControlName="minPrice" />
+          <input
+            matInput
+            placeholder="Min Price"
+            name="minPrice"
+            formControlName="minPrice"
+            type="number"
+          />
         </mat-form-field>
 
         <!-- Max Price field -->
         <mat-form-field class="full-width">
           <mat-label>Max Price</mat-label>
-          <input matInput placeholder="Max Price" name="maxPrice" formControlName="maxPrice" />
+          <input
+            matInput
+            placeholder="Max Price"
+            name="maxPrice"
+            formControlName="maxPrice"
+            type="number"
+          />
         </mat-form-field>
 
         <!-- Rooms Number field -->
@@ -57,10 +72,23 @@
             placeholder="Rooms Number"
             name="roomsNumber"
             formControlName="roomsNumber"
+            type="number"
+            min="1"
+            max="10"
           />
+          <mat-error *ngIf="roomsNumber?.errors?.max">
+            Max allowable value <strong>10</strong>, actual is
+            {{ roomsNumber?.errors?.max?.actual }}
+          </mat-error>
+          <mat-error *ngIf="roomsNumber?.errors?.min">
+            Min allowable value <strong>1</strong>, actual is
+            {{ roomsNumber?.errors?.min?.actual }}
+          </mat-error>
         </mat-form-field>
       </form>
-      <button mat-raised-button (click)="submit()" color="primary">SUBMIT</button>
+      <button mat-raised-button (click)="submit()" color="primary" class="sbmt-btn-top">
+        SUBMIT
+      </button>
     </mat-card-content>
   </mat-card>
 </div>

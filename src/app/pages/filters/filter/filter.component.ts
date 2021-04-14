@@ -14,21 +14,14 @@ import { APP_ROUTES } from 'src/app/utils/routes';
 })
 export class FilterComponent {
   pageMode: Observable<FilterPageMode>;
-  /**
-   * filterName: name as string,
-   * currency: currency as Currency,
-   * city: city as string | undefined,
-   * minPrice: min as number | undefined,
-   * maxPrice: max as number | undefined,
-   * roomsNumber: rooms as number | undefined,
-   */
+
   filterForm = new FormGroup({
-    filterName: new FormControl('', [Validators.required]),
-    currency: new FormControl('', [Validators.required]),
-    city: new FormControl(''),
-    minPrice: new FormControl(''),
-    maxPrice: new FormControl(''),
-    roomsNumber: new FormControl(''),
+    filterName: new FormControl('', [Validators.required]), //                    string,
+    currency: new FormControl('', [Validators.required]), //                      Currency,
+    city: new FormControl(''), //                                                 string | undefined,
+    minPrice: new FormControl(''), //                                             number | undefined,
+    maxPrice: new FormControl(''), //                                             number | undefined,
+    roomsNumber: new FormControl('', [Validators.min(1), Validators.max(10)]), // number | undefined,
   });
 
   get filterName(): AbstractControl | null {
@@ -74,6 +67,7 @@ export class FilterComponent {
       this.snackBService.openSnackBar('success', '🎉');
       this.router.navigate([APP_ROUTES.filters]);
     } else {
+      console.log(this.filterForm);
       this.snackBService.openSnackBar('Form is invalid', 'Error');
       this.filterForm.markAllAsTouched();
     }
