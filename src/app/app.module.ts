@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedlModule } from './common/modules/shared.module';
 
+import { ConfirmationDialogComponent } from './core/components/confirmation-dialog/confirmation-dialog.component';
 import { AppComponent } from './app.component';
 
 import { GraphQLModule } from './core/modules/graphql.module';
@@ -18,7 +19,7 @@ import { environment } from 'src/environments/environment';
 import { clearState } from './core/store/clear-state';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ConfirmationDialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
