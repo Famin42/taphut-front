@@ -4,4 +4,63 @@
     <span class="flex-1"></span>
     <a [routerLink]="['/', 'filters']" mat-raised-button color="warn">cancel</a>
   </mat-toolbar>
+
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="filterForm" class="my-form">
+        <!-- Name field -->
+        <mat-form-field class="full-width">
+          <mat-label>Filter name</mat-label>
+          <input
+            matInput
+            placeholder="Filter name"
+            name="filterName"
+            formControlName="filterName"
+          />
+          <mat-error *ngIf="filterName?.errors?.required">
+            Filter name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Currency field -->
+        <mat-form-field class="full-width">
+          <mat-label>Currency</mat-label>
+          <input matInput placeholder="Currency" name="currency" formControlName="currency" />
+          <mat-error *ngIf="currency?.errors?.required">
+            Currency is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- City field -->
+        <mat-form-field class="full-width">
+          <mat-label>City</mat-label>
+          <input matInput placeholder="City" name="city" formControlName="city" />
+        </mat-form-field>
+
+        <!-- Min Price field -->
+        <mat-form-field class="full-width">
+          <mat-label>Min Price</mat-label>
+          <input matInput placeholder="Min Price" name="minPrice" formControlName="minPrice" />
+        </mat-form-field>
+
+        <!-- Max Price field -->
+        <mat-form-field class="full-width">
+          <mat-label>Max Price</mat-label>
+          <input matInput placeholder="Max Price" name="maxPrice" formControlName="maxPrice" />
+        </mat-form-field>
+
+        <!-- Rooms Number field -->
+        <mat-form-field class="full-width">
+          <mat-label>Rooms Number</mat-label>
+          <input
+            matInput
+            placeholder="Rooms Number"
+            name="roomsNumber"
+            formControlName="roomsNumber"
+          />
+        </mat-form-field>
+      </form>
+      <button mat-raised-button (click)="submit()" color="primary">SUBMIT</button>
+    </mat-card-content>
+  </mat-card>
 </div>

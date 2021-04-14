@@ -18,7 +18,7 @@ const COLUMNS: string[] = [
   'edit',
   'delete',
 ];
-const mockData: IFIlter[] = [
+export const mockData: IFilter[] = [
   {
     filterName: 'Фильтр 1',
     city: 'Минск',
@@ -60,15 +60,15 @@ const mockData: IFIlter[] = [
 })
 export class FiltersComponent implements AfterViewInit {
   displayedColumns: string[];
-  dataSource: MatTableDataSource<IFIlter>;
-  filters: IFIlter[];
+  dataSource: MatTableDataSource<IFilter>;
+  filters: IFilter[];
 
   @ViewChild(MatSort, { static: false })
   sort!: MatSort;
 
   constructor(private dialog: MatDialog) {
     this.displayedColumns = COLUMNS;
-    this.dataSource = new MatTableDataSource<IFIlter>(mockData);
+    this.dataSource = new MatTableDataSource<IFilter>(mockData);
     this.filters = mockData;
   }
 
@@ -92,7 +92,7 @@ export class FiltersComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe((dialogResult: boolean) => {
       if (dialogResult) {
         this.dataSource.data = this.dataSource.data.filter(
-          ({ filterName }: IFIlter) => filterName !== name
+          ({ filterName }: IFilter) => filterName !== name
         );
       }
     });
@@ -106,7 +106,7 @@ export class FiltersComponent implements AfterViewInit {
         filterName: `Filter ${this.dataSource.data.length}`,
       },
     ];
-    this.dataSource = new MatTableDataSource<IFIlter>(data);
+    this.dataSource = new MatTableDataSource<IFilter>(data);
     this.dataSource.sort = this.sort;
   }
 }

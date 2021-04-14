@@ -1,6 +1,6 @@
 type Currency = 'USD' | 'BYN';
 
-interface IFIlter {
+interface IFilter {
   filterName: string;
   city?: string;
   currency?: Currency;
