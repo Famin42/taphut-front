@@ -1,6 +1,6 @@
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Data, Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { map, tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
@@ -12,7 +12,7 @@ import { APP_ROUTES } from 'src/app/utils/routes';
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss'],
 })
-export class FilterComponent {
+export class FilterComponent implements OnDestroy, OnInit {
   pageMode!: FilterPageMode;
 
   get isEditMode(): boolean {
@@ -47,21 +47,23 @@ export class FilterComponent {
     return this.filterForm.get(`roomsNumber`);
   }
 
-  private subscription: Subscription;
+  private subscription!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private snackBService: SnackbarService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.subscription = this.route.data
       .pipe(
         tap((data: Data) => {
-          const { filter, mode } = data as { filter: IFilter; mode: FilterPageMode };
+          console.log(`FilterComponent ActivatedRoute Data`);
+          console.log(data);
+          const { filter, mode } = data as { filter: IFilterRow; mode: FilterPageMode };
           if (filter && mode === FilterPageMode.EDIT) {
-            console.log(`this.filterForm.patchValue`);
-            console.log(filter);
-            this.filterForm.patchValue({ ...filter });
+            this.filterForm.patchValue({ ...filter.filter });
           }
         }),
         map((data: Data) => data.mode)
@@ -84,5 +86,9 @@ export class FilterComponent {
       this.snackBService.openSnackBar('Form is invalid', 'Error');
       this.filterForm.markAllAsTouched();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

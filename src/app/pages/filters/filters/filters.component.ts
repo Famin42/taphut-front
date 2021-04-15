@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
@@ -7,6 +8,8 @@ import {
   ConfirmationDialogComponent,
   ConfirmDialogModel,
 } from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
+import { AmplifyService } from 'src/app/core/services/amplify.service';
+import { FilterService } from '../services/filter.service';
 
 const COLUMNS: string[] = [
   'filterName',
@@ -18,41 +21,8 @@ const COLUMNS: string[] = [
   'edit',
   'delete',
 ];
-export const mockData: IFilter[] = [
-  {
-    filterName: 'Фильтр 1',
-    city: 'Минск',
-    currency: 'USD',
-    minPrice: 10,
-    maxPrice: 100,
-    roomsNumber: 1,
-  },
-  {
-    filterName: 'Фильтр 2',
-    city: 'Гродно',
-    currency: 'USD',
-    minPrice: 10,
-    maxPrice: 100,
-    roomsNumber: 1,
-  },
-  {
-    filterName: 'Фильтр 3',
-    city: 'Жодино',
-    currency: 'USD',
-    minPrice: 10,
-    maxPrice: 100,
-    roomsNumber: 1,
-  },
-  {
-    filterName: 'Фильтр 4',
-    city: 'Брест',
-    currency: 'USD',
-    minPrice: 10,
-    maxPrice: 100,
-    roomsNumber: 1,
-  },
-];
 
+// TODO: fix table sorting/filtration
 @Component({
   selector: 'app-filters',
   templateUrl: './filters.component.html',
@@ -60,16 +30,29 @@ export const mockData: IFilter[] = [
 })
 export class FiltersComponent implements AfterViewInit {
   displayedColumns: string[];
-  dataSource: MatTableDataSource<IFilter>;
-  filters: IFilter[];
+  dataSource!: MatTableDataSource<IFilter>;
 
   @ViewChild(MatSort, { static: false })
   sort!: MatSort;
 
-  constructor(private dialog: MatDialog) {
+  constructor(
+    private amplify: AmplifyService,
+    private filterService: FilterService,
+    private dialog: MatDialog
+  ) {
+    this.dataSource = new MatTableDataSource<IFilter>([]);
     this.displayedColumns = COLUMNS;
-    this.dataSource = new MatTableDataSource<IFilter>(mockData);
-    this.filters = mockData;
+    this.amplify.chatId
+      .pipe(
+        filter((chatId: string | undefined) => !!chatId),
+        take(1),
+        switchMap((chatId: string | undefined) => this.filterService.getFilters(chatId as string)),
+        map((data: IFilterRow[]) => data.map(({ filter }: IFilterRow) => filter))
+      )
+      .subscribe((data: IFilter[]) => {
+        this.dataSource = new MatTableDataSource<IFilter>(data);
+        this.dataSource.sort = this.sort;
+      });
   }
 
   ngAfterViewInit(): void {
@@ -96,17 +79,5 @@ export class FiltersComponent implements AfterViewInit {
         );
       }
     });
-  }
-
-  addFilter(): void {
-    const data = [
-      ...this.dataSource.data,
-      {
-        ...mockData[this.dataSource.data.length % mockData.length],
-        filterName: `Filter ${this.dataSource.data.length}`,
-      },
-    ];
-    this.dataSource = new MatTableDataSource<IFilter>(data);
-    this.dataSource.sort = this.sort;
   }
 }

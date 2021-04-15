@@ -1,9 +1,12 @@
 import { ISignUpResult, CognitoUser } from 'amazon-cognito-identity-js';
+import { catchError, first, map, switchMap, tap } from 'rxjs/operators';
 import { from, Observable, of, ReplaySubject } from 'rxjs';
-import { catchError, first, switchMap, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
+
+import { CHAT_ID_KEY } from 'src/app/pages/settings/telegram-dialog/telegram-dialog.component';
+import { ROLES } from 'src/app/utils/roles';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +27,23 @@ export class AmplifyService {
         this.isAuthenticatedSubj.next(false);
         return undefined;
       });
+  }
+
+  get chatId(): Observable<string | undefined> {
+    // TODO: move CHAT_ID_KEY to amplify
+    return this.currentUserSubj.pipe(map((user: any) => user?.attributes[CHAT_ID_KEY]));
+  }
+  get isAdmin(): Observable<boolean> {
+    return this.currentUserSubj.pipe(
+      map((user: CognitoUser | undefined) => {
+        if (!user) return false;
+        const groups: string[] =
+          // TODO: add "cognito:groups" to KEY
+          (user as any)?.signInUserSession?.accessToken?.payload['cognito:groups'] || [];
+        // TODO: add ROLES to ENUm
+        return groups.includes(ROLES.admin);
+      })
+    );
   }
 
   constructor(private router: Router) {

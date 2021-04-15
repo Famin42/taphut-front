@@ -1,12 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Apollo, ApolloBase } from 'apollo-angular';
 import { ApolloQueryResult } from '@apollo/client';
-import { Apollo, gql } from 'apollo-angular';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
+import {
+  queryOnlinerApartments,
+  queryOnlinerApartmentsPagination,
+} from 'src/app/utils/public-schema.graphql';
 
 @Injectable()
 export class ApartmentsService {
-  constructor(private apollo: Apollo) {}
+  private apollo: ApolloBase;
+  constructor(apolloProvider: Apollo) {
+    this.apollo = apolloProvider.use('PublicAppSync');
+  }
 
   getProductPage({ limit, token }: IApartmentsParams): Observable<OnlinerResData> {
     return this.query(limit, token).pipe(
@@ -29,44 +37,7 @@ export class ApartmentsService {
     token: string
   ): Observable<ApolloQueryResult<IOnlinerPaginationRes>> {
     return this.apollo.query({
-      query: gql`
-        query($limit: Int!, $token: String) {
-          onlinerApartments(limit: $limit, nextToken: $token) {
-            items {
-              id
-              status
-              apartment {
-                id
-                price {
-                  amount
-                  currency
-                  converted {
-                    key {
-                      amount
-                      currency
-                    }
-                  }
-                }
-                rent_type
-                location {
-                  address
-                  user_address
-                }
-                photo
-                created_at
-                last_time_up
-                up_available_in
-                url
-              }
-              createdAt
-              expirationTime
-              updatedAt
-            }
-            nextToken
-            scannedCount
-          }
-        }
-      `,
+      query: queryOnlinerApartmentsPagination,
       variables: {
         limit,
         token,
@@ -76,44 +47,7 @@ export class ApartmentsService {
 
   private queryWithoutParams(): Observable<ApolloQueryResult<IOnlinerPaginationRes>> {
     return this.apollo.query({
-      query: gql`
-        query onlinerApartments {
-          onlinerApartments {
-            items {
-              id
-              status
-              apartment {
-                id
-                price {
-                  amount
-                  currency
-                  converted {
-                    key {
-                      amount
-                      currency
-                    }
-                  }
-                }
-                rent_type
-                location {
-                  address
-                  user_address
-                }
-                photo
-                created_at
-                last_time_up
-                up_available_in
-                url
-              }
-              createdAt
-              expirationTime
-              updatedAt
-            }
-            nextToken
-            scannedCount
-          }
-        }
-      `,
+      query: queryOnlinerApartments,
     });
   }
 }

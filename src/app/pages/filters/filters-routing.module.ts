@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { FiltersComponent } from './filters/filters.component';
 import { FilterComponent } from './filter/filter.component';
-import { FilterResolver } from './filter.resolver';
+import { FilterResolver } from './services/filter.resolver';
 
 const routes: Routes = [
   {

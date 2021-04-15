@@ -9,13 +9,14 @@ import { SharedlModule } from 'src/app/common/modules/shared.module';
 import { FiltersRoutingModule } from './filters-routing.module';
 import { FiltersComponent } from './filters/filters.component';
 import { FilterComponent } from './filter/filter.component';
-import { FilterResolver } from './filter.resolver';
+import { FilterResolver } from './services/filter.resolver';
+import { FilterService } from './services/filter.service';
 
 const CUSTOM_MATERIALS_MODULES: any[] = [MatTableModule, MatSortModule, MatSelectModule];
 
 @NgModule({
   declarations: [FiltersComponent, FilterComponent],
-  providers: [FilterResolver],
+  providers: [FilterResolver, FilterService],
   imports: [
     CommonModule,
     FiltersRoutingModule,

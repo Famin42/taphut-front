@@ -1,3 +1,8 @@
+declare const enum FilterPageMode {
+  EDIT = 'edit',
+  CREATE = 'create',
+}
+
 type Currency = 'USD' | 'BYN';
 
 interface IFilter {
@@ -9,7 +14,30 @@ interface IFilter {
   roomsNumber?: number;
 }
 
-declare const enum FilterPageMode {
-  EDIT = 'edit',
-  CREATE = 'create',
+interface IFilterRow {
+  chatId: string;
+  filterName: string;
+  createdAt: string;
+  updatedAt: string;
+  filter: IFilter;
+}
+
+interface IFilterArgs {
+  input: IFilter & { chatId: string };
+}
+
+interface IQueryFilters {
+  filters: IFilterRow[];
+}
+interface IQueryFilterByName {
+  filterByName: IFilterRow;
+}
+interface IMutationCreateFilter {
+  createFilter: IFilterRow;
+}
+interface IMutationUpdateFilter {
+  updateFilter: IFilterRow;
+}
+interface IMutationDeleteFilter {
+  deleteFilter: IFilterRow;
 }
