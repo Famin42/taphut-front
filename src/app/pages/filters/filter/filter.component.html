@@ -1,6 +1,6 @@
 <div class="view-container">
   <mat-toolbar>
-    <span>{{ pageMode | async | titlecase }} filter</span>
+    <span>{{ pageMode | titlecase }} filter</span>
     <span class="flex-1"></span>
     <a [routerLink]="['/', 'filters']" mat-raised-button color="warn">cancel</a>
   </mat-toolbar>
