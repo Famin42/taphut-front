@@ -4,6 +4,7 @@ interface IGraphQL {
     header: string;
     uri: string;
   };
+  Private: { uri: string };
 }
 
 interface IAmplifyConfig {

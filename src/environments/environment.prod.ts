@@ -10,7 +10,10 @@ export const environment: IEnv = {
     Public: {
       token: 'da2-ifkbkodsnrbhllvol5aksnd34i',
       header: 'x-api-key',
-      uri: 'https://gnbbtz4fsnbvzen5fmu3azqw24.appsync-api.us-east-1.amazonaws.com/graphql'
-    }
-  }
+      uri: 'https://gnbbtz4fsnbvzen5fmu3azqw24.appsync-api.us-east-1.amazonaws.com/graphql',
+    },
+    Private: {
+      uri: 'https://apwzyl4ydrdvrlitu7aj2ojpey.appsync-api.us-east-1.amazonaws.com/graphql',
+    },
+  },
 };
