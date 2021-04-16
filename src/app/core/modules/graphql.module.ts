@@ -8,6 +8,7 @@ import {
   ApolloLink,
   ApolloClientOptions,
   GraphQLRequest,
+  DefaultOptions,
 } from '@apollo/client/core';
 import { APOLLO_NAMED_OPTIONS, NamedOptions } from 'apollo-angular';
 import { setContext } from '@apollo/client/link/context';
@@ -41,7 +42,6 @@ function formPublicAppSync(httpLink: HttpLink): ApolloClientOptions<any> {
 }
 function formPrivateAppSync(httpLink: HttpLink): ApolloClientOptions<any> {
   const { uri } = environment.GraphQL.Private;
-  const token = 'token';
 
   const basic = setContext((operation: GraphQLRequest, prevContext: any) => ({
     headers: {
@@ -61,9 +61,21 @@ function formPrivateAppSync(httpLink: HttpLink): ApolloClientOptions<any> {
   const link = ApolloLink.from([basic, auth, httpLink.create({ uri })]);
   const cache = new InMemoryCache();
 
+  const defaultOptions: DefaultOptions = {
+    watchQuery: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'ignore',
+    },
+    query: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'all',
+    },
+  };
+
   return {
     link,
     cache,
+    defaultOptions,
   };
 }
 
