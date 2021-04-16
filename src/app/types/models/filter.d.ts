@@ -22,9 +22,7 @@ interface IFilterRow {
   filter: IFilter;
 }
 
-interface IFilterArgs {
-  input: IFilter & { chatId: string };
-}
+type FilterArgs = IFilter & { chatId: string };
 
 interface IQueryFilters {
   filters: IFilterRow[];

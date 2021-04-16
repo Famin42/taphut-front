@@ -1,11 +1,13 @@
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { map, tap } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { of, Subscription } from 'rxjs';
 
 import { SnackbarService } from 'src/app/core/services/snackbar.service';
+import { AmplifyService } from 'src/app/core/services/amplify.service';
 import { APP_ROUTES } from 'src/app/utils/routes';
+import { FilterService } from '../services/filter.service';
 
 @Component({
   selector: 'app-filter',
@@ -52,7 +54,9 @@ export class FilterComponent implements OnDestroy, OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private snackBService: SnackbarService
+    private snackBService: SnackbarService,
+    private amplify: AmplifyService,
+    private filterService: FilterService
   ) {}
 
   ngOnInit(): void {
@@ -80,8 +84,37 @@ export class FilterComponent implements OnDestroy, OnInit {
     console.log(`Submit filter`);
     console.log(this.filterForm);
     if (this.filterForm.valid) {
-      this.snackBService.openSnackBar('success', '🎉');
-      this.router.navigate([APP_ROUTES.filters]);
+      this.amplify.chatId
+        .pipe(
+          filter((chatId: string | undefined) => !!chatId),
+          take(1),
+          switchMap((chatId: string | undefined) => {
+            switch (this.pageMode) {
+              case FilterPageMode.CREATE:
+                return this.filterService.createFilter({
+                  chatId: chatId as string,
+                  ...this.getFilterValue,
+                });
+              case FilterPageMode.EDIT:
+                return this.filterService.updateFilter({
+                  chatId: chatId as string,
+                  ...this.getFilterValue,
+                });
+              default:
+                throw new Error('Unknown page mode');
+            }
+          }),
+          catchError((error: Error) => {
+            this.snackBService.openSnackBar(error.message, 'Error');
+            return of(undefined);
+          })
+        )
+        .subscribe((result: IFilterRow | undefined) => {
+          if (result) {
+            this.snackBService.openSnackBar('success', '🎉');
+            this.router.navigate([APP_ROUTES.filters]);
+          }
+        });
     } else {
       this.snackBService.openSnackBar('Form is invalid', 'Error');
       this.filterForm.markAllAsTouched();
@@ -90,5 +123,26 @@ export class FilterComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  private get getFilterValue(): IFilter {
+    let filter: IFilter = Object.keys(this.filterForm.value).reduce(
+      (prev: IFilter, key: string) => {
+        const value = this.filterForm.value[key];
+        if (value !== null) {
+          prev = {
+            ...prev,
+            [key]: value,
+          };
+        }
+        return prev;
+      },
+      {} as IFilter
+    );
+
+    const filterName: string = this.filterName?.value;
+    filter = { ...filter, filterName };
+
+    return filter;
   }
 }

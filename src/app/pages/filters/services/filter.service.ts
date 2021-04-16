@@ -36,7 +36,7 @@ export class FilterService {
       .pipe(map(({ data }: ApolloQueryResult<IQueryFilterByName>) => data.filterByName));
   }
 
-  createFilter(input: IFilterArgs): Observable<IFilterRow | undefined> {
+  createFilter(input: FilterArgs): Observable<IFilterRow | undefined> {
     return this.apollo
       .mutate<IMutationCreateFilter>({
         mutation: PrivateSchema.mutationCreateFilter,
@@ -47,7 +47,7 @@ export class FilterService {
       .pipe(map(({ data }: FetchResult<IMutationCreateFilter>) => data?.createFilter));
   }
 
-  updateFilter(input: IFilterArgs): Observable<IFilterRow | undefined> {
+  updateFilter(input: FilterArgs): Observable<IFilterRow | undefined> {
     return this.apollo
       .mutate<IMutationUpdateFilter>({
         mutation: PrivateSchema.mutationUpdateFilter,
