@@ -1,5 +1,5 @@
+import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { catchError, filter, map, switchMap, take } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
@@ -24,18 +24,17 @@ const COLUMNS: string[] = [
   'delete',
 ];
 
-// TODO: fix table sorting/filtration
 @Component({
   selector: 'app-filters',
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.scss'],
 })
 export class FiltersComponent implements AfterViewInit {
-  displayedColumns: string[];
-  dataSource!: MatTableDataSource<IFilter>;
-
   @ViewChild(MatSort, { static: false })
   sort!: MatSort;
+
+  displayedColumns: string[];
+  dataSource!: MatTableDataSource<IFilter>;
 
   private chatId!: string;
 
@@ -51,16 +50,11 @@ export class FiltersComponent implements AfterViewInit {
       .pipe(
         filter((chatId: string | undefined) => !!chatId),
         take(1),
-        switchMap((chatId: string | undefined) => {
-          this.chatId = chatId as string;
-          return this.filterService.getFilters(chatId as string);
-        }),
+        tap((chatId: string | undefined) => (this.chatId = chatId as string)),
+        switchMap((chatId: string | undefined) => this.filterService.getFilters(chatId as string)),
         map((data: IFilterRow[]) => data.map(({ filter }: IFilterRow) => filter))
       )
-      .subscribe((data: IFilter[]) => {
-        this.dataSource = new MatTableDataSource<IFilter>(data);
-        this.dataSource.sort = this.sort;
-      });
+      .subscribe((data: IFilter[]) => (this.dataSource.data = data));
   }
 
   ngAfterViewInit(): void {

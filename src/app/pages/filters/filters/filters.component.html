@@ -5,11 +5,7 @@
     <a [routerLink]="['/', 'filters', 'create']" mat-raised-button color="primary">create</a>
   </mat-toolbar>
 
-  <div *ngIf="!dataSource.data.length" class="layout vertical center">
-    <span class="font-30">There are no filters.</span>
-  </div>
-
-  <div *ngIf="dataSource.data.length" class="layout vertical">
+  <div class="layout vertical">
     <mat-form-field>
       <mat-label>Filter</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input />
@@ -88,7 +84,12 @@
 
         <!-- Row shown when there is no matching data. -->
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="7">No data matching the filter "{{ input.value }}"</td>
+          <td *ngIf="input?.value" class="mat-cell" colspan="8">
+            No data matching the filter "{{ input.value }}"
+          </td>
+          <td *ngIf="!input?.value" class="mat-cell" colspan="8" align="center">
+            <span class="font-30">There are no filters.</span>
+          </td>
         </tr>
       </table>
     </div>
