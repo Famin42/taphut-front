@@ -1,6 +1,18 @@
-<button *ngIf="!(user | async)" mat-raised-button (click)="connect()" color="primary">
+<button
+  *ngIf="!(user | async)"
+  mat-raised-button
+  (click)="connect()"
+  color="primary"
+  [disabled]="loading | async"
+>
   Connect Telegram
 </button>
-<button *ngIf="user | async" mat-raised-button (click)="disconnect()" color="warn">
+<button
+  *ngIf="user | async"
+  mat-raised-button
+  (click)="disconnect()"
+  color="warn"
+  [disabled]="loading | async"
+>
   Disconnect Telegram
 </button>

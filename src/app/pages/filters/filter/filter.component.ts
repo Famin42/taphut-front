@@ -1,13 +1,14 @@
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
-import { of, Subscription } from 'rxjs';
+import { of, Observable, Subscription } from 'rxjs';
 
 import { SnackbarService } from 'src/app/core/services/snackbar.service';
 import { AmplifyService } from 'src/app/core/services/amplify.service';
-import { APP_ROUTES } from 'src/app/utils/routes';
+import { LoadingService } from 'src/app/core/services/loading.service';
 import { FilterService } from '../services/filter.service';
+import { APP_ROUTES } from 'src/app/utils/routes';
 
 @Component({
   selector: 'app-filter',
@@ -16,7 +17,7 @@ import { FilterService } from '../services/filter.service';
 })
 export class FilterComponent implements OnDestroy, OnInit {
   pageMode!: FilterPageMode;
-
+  loading!: Observable<boolean>;
   get isEditMode(): boolean {
     return this.pageMode === FilterPageMode.EDIT;
   }
@@ -56,10 +57,12 @@ export class FilterComponent implements OnDestroy, OnInit {
     private router: Router,
     private snackBService: SnackbarService,
     private amplify: AmplifyService,
-    private filterService: FilterService
+    private filterService: FilterService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
+    this.loading = this.loadingService.loading;
     this.subscription = this.route.data
       .pipe(
         tap((data: Data) => {
@@ -84,6 +87,7 @@ export class FilterComponent implements OnDestroy, OnInit {
     console.log(`Submit filter`);
     console.log(this.filterForm);
     if (this.filterForm.valid) {
+      this.loadingService.start();
       this.amplify.chatId
         .pipe(
           filter((chatId: string | undefined) => !!chatId),
@@ -105,11 +109,13 @@ export class FilterComponent implements OnDestroy, OnInit {
             }
           }),
           catchError((error: Error) => {
+            this.loadingService.stop();
             this.snackBService.openSnackBar(error.message, 'Error');
             return of(undefined);
           })
         )
         .subscribe((result: IFilterRow | undefined) => {
+          this.loadingService.stop();
           if (result) {
             this.snackBService.openSnackBar('success', '🎉');
             this.router.navigate([APP_ROUTES.filters]);

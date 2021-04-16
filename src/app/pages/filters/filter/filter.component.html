@@ -86,7 +86,13 @@
           </mat-error>
         </mat-form-field>
       </form>
-      <button mat-raised-button (click)="submit()" color="primary" class="sbmt-btn-top">
+      <button
+        mat-raised-button
+        (click)="submit()"
+        color="primary"
+        class="sbmt-btn-top"
+        [disabled]="loading | async"
+      >
         SUBMIT
       </button>
     </mat-card-content>

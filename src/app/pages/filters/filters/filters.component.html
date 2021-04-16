@@ -87,7 +87,12 @@
           <td *ngIf="input?.value" class="mat-cell" colspan="8">
             No data matching the filter "{{ input.value }}"
           </td>
-          <td *ngIf="!input?.value" class="mat-cell" colspan="8" align="center">
+          <td
+            *ngIf="!input?.value && !(loading | async)"
+            class="mat-cell"
+            colspan="8"
+            align="center"
+          >
             <span class="font-30">There are no filters.</span>
           </td>
         </tr>

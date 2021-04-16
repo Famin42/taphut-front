@@ -11,6 +11,7 @@ import {
   ConfirmDialogModel,
 } from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
 import { SnackbarService } from 'src/app/core/services/snackbar.service';
+import { LoadingService } from 'src/app/core/services/loading.service';
 
 @Component({
   selector: 'app-telegram',
@@ -19,12 +20,15 @@ import { SnackbarService } from 'src/app/core/services/snackbar.service';
 })
 export class TelegramComponent {
   user: Observable<undefined | string>;
+  loading: Observable<boolean>;
 
   constructor(
     private amplifyService: AmplifyService,
     private snackbarService: SnackbarService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private loadingService: LoadingService
   ) {
+    this.loading = this.loadingService.loading;
     this.user = this.amplifyService.currentUserSubj.pipe(
       map((user: CognitoUser | undefined) =>
         user ? (user as any).attributes[CHAT_ID_KEY] : undefined
@@ -47,10 +51,15 @@ export class TelegramComponent {
     dialogRef
       .afterClosed()
       .pipe(
-        switchMap((dialogResult: boolean) =>
-          dialogResult ? this.amplifyService.updateUserAttributes({ [CHAT_ID_KEY]: '' }) : of(false)
-        ),
+        switchMap((dialogResult: boolean) => {
+          if (dialogResult) {
+            this.loadingService.start();
+            return this.amplifyService.updateUserAttributes({ [CHAT_ID_KEY]: '' });
+          }
+          return of(false);
+        }),
         catchError((error: Error) => {
+          this.loadingService.stop();
           this.snackbarService.openSnackBar(error.message, 'Error');
           return of(undefined);
         }),
@@ -58,6 +67,6 @@ export class TelegramComponent {
           res ? this.snackbarService.openSnackBar(`${name} was deleted successful`, '🎉') : null
         )
       )
-      .subscribe();
+      .subscribe(() => this.loadingService.stop());
   }
 }
