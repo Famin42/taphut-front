@@ -25,7 +25,9 @@
       </form>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button (click)="submit()" color="primary">REGISTER</button>
+      <button mat-raised-button (click)="submit()" color="primary" [disabled]="loading | async">
+        REGISTER
+      </button>
     </mat-card-actions>
   </mat-card>
 </div>

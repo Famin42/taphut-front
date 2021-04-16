@@ -26,7 +26,9 @@
           Wrong <strong>credits</strong>
         </mat-error>
       </form>
-      <button mat-raised-button (click)="submit()" color="primary">LOGIN</button>
+      <button mat-raised-button (click)="submit()" color="primary" [disabled]="loading | async">
+        LOGIN
+      </button>
     </mat-card-content>
     <a [routerLink]="['/' + routes.passwordForger]" [queryParams]="{ email: email?.value }"
       >forgot password</a
