@@ -1,23 +1,24 @@
 <div class="view-container">
   <mat-toolbar>
     <span>Settings</span>
+    <span class="flex-1"></span>
+    <a
+      mat-button
+      [routerLink]="['/', 'settings', 'user-profile']"
+      [routerLinkActive]="['active']"
+      #rlaUserProfile="routerLinkActive"
+      [color]="rlaUserProfile.isActive ? 'primary' : null"
+      >USER PROFILE</a
+    >
+    <a
+      mat-button
+      [routerLink]="['/', 'settings', 'access-history']"
+      [routerLinkActive]="['active']"
+      #rlaAccessHistory="routerLinkActive"
+      [color]="rlaAccessHistory.isActive ? 'primary' : null"
+      >ACCESS HISTORY</a
+    >
   </mat-toolbar>
 
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Change password</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <app-change-password></app-change-password>
-    </mat-card-content>
-  </mat-card>
-
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Telegram integration</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <app-telegram></app-telegram>
-    </mat-card-content>
-  </mat-card>
+  <router-outlet></router-outlet>
 </div>

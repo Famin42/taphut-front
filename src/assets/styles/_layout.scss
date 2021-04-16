@@ -11,6 +11,10 @@ $space: 20px;
   > *:last-child {
     margin-bottom: 0;
   }
+
+  > router-outlet {
+    margin: 0 !important;
+  }
 }
 
 .my-form {
