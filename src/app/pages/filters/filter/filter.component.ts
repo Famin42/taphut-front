@@ -129,7 +129,7 @@ export class FilterComponent implements OnDestroy, OnInit {
     let filter: IFilter = Object.keys(this.filterForm.value).reduce(
       (prev: IFilter, key: string) => {
         const value = this.filterForm.value[key];
-        if (value !== null) {
+        if (value) {
           prev = {
             ...prev,
             [key]: value,
