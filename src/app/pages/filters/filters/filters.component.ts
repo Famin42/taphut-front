@@ -1,13 +1,15 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, take } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
+import { of } from 'rxjs';
 
 import {
   ConfirmationDialogComponent,
   ConfirmDialogModel,
 } from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
+import { SnackbarService } from 'src/app/core/services/snackbar.service';
 import { AmplifyService } from 'src/app/core/services/amplify.service';
 import { FilterService } from '../services/filter.service';
 
@@ -35,10 +37,13 @@ export class FiltersComponent implements AfterViewInit {
   @ViewChild(MatSort, { static: false })
   sort!: MatSort;
 
+  private chatId!: string;
+
   constructor(
     private amplify: AmplifyService,
     private filterService: FilterService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBService: SnackbarService
   ) {
     this.dataSource = new MatTableDataSource<IFilter>([]);
     this.displayedColumns = COLUMNS;
@@ -46,7 +51,10 @@ export class FiltersComponent implements AfterViewInit {
       .pipe(
         filter((chatId: string | undefined) => !!chatId),
         take(1),
-        switchMap((chatId: string | undefined) => this.filterService.getFilters(chatId as string)),
+        switchMap((chatId: string | undefined) => {
+          this.chatId = chatId as string;
+          return this.filterService.getFilters(chatId as string);
+        }),
         map((data: IFilterRow[]) => data.map(({ filter }: IFilterRow) => filter))
       )
       .subscribe((data: IFilter[]) => {
@@ -72,12 +80,24 @@ export class FiltersComponent implements AfterViewInit {
       data: dialogData,
     });
 
-    dialogRef.afterClosed().subscribe((dialogResult: boolean) => {
-      if (dialogResult) {
-        this.dataSource.data = this.dataSource.data.filter(
-          ({ filterName }: IFilter) => filterName !== name
-        );
-      }
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(
+        switchMap((dialogResult: boolean) =>
+          dialogResult ? this.filterService.deleteFilterByName(this.chatId, name) : of(false)
+        ),
+        catchError((error: Error) => {
+          this.snackBService.openSnackBar(error.message, 'Error');
+          return of(undefined);
+        })
+      )
+      .subscribe((dialogResult: boolean | IFilterRow | undefined) => {
+        if (dialogResult) {
+          this.dataSource.data = this.dataSource.data.filter(
+            ({ filterName }: IFilter) => filterName !== name
+          );
+          this.snackBService.openSnackBar(`${name} was deleted successful`, '🎉');
+        }
+      });
   }
 }
