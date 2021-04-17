@@ -3,8 +3,7 @@ import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { CHAT_ID_KEY } from '../../settings/telegram-dialog/telegram-dialog.component';
-import { AmplifyService } from 'src/app/core/services/amplify.service';
+import { AmplifyService, CHAT_ID_KEY } from 'src/app/core/services/amplify.service';
 import { FilterService } from './filter.service';
 
 @Injectable()

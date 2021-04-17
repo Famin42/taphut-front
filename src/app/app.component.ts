@@ -4,8 +4,7 @@ import { Observable, of, Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-import { CHAT_ID_KEY } from './pages/settings/telegram-dialog/telegram-dialog.component';
-import { AmplifyService } from './core/services/amplify.service';
+import { AmplifyService, CHAT_ID_KEY } from './core/services/amplify.service';
 import { LoadingService } from './core/services/loading.service';
 import { APP_ROUTES } from './utils/routes';
 import { ROLES } from './utils/roles';

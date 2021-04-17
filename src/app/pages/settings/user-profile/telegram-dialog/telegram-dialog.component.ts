@@ -2,10 +2,8 @@ import { Component, AfterViewInit, ElementRef, ViewChild, NgZone } from '@angula
 import { MatDialogRef } from '@angular/material/dialog';
 import { tap } from 'rxjs/operators';
 
-import { AmplifyService } from 'src/app/core/services/amplify.service';
+import { AmplifyService, CHAT_ID_KEY } from 'src/app/core/services/amplify.service';
 import { environment } from 'src/environments/environment';
-
-export const CHAT_ID_KEY = 'custom:chatId';
 
 @Component({
   selector: 'app-telegram-dialog',

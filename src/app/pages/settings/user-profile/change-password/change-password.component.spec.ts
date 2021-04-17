@@ -1,11 +1,11 @@
-import { SharedlModule } from 'src/app/common/modules';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AmplifyService } from 'src/app/core/services/amplify.service';
 
 import { ChangePasswordComponent } from './change-password.component';
+import { SharedlModule } from 'src/app/common/modules/shared.module';
 
 describe('ChangePasswordComponent', () => {
   let component: ChangePasswordComponent;

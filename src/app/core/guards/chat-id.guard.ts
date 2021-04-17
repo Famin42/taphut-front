@@ -10,8 +10,7 @@ import {
   UrlTree,
 } from '@angular/router';
 
-import { CHAT_ID_KEY } from 'src/app/pages/settings/telegram-dialog/telegram-dialog.component';
-import { AmplifyService } from 'src/app/core/services/amplify.service';
+import { AmplifyService, CHAT_ID_KEY } from 'src/app/core/services/amplify.service';
 import { APP_ROUTES } from '../../utils/routes';
 import { map } from 'rxjs/operators';
 

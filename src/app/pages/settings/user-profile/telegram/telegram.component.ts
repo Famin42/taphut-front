@@ -1,17 +1,17 @@
-import { AmplifyService } from 'src/app/core/services/amplify.service';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { CognitoUser } from 'amazon-cognito-identity-js';
 import { MatDialog } from '@angular/material/dialog';
 import { Component } from '@angular/core';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
-import { CHAT_ID_KEY, TelegramDialogComponent } from '../telegram-dialog/telegram-dialog.component';
+import { TelegramDialogComponent } from '../telegram-dialog/telegram-dialog.component';
+import { AmplifyService, CHAT_ID_KEY } from 'src/app/core/services/amplify.service';
+import { SnackbarService } from 'src/app/core/services/snackbar.service';
+import { LoadingService } from 'src/app/core/services/loading.service';
 import {
   ConfirmationDialogComponent,
   ConfirmDialogModel,
 } from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
-import { SnackbarService } from 'src/app/core/services/snackbar.service';
-import { LoadingService } from 'src/app/core/services/loading.service';
 
 @Component({
   selector: 'app-telegram',

@@ -5,8 +5,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
 
-import { CHAT_ID_KEY } from 'src/app/pages/settings/telegram-dialog/telegram-dialog.component';
 import { ROLES } from 'src/app/utils/roles';
+
+export const CHAT_ID_KEY = 'custom:chatId';
 
 @Injectable({
   providedIn: 'root',
