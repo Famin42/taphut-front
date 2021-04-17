@@ -1,4 +1,4 @@
-<div class="view-container table-container">
+<div class="view-container table-container layout vertical">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- Type Column -->
     <ng-container matColumnDef="type">
@@ -45,4 +45,8 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+
+  <button mat-raised-button (click)="loadMore()" color="primary" [disabled]="loading | async">
+    LOAD MORE
+  </button>
 </div>

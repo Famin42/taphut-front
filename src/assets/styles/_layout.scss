@@ -8,9 +8,6 @@ $space: 20px;
     max-width: calc(100% - #{$space * 2});
     margin-bottom: $space;
   }
-  > *:last-child {
-    margin-bottom: 0;
-  }
 
   > router-outlet {
     margin: 0 !important;

@@ -5,10 +5,6 @@
   margin: 0;
 }
 
-$max-action-cell-width: 64px;
-$min-action-cell-width: 40px;
-$min-cell-width: 80px;
-
 $min-row-height: 64px;
 
 .table-container {
@@ -25,22 +21,6 @@ $min-row-height: 64px;
         cursor: pointer;
         background-color: $light-grey;
       }
-    }
-
-    .mat-column-filterName,
-    .mat-column-city,
-    .mat-column-currency,
-    .mat-column-minPrice,
-    .mat-column-maxPrice,
-    .mat-column-roomsNumber {
-      min-width: $min-cell-width;
-    }
-
-    .mat-column-edit,
-    .mat-column-delete {
-      max-width: $max-action-cell-width;
-      min-width: $min-action-cell-width;
-      width: $max-action-cell-width;
     }
   }
 }

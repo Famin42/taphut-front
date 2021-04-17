@@ -1,5 +1,4 @@
 import { LoadingService } from 'src/app/core/services/loading.service';
-import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -28,8 +27,9 @@ export class AccessHistoryComponent implements OnInit {
   displayedColumns = COLUMNS;
   dataSource: MatTableDataSource<IAuthEvent>;
 
+  private nextToken?: string;
+
   constructor(
-    private dialog: MatDialog,
     private snackbarService: SnackbarService,
     private loadingService: LoadingService,
     private accessHistoryService: AccessHistoryService
@@ -39,8 +39,16 @@ export class AccessHistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = this.loadingService.loading;
-    // this.loadingService.start();
-    this.accessHistoryService.getAccessHistory().subscribe(
+    this.loadData();
+  }
+
+  loadMore(): void {
+    this.loadData();
+  }
+
+  private loadData(): void {
+    this.loadingService.start();
+    this.accessHistoryService.getAccessHistory(this.nextToken).subscribe(
       (value) => {
         this.handleSuccess(value);
       },
@@ -51,8 +59,8 @@ export class AccessHistoryComponent implements OnInit {
   }
 
   private handleSuccess({ authEvents, nextToken }: IAccessHistoryData): void {
-    // this.loadingService.stop();
-    console.log('value: ', { authEvents, nextToken });
+    this.loadingService.stop();
+    this.nextToken = nextToken;
     this.dataSource.data = [...this.dataSource.data, ...authEvents];
   }
 
