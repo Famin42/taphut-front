@@ -52,7 +52,7 @@
   </table>
 
   <button
-    *ngIf="!isEnd"
+    *ngIf="!isEnd && !first"
     mat-raised-button
     (click)="loadMore()"
     color="primary"

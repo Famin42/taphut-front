@@ -29,6 +29,7 @@ export class AccessHistoryComponent implements OnInit {
   loading!: Observable<boolean>;
   displayedColumns = COLUMNS;
   dataSource: MatTableDataSource<IAuthEvent>;
+  first = true;
 
   get isEnd(): boolean {
     return !!this.dataSource.data.length && !this.nextToken;
@@ -66,9 +67,11 @@ export class AccessHistoryComponent implements OnInit {
     this.loadingService.start();
     this.accessHistoryService.getAccessHistory(this.nextToken).subscribe(
       (value) => {
+        this.first = false;
         this.handleSuccess(value);
       },
       (error) => {
+        this.first = false;
         this.handleRequestError(error);
       }
     );

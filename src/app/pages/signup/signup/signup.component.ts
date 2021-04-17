@@ -43,8 +43,10 @@ export class SignupComponent {
     this.signupForm.markAllAsTouched();
 
     if (this.signupForm.valid && this.email && this.password) {
+      const email = this.email.value;
+      const password = this.password.value;
       this.loadingService.start();
-      this.authService.signUp(this.email.value, this.password.value).subscribe(
+      this.authService.signUp({ email, password }).subscribe(
         (value: any) => {
           this.handleRegistration(value);
         },
