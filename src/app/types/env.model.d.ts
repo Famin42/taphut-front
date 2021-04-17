@@ -15,6 +15,7 @@ interface IAmplifyConfig {
 
 interface IEnv {
   production: boolean;
+  recaptchaV3SiteKey: string;
   AmplifyConfig: IAmplifyConfig;
   telegramBotName: string;
   GraphQL: IGraphQL;

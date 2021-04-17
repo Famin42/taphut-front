@@ -4,6 +4,7 @@
 
 export const environment: IEnv = {
   production: false,
+  recaptchaV3SiteKey: '6Lezg60aAAAAAFBREsW9QF5W8mkV0N-vssrRERNa',
   AmplifyConfig: {
     region: 'us-east-1',
     userPoolId: 'us-east-1_3vdRDt5ey',

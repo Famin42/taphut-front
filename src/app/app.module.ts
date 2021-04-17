@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 
+import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
+
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -20,6 +22,7 @@ import { clearState } from './core/store/clear-state';
 
 @NgModule({
   declarations: [AppComponent, ConfirmationDialogComponent],
+  providers: [{ provide: RECAPTCHA_V3_SITE_KEY, useValue: environment.recaptchaV3SiteKey }],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -29,6 +32,7 @@ import { clearState } from './core/store/clear-state';
     SharedlModule,
     StoreModule.forRoot({}, { metaReducers: [clearState] }),
     EffectsModule.forRoot(),
+    RecaptchaV3Module,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   bootstrap: [AppComponent],

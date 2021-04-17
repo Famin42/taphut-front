@@ -1,6 +1,7 @@
 import { ISignUpResult, CognitoUser } from 'amazon-cognito-identity-js';
 import { catchError, first, map, switchMap, tap } from 'rxjs/operators';
 import { from, Observable, of, ReplaySubject } from 'rxjs';
+import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth } from 'aws-amplify';
@@ -47,7 +48,7 @@ export class AmplifyService {
     );
   }
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private reCaptchaV3Service: ReCaptchaV3Service) {
     this.isAuthenticatedSubj = new ReplaySubject<boolean>(1);
     this.currentUserSubj = new ReplaySubject<CognitoUser | undefined>(1);
     this.updateUserState();
@@ -66,29 +67,43 @@ export class AmplifyService {
   }
 
   signIn({ email, password }: { email: string; password: string }): Observable<CognitoUser> {
-    return from(
-      Auth.signIn({
-        username: email.toLocaleLowerCase(),
-        password,
-      })
-    ).pipe(
-      switchMap(() => this.updateUserState()),
-      tap((data: any) => {
-        console.log(`Amplify.signIn:`);
-        console.log(data);
-      })
+    return this.reCaptchaV3Service.execute('signIn').pipe(
+      switchMap((recaptchaToken: string) =>
+        from(
+          Auth.signIn({
+            username: email.toLocaleLowerCase(),
+            password,
+            validationData: {
+              recaptchaToken,
+            },
+          })
+        ).pipe(
+          switchMap(() => this.updateUserState()),
+          tap((data: any) => {
+            console.log(`Amplify.signIn:`);
+            console.log(data);
+          })
+        )
+      )
     );
   }
 
-  signUp(email: string, password: string): Observable<ISignUpResult> {
-    return from(
-      Auth.signUp({
-        username: email.toLocaleLowerCase(),
-        password,
-        attributes: {
-          email: email.toLocaleLowerCase(),
-        },
-      })
+  signUp({ email, password }: { email: string; password: string }): Observable<ISignUpResult> {
+    return this.reCaptchaV3Service.execute('signUp').pipe(
+      switchMap((recaptchaToken: string) =>
+        from(
+          Auth.signUp({
+            username: email.toLocaleLowerCase(),
+            password,
+            attributes: {
+              email: email.toLocaleLowerCase(),
+            },
+            validationData: {
+              recaptchaToken,
+            },
+          })
+        )
+      )
     );
   }
 
@@ -111,7 +126,13 @@ export class AmplifyService {
   }
 
   forgotPassword(email: string): Observable<any> {
-    return from(Auth.forgotPassword(email.toLocaleLowerCase()));
+    return this.reCaptchaV3Service
+      .execute('forgotPassword')
+      .pipe(
+        switchMap((recaptchaToken: string) =>
+          from(Auth.forgotPassword(email.toLocaleLowerCase(), { recaptchaToken }))
+        )
+      );
   }
 
   forgotPasswordSubmit(email: string, code: string, password: string): Observable<any> {

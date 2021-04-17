@@ -55,8 +55,12 @@ export class SigninComponent implements OnInit {
     this.signinForm.markAllAsTouched();
 
     if (this.signinForm.valid && this.email && this.password) {
+      const password = this.password.value;
+      const email = this.email.value;
+
       this.loadingService.start();
-      this.authService.signIn({ email: this.email.value, password: this.password.value }).subscribe(
+
+      this.authService.signIn({ email, password }).subscribe(
         (value) => {
           this.handleLogin(value);
         },

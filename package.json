@@ -41,6 +41,7 @@
     "aws-amplify-angular": "^5.0.41",
     "graphql": "^15.4.0",
     "lodash": "^4.17.20",
+    "ng-recaptcha": "^7.0.1",
     "ngx-infinite-scroll": "^10.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
