@@ -94,3 +94,22 @@ export const mutationDeleteFilter = gql`
     }
   }
 `;
+
+export const queryAuthEvents = gql`
+  query authEvents($nextToken: String, $limit: Int) {
+    authEvents(nextToken: $nextToken, limit: $limit) {
+      authEvents {
+        id
+        type
+        creationDate
+        response
+        riskDecision
+        deviceName
+        ipAddress
+        city
+        country
+      }
+      nextToken
+    }
+  }
+`;

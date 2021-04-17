@@ -1,3 +1,4 @@
+import { MatTableModule } from '@angular/material/table';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -20,6 +21,12 @@ import { AccessHistoryComponent } from './access-history/access-history.componen
     UserProfileComponent,
     AccessHistoryComponent,
   ],
-  imports: [CommonModule, SettingsRoutingModule, SharedlModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    SettingsRoutingModule,
+    SharedlModule,
+    ReactiveFormsModule,
+    MatTableModule,
+  ],
 })
 export class SettingsModule {}
