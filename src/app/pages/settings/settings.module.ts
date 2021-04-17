@@ -11,6 +11,10 @@ import { TelegramComponent } from './user-profile/telegram/telegram.component';
 import { SettingsComponent } from './settings.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AccessHistoryComponent } from './access-history/access-history.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
+
+const CUSTOM_MATERIALS_MODULES: any[] = [MatTableModule, MatSortModule, MatSelectModule];
 
 @NgModule({
   declarations: [
@@ -26,7 +30,7 @@ import { AccessHistoryComponent } from './access-history/access-history.componen
     SettingsRoutingModule,
     SharedlModule,
     ReactiveFormsModule,
-    MatTableModule,
+    ...CUSTOM_MATERIALS_MODULES,
   ],
 })
 export class SettingsModule {}

@@ -1,38 +1,43 @@
 <div class="view-container table-container layout vertical">
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input />
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
     <!-- Type Column -->
     <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef>Type</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
       <td mat-cell *matCellDef="let element">{{ element.type }}</td>
     </ng-container>
 
     <!-- Creation Date Column -->
     <ng-container matColumnDef="creationDate">
-      <th mat-header-cell *matHeaderCellDef>Creation Date</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Creation Date</th>
       <td mat-cell *matCellDef="let element">{{ element.creationDate | date: 'medium' }}</td>
     </ng-container>
 
     <!-- Response Column -->
     <ng-container matColumnDef="response">
-      <th mat-header-cell *matHeaderCellDef>Response</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Response</th>
       <td mat-cell *matCellDef="let element">{{ element.response }}</td>
     </ng-container>
 
     <!-- Risk Decision Column -->
     <ng-container matColumnDef="riskDecision">
-      <th mat-header-cell *matHeaderCellDef>Risk Decision</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Risk Decision</th>
       <td mat-cell *matCellDef="let element">{{ element.riskDecision }}</td>
     </ng-container>
 
     <!-- IP Address Column -->
     <ng-container matColumnDef="ipAddress">
-      <th mat-header-cell *matHeaderCellDef>IP Address</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>IP Address</th>
       <td mat-cell *matCellDef="let element">{{ element.ipAddress }}</td>
     </ng-container>
 
     <!-- Device Name Column -->
     <ng-container matColumnDef="deviceName">
-      <th mat-header-cell *matHeaderCellDef>Device Name</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Device Name</th>
       <td mat-cell *matCellDef="let element">{{ element.deviceName }}</td>
     </ng-container>
 

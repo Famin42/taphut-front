@@ -1,10 +1,11 @@
 import { LoadingService } from 'src/app/core/services/loading.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
 
 import { AccessHistoryService } from './access-history.service';
 import { SnackbarService } from 'src/app/core/services/snackbar.service';
-import { MatTableDataSource } from '@angular/material/table';
 
 const COLUMNS: string[] = [
   'type',
@@ -23,6 +24,8 @@ const COLUMNS: string[] = [
   providers: [AccessHistoryService],
 })
 export class AccessHistoryComponent implements OnInit {
+  @ViewChild(MatSort, { static: false })
+  sort!: MatSort;
   loading!: Observable<boolean>;
   displayedColumns = COLUMNS;
   dataSource: MatTableDataSource<IAuthEvent>;
@@ -44,6 +47,15 @@ export class AccessHistoryComponent implements OnInit {
   ngOnInit(): void {
     this.loading = this.loadingService.loading;
     this.loadData();
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   loadMore(): void {
