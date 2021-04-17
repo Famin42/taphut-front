@@ -46,7 +46,13 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 
-  <button mat-raised-button (click)="loadMore()" color="primary" [disabled]="loading | async">
+  <button
+    *ngIf="!isEnd"
+    mat-raised-button
+    (click)="loadMore()"
+    color="primary"
+    [disabled]="loading | async"
+  >
     LOAD MORE
   </button>
 </div>

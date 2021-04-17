@@ -27,6 +27,10 @@ export class AccessHistoryComponent implements OnInit {
   displayedColumns = COLUMNS;
   dataSource: MatTableDataSource<IAuthEvent>;
 
+  get isEnd(): boolean {
+    return !!this.dataSource.data.length && !this.nextToken;
+  }
+
   private nextToken?: string;
 
   constructor(
