@@ -4,12 +4,9 @@ import { ApolloQueryResult } from '@apollo/client';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { LoadingService } from 'src/app/core/services/loading.service';
-import {
-  queryOnlinerApartments,
-  queryOnlinerApartmentsPagination,
-} from 'src/app/utils/public-schema.graphql';
+import { queryOnlinerApartmentsPagination } from 'src/app/utils/public-schema.graphql';
 import { SnackbarService } from 'src/app/core/services/snackbar.service';
+import { LoadingService } from 'src/app/core/services/loading.service';
 
 @Injectable()
 export class ApartmentsService {
@@ -38,16 +35,12 @@ export class ApartmentsService {
   }
 
   query(limit = 10, token?: string): Observable<ApolloQueryResult<IOnlinerPaginationRes>> {
-    if (token) {
-      return this.queryWithParams(limit, token);
-    } else {
-      return this.queryWithoutParams();
-    }
+    return this.queryWithParams(limit, token ? token : null);
   }
 
   private queryWithParams(
     limit = 10,
-    token: string
+    token: string | null
   ): Observable<ApolloQueryResult<IOnlinerPaginationRes>> {
     return this.apollo.query({
       query: queryOnlinerApartmentsPagination,
@@ -55,12 +48,6 @@ export class ApartmentsService {
         limit,
         token,
       },
-    });
-  }
-
-  private queryWithoutParams(): Observable<ApolloQueryResult<IOnlinerPaginationRes>> {
-    return this.apollo.query({
-      query: queryOnlinerApartments,
     });
   }
 }
