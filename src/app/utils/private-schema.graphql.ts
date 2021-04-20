@@ -113,3 +113,26 @@ export const queryAuthEvents = gql`
     }
   }
 `;
+
+export const queryAdminGetUsers = gql`
+  query adminGetUsers($PaginationToken: String, $Limit: Int) {
+    adminGetUsers(PaginationToken: $PaginationToken, Limit: $Limit) {
+      Users {
+        Username
+        UserCreateDate
+        UserLastModifiedDate
+        Enabled
+        UserStatus
+        Attributes {
+          sub
+          email_verified
+          email
+          chatId
+          identities
+          picture
+        }
+      }
+      PaginationToken
+    }
+  }
+`;

@@ -1,1 +1,20 @@
+@import 'color-palette';
 @import 'layout';
+
+$min-row-height: 64px;
+
+.table-container {
+  table {
+    width: 100%;
+
+    .mat-row {
+      max-height: $min-row-height;
+      height: $min-row-height;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $light-grey;
+      }
+    }
+  }
+}

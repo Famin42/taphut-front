@@ -1,5 +1,64 @@
-<div class="view-container">
+<div class="view-container table-container layout vertical">
   <mat-toolbar>
     <span>Admin panel</span>
   </mat-toolbar>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Username Column -->
+    <ng-container matColumnDef="Username">
+      <th mat-header-cell *matHeaderCellDef>Username</th>
+      <td mat-cell *matCellDef="let element">{{ element.Username }}</td>
+    </ng-container>
+
+    <!-- email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>email</th>
+      <td mat-cell *matCellDef="let element">{{ element.Attributes.email }}</td>
+    </ng-container>
+
+    <!-- sub Column -->
+    <ng-container matColumnDef="sub">
+      <th mat-header-cell *matHeaderCellDef>sub</th>
+      <td mat-cell *matCellDef="let element">{{ element.Attributes.sub }}</td>
+    </ng-container>
+
+    <!-- UserCreateDate Column -->
+    <ng-container matColumnDef="UserCreateDate">
+      <th mat-header-cell *matHeaderCellDef>UserCreateDate</th>
+      <td mat-cell *matCellDef="let element">{{ element.UserCreateDate | date: 'medium' }}</td>
+    </ng-container>
+
+    <!-- UserLastModifiedDate Column -->
+    <ng-container matColumnDef="UserLastModifiedDate">
+      <th mat-header-cell *matHeaderCellDef>UserLastModifiedDate</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.UserLastModifiedDate | date: 'medium' }}
+      </td>
+    </ng-container>
+
+    <!-- UserStatus Column -->
+    <ng-container matColumnDef="UserStatus">
+      <th mat-header-cell *matHeaderCellDef>UserStatus</th>
+      <td mat-cell *matCellDef="let element">{{ element.UserStatus }}</td>
+    </ng-container>
+
+    <!-- chatId Column -->
+    <ng-container matColumnDef="chatId">
+      <th mat-header-cell *matHeaderCellDef>chatId</th>
+      <td mat-cell *matCellDef="let element">{{ element.Attributes.chatId }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <button
+    *ngIf="!(isEnd | async) && !first"
+    mat-raised-button
+    (click)="load()"
+    color="primary"
+    [disabled]="loading | async"
+  >
+    LOAD MORE
+  </button>
 </div>
