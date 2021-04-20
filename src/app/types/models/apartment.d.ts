@@ -1,6 +1,9 @@
-interface IApartmentsParams {
+type RentTypeArgs = '1_room' | '2_rooms' | '3_rooms' | '4_rooms' | '5_rooms';
+interface IApartmentsParams extends Pick<IFilter, 'minPrice' | 'maxPrice' | 'currency'> {
   limit: number;
   token?: string;
+  addresses?: string[];
+  roomsNumber?: RentTypeArgs;
 }
 
 type IOnlinerPaginationRes = {

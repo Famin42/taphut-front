@@ -1,8 +1,8 @@
 import { gql } from 'apollo-angular';
 
 export const queryOnlinerApartmentsPagination = gql`
-  query($limit: Int!, $token: String) {
-    onlinerApartments(limit: $limit, nextToken: $token) {
+  query($input: IFilterArgs!) {
+    onlinerApartments(input: $input) {
       items {
         id
         status
@@ -12,7 +12,11 @@ export const queryOnlinerApartmentsPagination = gql`
             amount
             currency
             converted {
-              key {
+              USD {
+                amount
+                currency
+              }
+              BYN {
                 amount
                 currency
               }

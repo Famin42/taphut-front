@@ -1,25 +1,35 @@
 @import '~@angular/material/theming';
+@import 'layout';
 
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+$size: 25vw;
+$min-size: 350px;
+$max-size: 448px;
 
-  .example-card {
-    width: 25vw;
-    min-width: 350px;
-    height: 25vw;
-    min-height: 350px;
-    margin: 20px;
-
-    &:hover {
-      cursor: pointer;
-      @include mat-elevation(10);
+.filters-container {
+  & > * {
+    margin-right: 15px;
+    &:last-child {
+      margin-right: 0;
     }
+  }
+}
 
-    .source-link {
-      color: black;
-    }
+.example-card {
+  width: $size;
+  min-width: $min-size;
+  max-width: $max-size;
+  height: $size;
+  min-height: $min-size;
+  max-height: $max-size;
+  margin: 20px;
+
+  &:hover {
+    cursor: pointer;
+    @include mat-elevation(10);
+  }
+
+  .source-link {
+    color: black;
   }
 }
 
@@ -30,7 +40,7 @@
 }
 
 @media screen and (max-width: 400px) {
-  .container .example-card {
+  .example-card {
     width: 90vw;
     min-width: calc(90vw - 40px);
   }

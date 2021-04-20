@@ -19,9 +19,9 @@ export class ApartmentsService {
     this.apollo = apolloProvider.use('PublicAppSync');
   }
 
-  getProductPage({ limit, token }: IApartmentsParams): Observable<OnlinerResData> {
+  getProductPage(args: IApartmentsParams): Observable<OnlinerResData> {
     this.loadingService.start();
-    return this.query(limit, token).pipe(
+    return this.query(args).pipe(
       map((data: any) => {
         return data.data.onlinerApartments;
       }),
@@ -34,19 +34,21 @@ export class ApartmentsService {
     );
   }
 
-  query(limit = 10, token?: string): Observable<ApolloQueryResult<IOnlinerPaginationRes>> {
-    return this.queryWithParams(limit, token ? token : null);
-  }
+  private query(args: IApartmentsParams): Observable<ApolloQueryResult<IOnlinerPaginationRes>> {
+    const input = {
+      limit: args.limit ? args.limit : null,
+      nextToken: args.token ? args.token : null,
+      addresses: args?.addresses ? args.addresses : null,
+      currency: args?.currency ? args.currency : null,
+      minPrice: args?.minPrice ? args.minPrice : null,
+      maxPrice: args?.maxPrice ? args.maxPrice : null,
+      roomsNumber: args?.roomsNumber ? args.roomsNumber : null,
+    };
 
-  private queryWithParams(
-    limit = 10,
-    token: string | null
-  ): Observable<ApolloQueryResult<IOnlinerPaginationRes>> {
     return this.apollo.query({
       query: queryOnlinerApartmentsPagination,
       variables: {
-        limit,
-        token,
+        input,
       },
     });
   }

@@ -1,5 +1,7 @@
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
+export const CURRENCY_VALUES = ['USD', 'BYN'];
+
 export class BaseFilter {
   filterForm: FormGroup;
 

@@ -1,25 +1,102 @@
-<div
-  infiniteScroll
-  [infiniteScrollDistance]="2"
-  [infiniteScrollThrottle]="50"
-  (scrolled)="onScroll()"
-  class="container"
->
-  <mat-card *ngFor="let product of apartments" class="example-card">
-    <mat-card-header>
-      <mat-card-title
-        ><a class="source-link" [href]="product.sourceLink">{{ product.title }}</a></mat-card-title
-      >
-      <mat-card-subtitle
-        >{{ product.price | currency: product.currency }} -
-        {{ product.location }}</mat-card-subtitle
-      >
-    </mat-card-header>
-    <img mat-card-image [src]="product.imageLink" alt="Photo of a Shiba Inu" />
-    <mat-card-content>
-      <p>
-        {{ product.description }}
-      </p>
-    </mat-card-content>
-  </mat-card>
+<div class="layout vertical view-container">
+  <mat-toolbar>
+    <span>Apartments</span>
+    <span class="flex-1"></span>
+    <a [routerLink]="['/', 'filters']" mat-raised-button color="warn">clear</a>
+  </mat-toolbar>
+
+  <form [formGroup]="filterForm" class="layout vertical">
+    <mat-form-field>
+      <mat-label>Address</mat-label>
+      <input matInput formControlName="city" name="city" placeholder="Минск Щорса" />
+    </mat-form-field>
+
+    <div class="layout horizontal wrap filters-container">
+      <!-- Currency field -->
+      <mat-form-field class="flex-1">
+        <mat-label>Currency</mat-label>
+        <mat-select name="currency" formControlName="currency">
+          <mat-option value="BYN">BYN</mat-option>
+          <mat-option value="USD">USD</mat-option>
+        </mat-select>
+        <mat-error *ngIf="currency?.errors?.required">
+          Currency is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Min Price field -->
+      <mat-form-field class="flex-1">
+        <mat-label>Min Price</mat-label>
+        <input
+          matInput
+          placeholder="Min Price"
+          name="minPrice"
+          formControlName="minPrice"
+          type="number"
+        />
+      </mat-form-field>
+
+      <!-- Max Price field -->
+      <mat-form-field class="flex-1">
+        <mat-label>Max Price</mat-label>
+        <input
+          matInput
+          placeholder="Max Price"
+          name="maxPrice"
+          formControlName="maxPrice"
+          type="number"
+        />
+      </mat-form-field>
+
+      <!-- Rooms Number field -->
+      <mat-form-field class="flex-1">
+        <mat-label>Rooms Number</mat-label>
+        <input
+          matInput
+          placeholder="Rooms Number"
+          name="roomsNumber"
+          formControlName="roomsNumber"
+          type="number"
+          min="1"
+          max="10"
+        />
+        <mat-error *ngIf="roomsNumber?.errors?.max">
+          Max allowable value <strong>10</strong>, actual is
+          {{ roomsNumber?.errors?.max?.actual }}
+        </mat-error>
+        <mat-error *ngIf="roomsNumber?.errors?.min">
+          Min allowable value <strong>1</strong>, actual is
+          {{ roomsNumber?.errors?.min?.actual }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+
+  <div
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()"
+    class="layout horizontal wrap center-justified"
+  >
+    <mat-card *ngFor="let product of apartments" class="example-card">
+      <mat-card-header>
+        <mat-card-title
+          ><a class="source-link" [href]="product.sourceLink">{{
+            product.title
+          }}</a></mat-card-title
+        >
+        <mat-card-subtitle
+          >{{ product.price | currency: product.currency }} -
+          {{ product.location }}</mat-card-subtitle
+        >
+      </mat-card-header>
+      <img mat-card-image [src]="product.imageLink" alt="Photo of a Shiba Inu" />
+      <mat-card-content>
+        <p>
+          {{ product.description }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

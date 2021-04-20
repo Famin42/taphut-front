@@ -1,7 +1,9 @@
-import { NgModule } from '@angular/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { EffectsModule } from '@ngrx/effects';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgModule } from '@angular/core';
 
 import { SharedlModule } from 'src/app/common/modules/shared.module';
 import { ApartmentsRoutingModule } from './apartments-routing.module';
@@ -18,7 +20,9 @@ import { ApartmentsEffect } from './store/effects/apartments.effects';
     CommonModule,
     ApartmentsRoutingModule,
     SharedlModule,
+    ReactiveFormsModule,
     InfiniteScrollModule,
+    MatSelectModule,
     EffectsModule.forFeature([ApartmentsEffect]),
   ],
 })
