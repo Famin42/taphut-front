@@ -2,7 +2,7 @@
   <mat-toolbar>
     <span>Apartments</span>
     <span class="flex-1"></span>
-    <a [routerLink]="['/', 'filters']" mat-raised-button color="warn">clear</a>
+    <button *ngIf="isDirty" mat-raised-button (click)="clear()" color="warn">clear</button>
   </mat-toolbar>
 
   <form [formGroup]="filterForm" class="layout vertical">

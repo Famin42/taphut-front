@@ -1,9 +1,12 @@
 type RentTypeArgs = '1_room' | '2_rooms' | '3_rooms' | '4_rooms' | '5_rooms';
-interface IApartmentsParams extends Pick<IFilter, 'minPrice' | 'maxPrice' | 'currency'> {
+interface IApartmentsParams {
   limit: number;
-  token?: string;
-  addresses?: string[];
-  roomsNumber?: RentTypeArgs;
+  nextToken: string | null;
+  currency: Currency | null;
+  addresses: string[] | null;
+  roomsNumber: RentTypeArgs | null;
+  minPrice: number | null;
+  maxPrice: number | null;
 }
 
 type IOnlinerPaginationRes = {
@@ -11,7 +14,7 @@ type IOnlinerPaginationRes = {
 };
 
 type OnlinerResData = {
-  nextToken: string | undefined; // if undefined, then it is the last page
+  nextToken: string | undefined | null; // if undefined, then it is the last page
   scannedCount: number; // same as limit, but in the answer
   items: OnlinerApartmentRow[];
 };
